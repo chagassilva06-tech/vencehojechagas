@@ -66,20 +66,20 @@ function Lembretes() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <Card><CardContent className="p-4">
-          <div className="text-xs text-muted-foreground">Total exibido</div>
-          <div className="text-xl font-bold">{formatCurrency(filtered.reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
-          <div className="text-xs text-muted-foreground mt-1">{filtered.length} lembrete(s)</div>
+        <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-indigo-500 to-indigo-700 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
+          <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Total exibido</div>
+          <div className="text-xl font-bold drop-shadow">{formatCurrency(filtered.reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
+          <div className="text-xs opacity-90 mt-1 drop-shadow-sm">{filtered.length} lembrete(s)</div>
         </CardContent></Card>
-        <Card><CardContent className="p-4">
-          <div className="text-xs text-muted-foreground">Pendentes</div>
-          <div className="text-xl font-bold text-destructive">{formatCurrency(filtered.filter((r) => r.status === "pending").reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
-          <div className="text-xs text-muted-foreground mt-1">{filtered.filter((r) => r.status === "pending").length} pendente(s)</div>
+        <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-red-500 to-red-700 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
+          <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Pendentes</div>
+          <div className="text-xl font-bold drop-shadow">{formatCurrency(filtered.filter((r) => r.status === "pending").reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
+          <div className="text-xs opacity-90 mt-1 drop-shadow-sm">{filtered.filter((r) => r.status === "pending").length} pendente(s)</div>
         </CardContent></Card>
-        <Card><CardContent className="p-4">
-          <div className="text-xs text-muted-foreground">Pagos</div>
-          <div className="text-xl font-bold text-accent">{formatCurrency(filtered.filter((r) => r.status === "paid").reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
-          <div className="text-xs text-muted-foreground mt-1">{filtered.filter((r) => r.status === "paid").length} pago(s)</div>
+        <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
+          <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Pagos</div>
+          <div className="text-xl font-bold drop-shadow">{formatCurrency(filtered.filter((r) => r.status === "paid").reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
+          <div className="text-xs opacity-90 mt-1 drop-shadow-sm">{filtered.filter((r) => r.status === "paid").length} pago(s)</div>
         </CardContent></Card>
       </div>
 
