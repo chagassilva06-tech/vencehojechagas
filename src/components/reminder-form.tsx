@@ -49,21 +49,17 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
       } else {
         const { error } = await supabase.from("reminders").insert(payload);
         if (error) throw error;
-        // Auto-replicar mensalmente até dezembro do ano de vencimento
+        // Auto-replicar para o mês seguinte
         const base = new Date(dataVenc + "T00:00:00");
-        const year = base.getFullYear();
+        const nextMonth = base.getMonth() + 1;
+        const nextYear = base.getFullYear() + Math.floor(nextMonth / 12);
+        const targetMonth = nextMonth % 12;
         const day = base.getDate();
-        const extras: typeof payload[] = [];
-        for (let m = base.getMonth() + 1; m <= 11; m++) {
-          const lastDay = new Date(year, m + 1, 0).getDate();
-          const d = new Date(year, m, Math.min(day, lastDay));
-          const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-          extras.push({ ...payload, data_vencimento: iso });
-        }
-        if (extras.length > 0) {
-          const { error: e2 } = await supabase.from("reminders").insert(extras);
-          if (e2) throw e2;
-        }
+        const lastDay = new Date(nextYear, targetMonth + 1, 0).getDate();
+        const d = new Date(nextYear, targetMonth, Math.min(day, lastDay));
+        const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        const { error: e2 } = await supabase.from("reminders").insert({ ...payload, data_vencimento: iso });
+        if (e2) throw e2;
       }
     },
     onSuccess: () => {
