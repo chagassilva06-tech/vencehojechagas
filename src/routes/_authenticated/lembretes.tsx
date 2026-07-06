@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchReminders, fetchCategories, formatCurrency, daysUntil, formatDate, recurrenceLabels, type Reminder, type ReminderStatus } from "@/lib/reminders";
 import { supabase } from "@/integrations/supabase/client";
