@@ -64,13 +64,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all",
+                  "relative flex items-center gap-3 px-3 py-2 text-sm transition-all duration-300",
                   active
-                    ? "bg-white/95 font-semibold shadow-md"
-                    : "text-white/90 hover:bg-white/10"
+                    ? "bg-background font-semibold rounded-l-lg rounded-r-none -mr-3 pr-6 shadow-[inset_3px_3px_6px_rgba(0,0,0,0.18),inset_-1px_-1px_2px_rgba(255,255,255,0.5)] before:absolute before:right-0 before:top-[-12px] before:h-3 before:w-3 before:bg-background before:pointer-events-none before:[mask-image:radial-gradient(circle_at_top_right,transparent_12px,black_12.5px)] after:absolute after:right-0 after:bottom-[-12px] after:h-3 after:w-3 after:bg-background after:pointer-events-none after:[mask-image:radial-gradient(circle_at_bottom_right,transparent_12px,black_12.5px)]"
+                    : "rounded-lg text-white/90 hover:bg-white/10"
                 )}
                 style={active ? { color: item.color } : undefined}
               >
+                {active && (
+                  <span
+                    aria-hidden
+                    className="absolute left-0 top-1/2 -translate-y-1/2 h-7 w-1 rounded-r-full"
+                    style={{ background: item.color }}
+                  />
+                )}
                 <item.icon className="h-4 w-4" />
                 {item.label}
               </Link>
