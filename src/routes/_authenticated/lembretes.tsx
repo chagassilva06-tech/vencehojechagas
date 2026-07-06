@@ -140,7 +140,7 @@ function Lembretes() {
                   ? "border-l-4 border-l-yellow-500"
                   : "border-l-4 border-l-primary/60";
           return (
-            <Card key={r.id} className={borderClass}>
+            <Card key={r.id} className={`${borderClass} shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}>
               <CardContent className="p-4 flex items-center gap-4">
                 <div className="h-11 w-11 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
                   <span className="text-sm font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
