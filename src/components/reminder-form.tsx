@@ -114,12 +114,13 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
             <Input type="file" accept=".pdf,image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
             {reminder?.anexo_nome && !file && <p className="text-xs text-muted-foreground mt-1">Atual: {reminder.anexo_nome}</p>}
           </div>
-          <DialogFooter>
+          <DialogFooter className="sticky bottom-0 bg-background pt-3 -mx-6 px-6 border-t">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancelar</Button>
             <Button type="submit" disabled={mut.isPending} className="bg-accent text-accent-foreground hover:bg-accent/90">
-              {mut.isPending ? "Salvando..." : "Salvar"}
+              {mut.isPending ? "Salvando..." : reminder ? "Salvar alterações" : "Salvar lembrete"}
             </Button>
           </DialogFooter>
+
         </form>
       </DialogContent>
     </Dialog>
