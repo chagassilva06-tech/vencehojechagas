@@ -55,16 +55,18 @@ function Categorias() {
       </Button>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Categorias</h1>
-        <Button onClick={() => setOpen(true)} className="bg-accent text-accent-foreground hover:bg-accent/90"><Plus className="h-4 w-4 mr-2" />Nova</Button>
+        <Button onClick={openNew} className="bg-accent text-accent-foreground hover:bg-accent/90"><Plus className="h-4 w-4 mr-2" />Nova</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {categories.map((c) => (
           <Card key={c.id} className="shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
-
             <CardContent className="p-4 flex items-center gap-3">
               <div className="h-10 w-10 rounded-lg" style={{ backgroundColor: c.cor + "33", border: `2px solid ${c.cor}` }} />
               <div className="flex-1 font-medium">{c.nome}</div>
-              <Button variant="ghost" size="icon" onClick={() => { if (confirm(`Excluir "${c.nome}"?`)) del.mutate(c.id); }}>
+              <Button variant="ghost" size="icon" onClick={() => openEdit(c)} title="Editar">
+                <Pencil className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost" size="icon" onClick={() => { if (confirm(`Excluir "${c.nome}"?`)) del.mutate(c.id); }} title="Excluir">
                 <Trash2 className="h-4 w-4 text-destructive" />
               </Button>
             </CardContent>
