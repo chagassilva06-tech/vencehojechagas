@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { uploadAttachment, type Reminder } from "@/lib/reminders";
@@ -7,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+
 
 export function PayDialog({ open, onOpenChange, reminder }: { open: boolean; onOpenChange: (v: boolean) => void; reminder: Reminder | null }) {
   const qc = useQueryClient();
