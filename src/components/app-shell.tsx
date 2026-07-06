@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
-import { Bell, LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X } from "lucide-react";
+import { Bell, LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/vencehoje-logo.png";
@@ -14,6 +14,7 @@ const nav = [
   { to: "/historico", label: "Histórico", icon: History },
   { to: "/categorias", label: "Categorias", icon: Tags },
   { to: "/config", label: "Configurações", icon: Settings },
+  { to: "/concluidas", label: "Contas Concluídas", icon: CheckCircle2 },
 ] as const;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
