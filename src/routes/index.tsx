@@ -2,6 +2,7 @@ import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
 import logo from "@/assets/vencehoje-logo.png";
+import heroIllustration from "@/assets/hero-illustration.png";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
@@ -31,22 +32,47 @@ function Landing() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground mb-6">
-          <span className="h-2 w-2 rounded-full bg-accent" /> Plano gratuito com até 20 lembretes
+      <section className="relative overflow-hidden">
+        {/* Decorative teal circles on the right */}
+        <div aria-hidden className="pointer-events-none absolute -right-40 top-1/2 -translate-y-1/2 hidden md:block">
+          <div className="h-[640px] w-[640px] rounded-full bg-accent/25" />
         </div>
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight max-w-3xl mx-auto">
-          Nunca mais <span className="text-accent">esqueça</span> uma conta para pagar.
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Cadastre seus vencimentos, receba lembretes automáticos por e-mail e mantenha
-          o controle de tudo em um só lugar.
-        </p>
-        <div className="mt-8 flex items-center justify-center gap-3">
-          <Link to="/auth" search={{ mode: "signup" } as never}>
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Começar agora</Button>
-          </Link>
-          <Link to="/auth"><Button size="lg" variant="outline">Já tenho conta</Button></Link>
+        <div aria-hidden className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 hidden md:block">
+          <div className="h-[520px] w-[520px] rounded-full bg-accent/40" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
+          <div className="text-left">
+            <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground mb-6">
+              <span className="h-2 w-2 rounded-full bg-accent" /> Plano gratuito com até 20 lembretes
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+              Nunca mais <span className="text-accent">esqueça</span> uma conta para pagar.
+            </h1>
+            <p className="mt-6 text-lg text-muted-foreground max-w-xl">
+              Cadastre seus vencimentos, receba lembretes automáticos por e-mail e mantenha
+              o controle de tudo em um só lugar.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link to="/auth" search={{ mode: "signup" } as never}>
+                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Começar agora</Button>
+              </Link>
+              <Link to="/auth"><Button size="lg" variant="outline">Já tenho conta</Button></Link>
+            </div>
+          </div>
+
+          <div className="relative flex justify-center md:justify-end">
+            <img
+              src={heroIllustration}
+              alt="Painel VenceHoje com calendário, faturas e lembretes"
+              width={560}
+              height={560}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="relative w-full max-w-md md:max-w-lg h-auto drop-shadow-xl"
+            />
+          </div>
         </div>
       </section>
 
