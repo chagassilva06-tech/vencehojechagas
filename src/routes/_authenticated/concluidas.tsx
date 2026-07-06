@@ -179,11 +179,7 @@ function Concluidas() {
                 variant="outline"
                 size="sm"
                 disabled={revert.isPending}
-                onClick={() => {
-                  if (confirm("Voltar como pendente?")) {
-                    revert.mutate(i);
-                  }
-                }}
+                onClick={() => setPending(i)}
               >
                 <Undo2 className="h-4 w-4 mr-1" /> Reverter
               </Button>
@@ -191,6 +187,28 @@ function Concluidas() {
           </Card>
         ))}
       </div>
+
+      <AlertDialog open={!!pending} onOpenChange={(v) => !v && setPending(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Voltar como pendente?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {pending?.titulo} voltará ao Dashboard para nova validação.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (pending) revert.mutate(pending);
+                setPending(null);
+              }}
+            >
+              Confirmar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
