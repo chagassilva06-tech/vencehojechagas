@@ -107,9 +107,9 @@ function Dashboard() {
   );
 }
 
-function StatCard({ title, value, icon: Icon, color }: { title: string; value: number; icon: React.ComponentType<{ className?: string }>; color: string }) {
+function StatCard({ title, value, icon: Icon, color, borderClass = "" }: { title: string; value: number; icon: React.ComponentType<{ className?: string }>; color: string; borderClass?: string }) {
   return (
-    <Card>
+    <Card className={`${borderClass} shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div>
