@@ -7,7 +7,7 @@ import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield, Eye, EyeOff } from 
 import logo from "@/assets/vencehoje-logo.png";
 import heroIllustration from "@/assets/hero-illustration.png";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
+
 import { toast } from "sonner";
 import {
   Dialog,
