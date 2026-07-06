@@ -15,6 +15,9 @@ export const Route = createFileRoute("/_authenticated/config")({
 function Config() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
+  const [authEmail, setAuthEmail] = useState("");
+  const [newAuthEmail, setNewAuthEmail] = useState("");
+  const [changingEmail, setChangingEmail] = useState(false);
   const [avisos, setAvisos] = useState<number[]>([1, 0]);
   const [loading, setLoading] = useState(false);
 
