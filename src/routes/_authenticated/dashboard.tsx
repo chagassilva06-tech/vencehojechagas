@@ -34,11 +34,25 @@ function Dashboard() {
   const finalizados = reminders.filter((r) => r.status === "paid");
 
   const markPaid = useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await supabase.from("reminders").update({ status: "paid" }).eq("id", id);
+    mutationFn: async (r: Reminder) => {
+      const { data: auth } = await supabase.auth.getUser();
+      const uid = auth.user?.id;
+      if (!uid) throw new Error("Não autenticado");
+      const { error: pErr } = await supabase.from("payments").insert({
+        reminder_id: r.id,
+        user_id: uid,
+        valor_pago: r.valor,
+        data_pagamento: new Date().toISOString().slice(0, 10),
+      });
+      if (pErr) throw pErr;
+      const { error } = await supabase.from("reminders").update({ status: "paid" }).eq("id", r.id);
       if (error) throw error;
     },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["reminders"] }); toast.success("Marcado como pago"); },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      qc.invalidateQueries({ queryKey: ["payments"] });
+      toast.success("Marcado como pago");
+    },
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -141,7 +155,7 @@ function Dashboard() {
                     variant="outline"
                     className="h-8 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
                     disabled={markPaid.isPending}
-                    onClick={() => markPaid.mutate(r.id)}
+                    onClick={() => markPaid.mutate(r)}
                     title="Marcar como pago"
                   >
                     <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Pago
