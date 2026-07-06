@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchCategories } from "@/lib/reminders";
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/categorias")({
@@ -41,13 +41,17 @@ function Categorias() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
+      <Button asChild variant="ghost" size="sm" className="-ml-2">
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar à tela principal</Link>
+      </Button>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Categorias</h1>
         <Button onClick={() => setOpen(true)} className="bg-accent text-accent-foreground hover:bg-accent/90"><Plus className="h-4 w-4 mr-2" />Nova</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {categories.map((c) => (
-          <Card key={c.id}>
+          <Card key={c.id} className="shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+
             <CardContent className="p-4 flex items-center gap-3">
               <div className="h-10 w-10 rounded-lg" style={{ backgroundColor: c.cor + "33", border: `2px solid ${c.cor}` }} />
               <div className="flex-1 font-medium">{c.nome}</div>
