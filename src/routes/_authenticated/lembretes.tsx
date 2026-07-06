@@ -31,6 +31,8 @@ function Lembretes() {
   const [editing, setEditing] = useState<Reminder | null>(null);
   const [payOpen, setPayOpen] = useState(false);
   const [paying, setPaying] = useState<Reminder | null>(null);
+  const [viewing, setViewing] = useState<Reminder | null>(null);
+
 
   const filtered = reminders.filter((r) => {
     if (status !== "all" && r.status !== status) return false;
