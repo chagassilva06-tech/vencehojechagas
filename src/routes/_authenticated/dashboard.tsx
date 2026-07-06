@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { fetchReminders, formatCurrency, daysUntil, formatDate } from "@/lib/reminders";
+import { fetchReminders, formatCurrency, daysUntil, formatDate, recurrenceLabels, type Reminder } from "@/lib/reminders";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
@@ -15,6 +17,7 @@ function Dashboard() {
     queryKey: ["reminders"],
     queryFn: () => fetchReminders(),
   });
+  const [viewing, setViewing] = useState<Reminder | null>(null);
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
@@ -76,11 +79,14 @@ function Dashboard() {
                     <div className="text-xs text-muted-foreground">{r.categories?.nome} • {formatDate(r.data_vencimento)}</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                   <span className="font-semibold hidden sm:inline">{formatCurrency(r.valor)}</span>
                   <Badge variant={d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"}>
                     {d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
                   </Badge>
+                  <Button variant="ghost" size="icon" onClick={() => setViewing(r)} title="Ver detalhes">
+                    <Eye className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             );
@@ -104,6 +110,24 @@ function Dashboard() {
           </CardContent>
         </Card>
       )}
+
+      <Dialog open={!!viewing} onOpenChange={(v) => !v && setViewing(null)}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>{viewing?.titulo}</DialogTitle></DialogHeader>
+          {viewing && (
+            <div className="space-y-2 text-sm">
+              <div><span className="text-muted-foreground">Categoria:</span> {viewing.categories?.nome ?? "—"}</div>
+              <div><span className="text-muted-foreground">Vencimento:</span> {formatDate(viewing.data_vencimento)}</div>
+              <div><span className="text-muted-foreground">Valor:</span> {formatCurrency(viewing.valor)}</div>
+              <div><span className="text-muted-foreground">Recorrência:</span> {recurrenceLabels[viewing.recorrencia]}</div>
+              <div><span className="text-muted-foreground">Status:</span> {viewing.status}</div>
+              {viewing.observacoes && <div><span className="text-muted-foreground">Observações:</span> {viewing.observacoes}</div>}
+              {viewing.anexo_url && <div><a href={viewing.anexo_url} target="_blank" rel="noreferrer" className="text-accent hover:underline inline-flex items-center gap-1"><Paperclip className="h-3.5 w-3.5" />{viewing.anexo_nome ?? "Anexo"}</a></div>}
+              <div className="pt-2"><Link to="/lembretes" className="text-accent hover:underline text-sm">Abrir em Lembretes →</Link></div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
