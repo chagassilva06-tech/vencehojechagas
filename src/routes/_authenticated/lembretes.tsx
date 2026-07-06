@@ -69,7 +69,19 @@ function Lembretes() {
         <CardContent className="p-4 flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Buscar..." className="pl-9" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Input
+              placeholder="Buscar..."
+              className="pl-9"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              list="reminder-titles"
+              autoComplete="on"
+            />
+            <datalist id="reminder-titles">
+              {Array.from(new Set(reminders.map((r) => r.titulo))).map((t) => (
+                <option key={t} value={t} />
+              ))}
+            </datalist>
           </div>
           <Select value={status} onValueChange={(v) => setStatus(v as ReminderStatus | "all")}>
             <SelectTrigger className="w-[160px]"><SelectValue /></SelectTrigger>
