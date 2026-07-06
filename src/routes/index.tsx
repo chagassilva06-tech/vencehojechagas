@@ -50,9 +50,9 @@ function Landing() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link to="/auth" search={{ mode: "signup" } as never}>
-                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-2px_4px_rgba(0,0,0,0.15),0_4px_10px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-2px_6px_rgba(0,0,0,0.18),0_6px_14px_rgba(0,0,0,0.18)] hover:-translate-y-0.5 transition-all">Entre na sua conta</Button>
+                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-2px_4px_rgba(0,0,0,0.15),0_4px_10px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-2px_6px_rgba(0,0,0,0.18),0_6px_14px_rgba(0,0,0,0.18)] hover:-translate-y-0.5 transition-all">Criar conta</Button>
               </Link>
-              <Link to="/auth"><Button size="lg" variant="outline" className="shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.08)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-2px_6px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all">Já tenho conta</Button></Link>
+              <Link to="/auth"><Button size="lg" variant="outline" className="shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.08)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-2px_6px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all">Entrar na conta</Button></Link>
             </div>
           </div>
 
