@@ -1,35 +1,53 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchReminders, formatCurrency, daysUntil, formatDate, recurrenceLabels, type Reminder } from "@/lib/reminders";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip, Search, Trophy } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
 });
 
 function Dashboard() {
+  const qc = useQueryClient();
   const { data: reminders } = useSuspenseQuery({
     queryKey: ["reminders"],
     queryFn: () => fetchReminders(),
   });
   const [viewing, setViewing] = useState<Reminder | null>(null);
+  const [search, setSearch] = useState("");
+  const [appliedSearch, setAppliedSearch] = useState("");
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
   const tomorrow = pending.filter((r) => daysUntil(r.data_vencimento) === 1);
   const next3 = pending.filter((r) => { const d = daysUntil(r.data_vencimento); return d >= 0 && d <= 3; });
   const totalPending = pending.reduce((s, r) => s + (r.valor ?? 0), 0);
-  const paidThisMonth = reminders.filter((r) => r.status === "paid").length;
+  const paidCount = reminders.filter((r) => r.status === "paid").length;
+  const finalizados = reminders.filter((r) => r.status === "paid");
+
+  const markPaid = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("reminders").update({ status: "paid" }).eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["reminders"] }); toast.success("Marcado como pago"); },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   const upcoming = pending
     .filter((r) => daysUntil(r.data_vencimento) >= 0)
+    .filter((r) => !appliedSearch || r.titulo.toLowerCase().includes(appliedSearch.toLowerCase()))
     .sort((a, b) => a.data_vencimento.localeCompare(b.data_vencimento))
     .slice(0, 8);
+
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
@@ -45,12 +63,14 @@ function Dashboard() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} color="text-destructive" borderClass="border-l-4 border-l-destructive" />
         <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} color="text-warning" borderClass="border-l-4 border-l-orange-500" />
         <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} color="text-accent" borderClass="border-l-4 border-l-yellow-500" />
-        <StatCard title="Pagos" value={paidThisMonth} icon={CheckCircle2} color="text-accent" borderClass="border-l-4 border-l-accent" />
+        <StatCard title="Pagos" value={paidCount} icon={CheckCircle2} color="text-accent" borderClass="border-l-4 border-l-accent" />
+        <StatCard title="Finalizados" value={finalizados.length} icon={Trophy} color="text-accent" borderClass="border-l-4 border-l-accent" />
       </div>
+
 
       <Card>
         <CardHeader>
@@ -62,7 +82,36 @@ function Dashboard() {
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>Próximos vencimentos</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between flex-wrap gap-3">
+            <span>Próximos vencimentos</span>
+            <form
+              onSubmit={(e) => { e.preventDefault(); setAppliedSearch(search); }}
+              className="flex items-center gap-2 w-full sm:w-auto"
+            >
+              <div className="relative flex-1 sm:w-64">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Buscar lembrete..."
+                  className="pl-9 h-9"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  list="dashboard-titles"
+                  autoComplete="on"
+                />
+                <datalist id="dashboard-titles">
+                  {Array.from(new Set(reminders.map((r) => r.titulo))).map((t) => (
+                    <option key={t} value={t} />
+                  ))}
+                </datalist>
+              </div>
+              <Button type="submit" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">Buscar</Button>
+              {appliedSearch && (
+                <Button type="button" variant="ghost" size="sm" onClick={() => { setSearch(""); setAppliedSearch(""); }}>Limpar</Button>
+              )}
+            </form>
+          </CardTitle>
+        </CardHeader>
         <CardContent className="space-y-2">
           {upcoming.length === 0 && <p className="text-sm text-muted-foreground py-8 text-center">Nenhum lembrete pendente. 🎉</p>}
           {upcoming.map((r) => {
@@ -87,12 +136,23 @@ function Dashboard() {
                   <Button variant="ghost" size="icon" onClick={() => setViewing(r)} title="Ver detalhes">
                     <Eye className="h-4 w-4" />
                   </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-8 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                    disabled={markPaid.isPending}
+                    onClick={() => markPaid.mutate(r.id)}
+                    title="Marcar como pago"
+                  >
+                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Pago
+                  </Button>
                 </div>
               </div>
             );
           })}
         </CardContent>
       </Card>
+
 
       {overdue.length > 0 && (
         <Card className="border-destructive/40">
