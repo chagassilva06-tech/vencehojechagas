@@ -65,6 +65,25 @@ function Lembretes() {
         </Button>
       </div>
 
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <Card><CardContent className="p-4">
+          <div className="text-xs text-muted-foreground">Total exibido</div>
+          <div className="text-xl font-bold">{formatCurrency(filtered.reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
+          <div className="text-xs text-muted-foreground mt-1">{filtered.length} lembrete(s)</div>
+        </CardContent></Card>
+        <Card><CardContent className="p-4">
+          <div className="text-xs text-muted-foreground">Pendentes</div>
+          <div className="text-xl font-bold text-destructive">{formatCurrency(filtered.filter((r) => r.status === "pending").reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
+          <div className="text-xs text-muted-foreground mt-1">{filtered.filter((r) => r.status === "pending").length} pendente(s)</div>
+        </CardContent></Card>
+        <Card><CardContent className="p-4">
+          <div className="text-xs text-muted-foreground">Pagos</div>
+          <div className="text-xl font-bold text-accent">{formatCurrency(filtered.filter((r) => r.status === "paid").reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
+          <div className="text-xs text-muted-foreground mt-1">{filtered.filter((r) => r.status === "paid").length} pago(s)</div>
+        </CardContent></Card>
+      </div>
+
+
       <Card>
         <CardContent className="p-4 flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[200px]">
