@@ -57,18 +57,31 @@ function Categorias() {
         <h1 className="text-2xl font-bold">Categorias</h1>
         <Button onClick={openNew} className="bg-accent text-accent-foreground hover:bg-accent/90"><Plus className="h-4 w-4 mr-2" />Nova</Button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {categories.map((c) => (
-          <Card key={c.id} className="shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
-            <CardContent className="p-4 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg" style={{ backgroundColor: c.cor + "33", border: `2px solid ${c.cor}` }} />
-              <div className="flex-1 font-medium">{c.nome}</div>
-              <Button variant="ghost" size="icon" onClick={() => openEdit(c)} title="Editar">
-                <Pencil className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon" onClick={() => { if (confirm(`Excluir "${c.nome}"?`)) del.mutate(c.id); }} title="Excluir">
-                <Trash2 className="h-4 w-4 text-destructive" />
-              </Button>
+          <Card
+            key={c.id}
+            className="group relative rounded-2xl border-none shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-200 bg-card"
+          >
+            <CardContent className="p-4 flex flex-col items-center text-center gap-3">
+              <div
+                className="h-20 w-20 rounded-2xl grid place-items-center text-white text-2xl font-bold shadow-lg"
+                style={{
+                  background: `linear-gradient(135deg, ${c.cor} 0%, ${c.cor}bb 100%)`,
+                  boxShadow: `0 10px 20px -6px ${c.cor}66`,
+                }}
+              >
+                {c.nome.charAt(0).toUpperCase()}
+              </div>
+              <div className="font-medium text-sm truncate w-full">{c.nome}</div>
+              <div className="absolute top-1 right-1 flex opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(c)} title="Editar">
+                  <Pencil className="h-3.5 w-3.5" />
+                </Button>
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => { if (confirm(`Excluir "${c.nome}"?`)) del.mutate(c.id); }} title="Excluir">
+                  <Trash2 className="h-3.5 w-3.5 text-destructive" />
+                </Button>
+              </div>
             </CardContent>
           </Card>
         ))}
