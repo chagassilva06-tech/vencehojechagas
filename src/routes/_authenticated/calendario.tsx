@@ -31,31 +31,38 @@ function Calendario() {
   const today = new Date().toISOString().slice(0, 10);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Calendário</h1>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => setCursor(new Date(year, month - 1, 1))}><ChevronLeft className="h-4 w-4" /></Button>
-          <div className="font-medium w-40 text-center">{monthNames[month]} {year}</div>
-          <Button variant="outline" size="icon" onClick={() => setCursor(new Date(year, month + 1, 1))}><ChevronRight className="h-4 w-4" /></Button>
+    <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between">
+        <h1 className="text-xl sm:text-2xl font-bold truncate">Calendário</h1>
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          <Button variant="outline" size="icon" className="h-8 w-8 sm:h-10 sm:w-10" onClick={() => setCursor(new Date(year, month - 1, 1))}><ChevronLeft className="h-4 w-4" /></Button>
+          <div className="font-medium w-28 sm:w-40 text-center text-sm sm:text-base">{monthNames[month]} {year}</div>
+          <Button variant="outline" size="icon" className="h-8 w-8 sm:h-10 sm:w-10" onClick={() => setCursor(new Date(year, month + 1, 1))}><ChevronRight className="h-4 w-4" /></Button>
         </div>
       </div>
 
       <Card>
-        <CardContent className="p-4">
-          <div className="grid grid-cols-7 gap-1 text-xs text-muted-foreground mb-2">
-            {["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"].map((d) => <div key={d} className="p-2 text-center font-medium">{d}</div>)}
+        <CardContent className="p-2 sm:p-4">
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1 text-[10px] sm:text-xs text-muted-foreground mb-1 sm:mb-2">
+            {["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"].map((d) => <div key={d} className="p-1 sm:p-2 text-center font-medium">{d}</div>)}
           </div>
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
             {cells.map((d, i) => {
-              if (!d) return <div key={i} className="min-h-24" />;
+              if (!d) return <div key={i} className="min-h-14 sm:min-h-24" />;
               const dateStr = `${year}-${String(month + 1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
               const items = byDay[dateStr] ?? [];
               const isToday = dateStr === today;
               return (
-                <div key={i} className={`min-h-24 rounded-md border p-1.5 text-xs transition-colors ${isToday ? "border-accent bg-accent/5" : items.length > 0 ? "border-2 border-primary/70 bg-primary/5" : ""}`}>
-                  <div className={`font-semibold mb-1 ${isToday ? "text-accent" : items.length > 0 ? "text-primary" : ""}`}>{d}</div>
-                  <div className="space-y-0.5">
+                <div key={i} className={`min-h-14 sm:min-h-24 rounded-md border p-1 sm:p-1.5 text-[10px] sm:text-xs transition-colors overflow-hidden ${isToday ? "border-accent bg-accent/5" : items.length > 0 ? "border-2 border-primary/70 bg-primary/5" : ""}`}>
+                  <div className={`font-semibold mb-0.5 sm:mb-1 ${isToday ? "text-accent" : items.length > 0 ? "text-primary" : ""}`}>{d}</div>
+                  {/* Mobile: colored dots */}
+                  <div className="flex flex-wrap gap-0.5 sm:hidden">
+                    {items.slice(0, 4).map((r) => (
+                      <span key={r.id} className="h-1.5 w-1.5 rounded-full" title={r.titulo} style={{ backgroundColor: r.categories?.cor ?? "#10B981" }} />
+                    ))}
+                  </div>
+                  {/* Desktop/tablet: item pills */}
+                  <div className="hidden sm:block space-y-0.5">
                     {items.slice(0, 3).map((r) => (
                       <div key={r.id} className="truncate rounded px-1 py-0.5" title={`${r.titulo} — ${formatCurrency(r.valor)}`}
                         style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
