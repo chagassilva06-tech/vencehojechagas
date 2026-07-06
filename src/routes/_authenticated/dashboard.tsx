@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { fetchReminders, formatCurrency, daysUntil, formatDate } from "@/lib/reminders";
+import { fetchReminders, formatCurrency, daysUntil, formatDate, recurrenceLabels, type Reminder } from "@/lib/reminders";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
