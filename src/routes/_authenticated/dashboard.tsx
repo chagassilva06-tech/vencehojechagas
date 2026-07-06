@@ -43,10 +43,10 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} color="text-destructive" />
-        <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} color="text-warning" />
-        <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} color="text-accent" />
-        <StatCard title="Pagos" value={paidThisMonth} icon={CheckCircle2} color="text-accent" />
+        <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} color="text-destructive" borderClass="border-l-4 border-l-destructive" />
+        <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} color="text-warning" borderClass="border-l-4 border-l-orange-500" />
+        <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} color="text-accent" borderClass="border-l-4 border-l-yellow-500" />
+        <StatCard title="Pagos" value={paidThisMonth} icon={CheckCircle2} color="text-accent" borderClass="border-l-4 border-l-accent" />
       </div>
 
       <Card>
