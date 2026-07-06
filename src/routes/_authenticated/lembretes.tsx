@@ -52,6 +52,9 @@ function Lembretes() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
+      <Button asChild variant="ghost" size="sm" className="-ml-2">
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar à tela principal</Link>
+      </Button>
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold">Lembretes</h1>
