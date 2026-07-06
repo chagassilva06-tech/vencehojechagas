@@ -86,7 +86,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     <span
                       aria-hidden
                       className="pointer-events-none absolute right-0 -top-6 h-6 w-6 rounded-br-[24px]"
-                      style={{ boxShadow: "0 24px 0 0 var(--background)" }}
+                      style={{ boxShadow: `0 24px 0 0 ${mainBg}` }}
                     />
                     {/* bottom concave scoop */}
                     <span
