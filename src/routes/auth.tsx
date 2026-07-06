@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Bell, Eye, EyeOff } from "lucide-react";
+import logo from "@/assets/vencehoje-logo.png";
 
 export const Route = createFileRoute("/auth")({
   beforeLoad: async () => {
@@ -87,9 +88,7 @@ function AuthPage() {
           style={{ background: "oklch(0.50 0.15 165)" }}
         />
         <div className="relative flex items-center gap-2">
-          <div className="h-9 w-9 rounded-xl bg-accent grid place-items-center">
-            <Bell className="h-5 w-5 text-accent-foreground" />
-          </div>
+          <img src={logo} alt="VenceHoje" className="h-10 w-10 object-contain" />
           <span className="font-bold text-lg">VenceHoje</span>
         </div>
         <div className="relative">
@@ -122,9 +121,7 @@ function AuthPage() {
         </div>
         <Card className="w-full p-6 bg-[oklch(0.18_0.035_260)] border-[oklch(0.28_0.04_260)] text-white">
           <div className="lg:hidden flex items-center gap-2 mb-4">
-            <div className="h-8 w-8 rounded-lg bg-accent grid place-items-center">
-              <Bell className="h-4 w-4 text-accent-foreground" />
-            </div>
+            <img src={logo} alt="VenceHoje" className="h-8 w-8 object-contain" />
             <span className="font-bold">VenceHoje</span>
           </div>
           <Tabs defaultValue="signin">
