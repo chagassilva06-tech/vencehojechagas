@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Search, CheckCircle2, Paperclip, Undo2 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export const Route = createFileRoute("/_authenticated/concluidas")({
   component: Concluidas,
@@ -36,6 +40,7 @@ function Concluidas() {
     queryFn: () => fetchReminders({ status: "paid" }),
   });
   const [search, setSearch] = useState("");
+  const [pending, setPending] = useState<Item | null>(null);
 
   const revert = useMutation({
     mutationFn: async (item: Item) => {
@@ -174,11 +179,7 @@ function Concluidas() {
                 variant="outline"
                 size="sm"
                 disabled={revert.isPending}
-                onClick={() => {
-                  if (confirm("Voltar como pendente?")) {
-                    revert.mutate(i);
-                  }
-                }}
+                onClick={() => setPending(i)}
               >
                 <Undo2 className="h-4 w-4 mr-1" /> Reverter
               </Button>
@@ -186,6 +187,28 @@ function Concluidas() {
           </Card>
         ))}
       </div>
+
+      <AlertDialog open={!!pending} onOpenChange={(v) => !v && setPending(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Voltar como pendente?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {pending?.titulo} voltará ao Dashboard para nova validação.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (pending) revert.mutate(pending);
+                setPending(null);
+              }}
+            >
+              Confirmar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
