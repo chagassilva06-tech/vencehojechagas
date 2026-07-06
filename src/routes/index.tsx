@@ -1,6 +1,7 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
+import logo from "@/assets/vencehoje-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
@@ -18,9 +19,7 @@ function Landing() {
       <header className="border-b bg-card/50 backdrop-blur sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded-xl bg-primary grid place-items-center">
-              <Bell className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <img src={logo} alt="VenceHoje" className="h-9 w-9 object-contain" />
             <span className="font-bold text-lg">VenceHoje</span>
           </div>
           <nav className="flex items-center gap-2">
