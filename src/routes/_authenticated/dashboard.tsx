@@ -1,0 +1,124 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { fetchReminders, formatCurrency, daysUntil, formatDate } from "@/lib/reminders";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp } from "lucide-react";
+
+export const Route = createFileRoute("/_authenticated/dashboard")({
+  component: Dashboard,
+});
+
+function Dashboard() {
+  const { data: reminders } = useSuspenseQuery({
+    queryKey: ["reminders"],
+    queryFn: () => fetchReminders(),
+  });
+
+  const pending = reminders.filter((r) => r.status === "pending");
+  const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
+  const tomorrow = pending.filter((r) => daysUntil(r.data_vencimento) === 1);
+  const next3 = pending.filter((r) => { const d = daysUntil(r.data_vencimento); return d >= 0 && d <= 3; });
+  const totalPending = pending.reduce((s, r) => s + (r.valor ?? 0), 0);
+  const paidThisMonth = reminders.filter((r) => r.status === "paid").length;
+
+  const upcoming = pending
+    .filter((r) => daysUntil(r.data_vencimento) >= 0)
+    .sort((a, b) => a.data_vencimento.localeCompare(b.data_vencimento))
+    .slice(0, 8);
+
+  return (
+    <div className="space-y-6 max-w-6xl mx-auto">
+      <div className="flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">Uma visão rápida das suas contas</p>
+        </div>
+        <Link to="/lembretes">
+          <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <Plus className="h-4 w-4 mr-2" /> Novo lembrete
+          </Button>
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} color="text-destructive" />
+        <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} color="text-warning" />
+        <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} color="text-accent" />
+        <StatCard title="Pagos" value={paidThisMonth} icon={CheckCircle2} color="text-accent" />
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <span>Total pendente</span>
+            <span className="text-2xl font-bold text-accent">{formatCurrency(totalPending)}</span>
+          </CardTitle>
+        </CardHeader>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle>Próximos vencimentos</CardTitle></CardHeader>
+        <CardContent className="space-y-2">
+          {upcoming.length === 0 && <p className="text-sm text-muted-foreground py-8 text-center">Nenhum lembrete pendente. 🎉</p>}
+          {upcoming.map((r) => {
+            const d = daysUntil(r.data_vencimento);
+            return (
+              <div key={r.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50 transition">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="h-10 w-10 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
+                    <span className="text-xs font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
+                  </div>
+                  <div className="min-w-0">
+                    <div className="font-medium truncate">{r.titulo}</div>
+                    <div className="text-xs text-muted-foreground">{r.categories?.nome} • {formatDate(r.data_vencimento)}</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="font-semibold hidden sm:inline">{formatCurrency(r.valor)}</span>
+                  <Badge variant={d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"}>
+                    {d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
+                  </Badge>
+                </div>
+              </div>
+            );
+          })}
+        </CardContent>
+      </Card>
+
+      {overdue.length > 0 && (
+        <Card className="border-destructive/40">
+          <CardHeader><CardTitle className="text-destructive flex items-center gap-2"><AlertTriangle className="h-5 w-5" /> Atrasados</CardTitle></CardHeader>
+          <CardContent className="space-y-2">
+            {overdue.map((r) => (
+              <div key={r.id} className="flex items-center justify-between p-3 rounded-lg border">
+                <div>
+                  <div className="font-medium">{r.titulo}</div>
+                  <div className="text-xs text-muted-foreground">{formatDate(r.data_vencimento)} • {Math.abs(daysUntil(r.data_vencimento))} dias em atraso</div>
+                </div>
+                <span className="font-semibold text-destructive">{formatCurrency(r.valor)}</span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
+
+function StatCard({ title, value, icon: Icon, color }: { title: string; value: number; icon: React.ComponentType<{ className?: string }>; color: string }) {
+  return (
+    <Card>
+      <CardContent className="p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-xs text-muted-foreground uppercase tracking-wide">{title}</div>
+            <div className="text-3xl font-bold mt-1">{value}</div>
+          </div>
+          <Icon className={`h-8 w-8 ${color}`} />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
