@@ -43,10 +43,10 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} color="text-destructive" />
-        <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} color="text-warning" />
-        <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} color="text-accent" />
-        <StatCard title="Pagos" value={paidThisMonth} icon={CheckCircle2} color="text-accent" />
+        <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} color="text-destructive" borderClass="border-l-4 border-l-destructive" />
+        <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} color="text-warning" borderClass="border-l-4 border-l-orange-500" />
+        <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} color="text-accent" borderClass="border-l-4 border-l-yellow-500" />
+        <StatCard title="Pagos" value={paidThisMonth} icon={CheckCircle2} color="text-accent" borderClass="border-l-4 border-l-accent" />
       </div>
 
       <Card>
@@ -64,8 +64,9 @@ function Dashboard() {
           {upcoming.length === 0 && <p className="text-sm text-muted-foreground py-8 text-center">Nenhum lembrete pendente. 🎉</p>}
           {upcoming.map((r) => {
             const d = daysUntil(r.data_vencimento);
+            const bc = d === 0 ? "border-l-4 border-l-destructive" : d === 1 ? "border-l-4 border-l-orange-500" : d <= 3 ? "border-l-4 border-l-yellow-500" : "border-l-4 border-l-primary/60";
             return (
-              <div key={r.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50 transition">
+              <div key={r.id} className={`${bc} flex items-center justify-between p-3 rounded-lg border shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-muted/50 transition-all duration-200`}>
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="h-10 w-10 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
                     <span className="text-xs font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
@@ -92,7 +93,7 @@ function Dashboard() {
           <CardHeader><CardTitle className="text-destructive flex items-center gap-2"><AlertTriangle className="h-5 w-5" /> Atrasados</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             {overdue.map((r) => (
-              <div key={r.id} className="flex items-center justify-between p-3 rounded-lg border">
+              <div key={r.id} className="flex items-center justify-between p-3 rounded-lg border border-l-4 border-l-destructive shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                 <div>
                   <div className="font-medium">{r.titulo}</div>
                   <div className="text-xs text-muted-foreground">{formatDate(r.data_vencimento)} • {Math.abs(daysUntil(r.data_vencimento))} dias em atraso</div>
@@ -107,9 +108,9 @@ function Dashboard() {
   );
 }
 
-function StatCard({ title, value, icon: Icon, color }: { title: string; value: number; icon: React.ComponentType<{ className?: string }>; color: string }) {
+function StatCard({ title, value, icon: Icon, color, borderClass = "" }: { title: string; value: number; icon: React.ComponentType<{ className?: string }>; color: string; borderClass?: string }) {
   return (
-    <Card>
+    <Card className={`${borderClass} shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div>
