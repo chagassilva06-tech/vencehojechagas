@@ -217,10 +217,6 @@ function AuthDialog({
               </div>
               <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={loading}>Criar conta grátis</Button>
             </form>
-            <Divider />
-            <Button variant="outline" className="w-full" onClick={googleSignIn} disabled={loading}>
-              <GoogleIcon /> Cadastrar com Google
-            </Button>
           </TabsContent>
         </Tabs>
       </DialogContent>
