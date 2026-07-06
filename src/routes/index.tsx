@@ -167,13 +167,6 @@ function AuthDialog({
     toast.success("Enviamos um link de recuperação para o seu e-mail.");
   }
 
-  async function googleSignIn() {
-    setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (result.error) { setLoading(false); return toast.error("Erro ao entrar com Google"); }
-    if (result.redirected) return;
-    navigate({ to: "/dashboard" });
-  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
