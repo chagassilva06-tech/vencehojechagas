@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchReminders, fetchCategories, formatCurrency, daysUntil, formatDate, recurrenceLabels, type Reminder, type ReminderStatus } from "@/lib/reminders";
@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye } from "lucide-react";
+import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye, ArrowLeft } from "lucide-react";
 import { ReminderForm } from "@/components/reminder-form";
 import { PayDialog } from "@/components/pay-dialog";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -52,6 +52,9 @@ function Lembretes() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
+      <Button asChild variant="ghost" size="sm" className="-ml-2">
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar à tela principal</Link>
+      </Button>
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold">Lembretes</h1>
