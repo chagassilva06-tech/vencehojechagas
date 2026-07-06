@@ -36,10 +36,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     navigate({ to: "/auth", replace: true });
   }
 
-  const mainBg = "#0B1E45";
-
   return (
-    <div className="min-h-screen flex" style={{ background: mainBg }}>
+    <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
       <aside
         className={cn(
