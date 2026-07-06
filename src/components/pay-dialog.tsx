@@ -12,7 +12,9 @@ import { toast } from "sonner";
 
 export function PayDialog({ open, onOpenChange, reminder }: { open: boolean; onOpenChange: (v: boolean) => void; reminder: Reminder | null }) {
   const qc = useQueryClient();
+  const navigate = useNavigate();
   const [data, setData] = useState(new Date().toISOString().slice(0, 10));
+
   const [valor, setValor] = useState(reminder?.valor?.toString() ?? "");
   const [file, setFile] = useState<File | null>(null);
 
