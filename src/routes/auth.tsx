@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { Bell } from "lucide-react";
+import { Bell, Eye, EyeOff } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
   beforeLoad: async () => {
@@ -25,6 +25,8 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
@@ -48,6 +50,17 @@ function AuthPage() {
     toast.success("Conta criada! Você já pode entrar.");
   }
 
+  async function forgotPassword() {
+    if (!email) return toast.error("Digite seu e-mail para recuperar a senha.");
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth`,
+    });
+    setLoading(false);
+    if (error) return toast.error(error.message);
+    toast.success("Enviamos um link de recuperação para o seu e-mail.");
+  }
+
   async function googleSignIn() {
     setLoading(true);
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
@@ -57,45 +70,80 @@ function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2 bg-background">
-      <div className="hidden lg:flex flex-col justify-between p-12 bg-sidebar text-sidebar-foreground">
-        <div className="flex items-center gap-2">
+    <div className="min-h-screen grid lg:grid-cols-2 bg-[oklch(0.13_0.03_260)]">
+      <div
+        className="hidden lg:flex flex-col justify-between p-12 text-white relative overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(140deg, oklch(0.22 0.09 155) 0%, oklch(0.16 0.06 160) 55%, oklch(0.12 0.04 165) 100%)",
+        }}
+      >
+        <div
+          className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full opacity-30 blur-3xl"
+          style={{ background: "oklch(0.60 0.18 155)" }}
+        />
+        <div
+          className="pointer-events-none absolute -bottom-40 -left-20 h-96 w-96 rounded-full opacity-20 blur-3xl"
+          style={{ background: "oklch(0.50 0.15 165)" }}
+        />
+        <div className="relative flex items-center gap-2">
           <div className="h-9 w-9 rounded-xl bg-accent grid place-items-center">
             <Bell className="h-5 w-5 text-accent-foreground" />
           </div>
           <span className="font-bold text-lg">VenceHoje</span>
         </div>
-        <div>
+        <div className="relative">
           <h2 className="text-3xl font-bold">Sua vida financeira, organizada.</h2>
-          <p className="mt-3 text-sidebar-foreground/70 max-w-md">
+          <p className="mt-3 text-white/70 max-w-md">
             Cadastre suas contas uma vez e receba lembretes automáticos por e-mail antes de cada vencimento.
           </p>
         </div>
-        <p className="text-xs text-sidebar-foreground/50">© {new Date().getFullYear()} VenceHoje</p>
+        <p className="relative text-xs text-white/50">© {new Date().getFullYear()} VenceHoje</p>
       </div>
 
-      <div className="flex items-center justify-center p-6">
-        <Card className="w-full max-w-md p-6">
+      <div className="flex items-center justify-center p-6 bg-[oklch(0.13_0.03_260)]">
+        <Card className="w-full max-w-md p-6 bg-[oklch(0.18_0.035_260)] border-[oklch(0.28_0.04_260)] text-white">
           <div className="lg:hidden flex items-center gap-2 mb-4">
-            <div className="h-8 w-8 rounded-lg bg-primary grid place-items-center">
-              <Bell className="h-4 w-4 text-primary-foreground" />
+            <div className="h-8 w-8 rounded-lg bg-accent grid place-items-center">
+              <Bell className="h-4 w-4 text-accent-foreground" />
             </div>
             <span className="font-bold">VenceHoje</span>
           </div>
           <Tabs defaultValue="signin">
-            <TabsList className="grid grid-cols-2 w-full">
+            <TabsList className="grid grid-cols-2 w-full bg-[oklch(0.22_0.04_260)]">
               <TabsTrigger value="signin">Entrar</TabsTrigger>
               <TabsTrigger value="signup">Criar conta</TabsTrigger>
             </TabsList>
 
             <TabsContent value="signin" className="space-y-4 mt-6">
               <form onSubmit={signIn} className="space-y-3">
-                <div><Label>E-mail</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-                <div><Label>Senha</Label><Input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+                <div>
+                  <Label>E-mail</Label>
+                  <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <Label>Senha</Label>
+                    <button
+                      type="button"
+                      onClick={forgotPassword}
+                      className="text-xs text-accent hover:underline"
+                      disabled={loading}
+                    >
+                      Esqueceu a senha?
+                    </button>
+                  </div>
+                  <PasswordInput
+                    value={password}
+                    onChange={setPassword}
+                    show={showSignIn}
+                    toggle={() => setShowSignIn((s) => !s)}
+                  />
+                </div>
                 <Button type="submit" className="w-full" disabled={loading}>Entrar</Button>
               </form>
               <Divider />
-              <Button variant="outline" className="w-full" onClick={googleSignIn} disabled={loading}>
+              <Button variant="outline" className="w-full bg-transparent text-white border-white/20 hover:bg-white/10 hover:text-white" onClick={googleSignIn} disabled={loading}>
                 <GoogleIcon /> Continuar com Google
               </Button>
             </TabsContent>
@@ -104,11 +152,20 @@ function AuthPage() {
               <form onSubmit={signUp} className="space-y-3">
                 <div><Label>Nome</Label><Input required value={name} onChange={(e) => setName(e.target.value)} /></div>
                 <div><Label>E-mail</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-                <div><Label>Senha</Label><Input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+                <div>
+                  <Label>Senha</Label>
+                  <PasswordInput
+                    value={password}
+                    onChange={setPassword}
+                    show={showSignUp}
+                    toggle={() => setShowSignUp((s) => !s)}
+                    minLength={6}
+                  />
+                </div>
                 <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={loading}>Criar conta grátis</Button>
               </form>
               <Divider />
-              <Button variant="outline" className="w-full" onClick={googleSignIn} disabled={loading}>
+              <Button variant="outline" className="w-full bg-transparent text-white border-white/20 hover:bg-white/10 hover:text-white" onClick={googleSignIn} disabled={loading}>
                 <GoogleIcon /> Cadastrar com Google
               </Button>
             </TabsContent>
@@ -119,11 +176,36 @@ function AuthPage() {
   );
 }
 
+function PasswordInput({
+  value, onChange, show, toggle, minLength,
+}: { value: string; onChange: (v: string) => void; show: boolean; toggle: () => void; minLength?: number }) {
+  return (
+    <div className="relative">
+      <Input
+        type={show ? "text" : "password"}
+        required
+        minLength={minLength}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="pr-10"
+      />
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={show ? "Ocultar senha" : "Mostrar senha"}
+        className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
+      >
+        {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+      </button>
+    </div>
+  );
+}
+
 function Divider() {
   return (
     <div className="relative py-1">
-      <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
-      <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">ou</span></div>
+      <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-white/10" /></div>
+      <div className="relative flex justify-center text-xs uppercase"><span className="bg-[oklch(0.18_0.035_260)] px-2 text-white/50">ou</span></div>
     </div>
   );
 }
