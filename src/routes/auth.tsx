@@ -109,7 +109,7 @@ function AuthPage() {
             </ul>
           </div>
         </div>
-        <p className="relative text-xs text-white/50">© {new Date().getFullYear()} VenceHoje</p>
+        <p className="relative text-xs text-white/50">© {new Date().getFullYear()} By Francisco Chagas</p>
       </div>
 
       <div className="flex items-center justify-center p-6 bg-[oklch(0.13_0.03_260)]">
