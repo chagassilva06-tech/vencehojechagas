@@ -53,8 +53,8 @@ function Calendario() {
               const items = byDay[dateStr] ?? [];
               const isToday = dateStr === today;
               return (
-                <div key={i} className={`min-h-24 rounded-md border p-1.5 text-xs ${isToday ? "border-accent bg-accent/5" : ""}`}>
-                  <div className={`font-semibold mb-1 ${isToday ? "text-accent" : ""}`}>{d}</div>
+                <div key={i} className={`min-h-24 rounded-md border p-1.5 text-xs transition-colors ${isToday ? "border-accent bg-accent/5" : items.length > 0 ? "border-2 border-primary/70 bg-primary/5" : ""}`}>
+                  <div className={`font-semibold mb-1 ${isToday ? "text-accent" : items.length > 0 ? "text-primary" : ""}`}>{d}</div>
                   <div className="space-y-0.5">
                     {items.slice(0, 3).map((r) => (
                       <div key={r.id} className="truncate rounded px-1 py-0.5" title={`${r.titulo} — ${formatCurrency(r.valor)}`}

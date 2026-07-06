@@ -15,6 +15,9 @@ export const Route = createFileRoute("/_authenticated/config")({
 function Config() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
+  const [authEmail, setAuthEmail] = useState("");
+  const [newAuthEmail, setNewAuthEmail] = useState("");
+  const [changingEmail, setChangingEmail] = useState(false);
   const [avisos, setAvisos] = useState<number[]>([1, 0]);
   const [loading, setLoading] = useState(false);
 
@@ -22,11 +25,22 @@ function Config() {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) return;
+      setAuthEmail(u.user.email ?? "");
       const { data } = await supabase.from("profiles").select("*").eq("id", u.user.id).maybeSingle();
       if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos(data.avisos_padrao ?? [1, 0]); }
       else { setEmail(u.user.email ?? ""); }
     })();
   }, []);
+
+  async function changeAuthEmail() {
+    if (!newAuthEmail) return toast.error("Digite o novo e-mail.");
+    setChangingEmail(true);
+    const { error } = await supabase.auth.updateUser({ email: newAuthEmail });
+    setChangingEmail(false);
+    if (error) return toast.error(error.message);
+    toast.success(`Enviamos um link de confirmação para ${newAuthEmail}. Clique no link para concluir a alteração.`, { duration: 8000 });
+    setNewAuthEmail("");
+  }
 
   async function save() {
     setLoading(true);
@@ -53,6 +67,25 @@ function Config() {
           <div><Label>E-mail para receber lembretes</Label><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader><CardTitle>Alterar e-mail de acesso</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          <div>
+            <Label>E-mail atual</Label>
+            <Input value={authEmail} disabled readOnly />
+          </div>
+          <div>
+            <Label>Novo e-mail</Label>
+            <Input type="email" placeholder="novo@email.com" value={newAuthEmail} onChange={(e) => setNewAuthEmail(e.target.value)} />
+          </div>
+          <p className="text-xs text-muted-foreground">Enviaremos um link de confirmação para o novo endereço. A alteração só é efetivada após você clicar no link.</p>
+          <Button onClick={changeAuthEmail} disabled={changingEmail} variant="outline">
+            {changingEmail ? "Enviando..." : "Alterar e-mail"}
+          </Button>
+        </CardContent>
+      </Card>
+
 
       <Card>
         <CardHeader><CardTitle>Avisos padrão</CardTitle></CardHeader>
