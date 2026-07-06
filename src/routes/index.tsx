@@ -17,20 +17,15 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card/50 backdrop-blur sticky top-0 z-40">
+      <header className="bg-accent text-accent-foreground sticky top-0 z-40 shadow-sm">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img src={logo} alt="VenceHoje" width={36} height={36} loading="eager" decoding="async" fetchPriority="high" className="h-9 w-9 object-contain" />
             <span className="font-bold text-lg">VenceHoje</span>
           </div>
-          <nav className="flex items-center gap-2">
-            <Link to="/auth"><Button variant="ghost">Entrar</Button></Link>
-            <Link to="/auth" search={{ mode: "signup" } as never}>
-              <Button className="bg-accent text-accent-foreground hover:bg-accent/90">Criar conta grátis</Button>
-            </Link>
-          </nav>
         </div>
       </header>
+
 
       <section className="relative overflow-hidden">
         {/* Decorative teal circles on the right */}
