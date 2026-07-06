@@ -141,39 +141,41 @@ function Lembretes() {
                   : "border-l-4 border-l-primary/60";
           return (
             <Card key={r.id} className={`${borderClass} shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}>
-              <CardContent className="p-4 flex items-center gap-4">
-                <div className="h-11 w-11 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
+              <CardContent className="p-3 sm:p-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
+                <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
                   <span className="text-sm font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-medium truncate">{r.titulo}</span>
-                    {r.recorrencia !== "none" && <Badge variant="outline" className="text-xs"><Repeat className="h-3 w-3 mr-1" />{recurrenceLabels[r.recorrencia]}</Badge>}
+                    <span className="font-medium truncate text-sm sm:text-base">{r.titulo}</span>
+                    {r.recorrencia !== "none" && <Badge variant="outline" className="text-[10px] sm:text-xs hidden sm:inline-flex"><Repeat className="h-3 w-3 mr-1" />{recurrenceLabels[r.recorrencia]}</Badge>}
                     {r.anexo_url && <a href={r.anexo_url} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground"><Paperclip className="h-3.5 w-3.5" /></a>}
                   </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{r.categories?.nome ?? "Sem categoria"} • {formatDate(r.data_vencimento)}</div>
+                  <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 truncate">{r.categories?.nome ?? "Sem categoria"} • {formatDate(r.data_vencimento)}</div>
                 </div>
-                <div className="text-right shrink-0">
-                  <div className="font-semibold">{formatCurrency(r.valor)}</div>
-                  {isPending && (
-                    <Badge variant={d < 0 ? "destructive" : d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"} className="mt-1">
-                      {d < 0 ? `${Math.abs(d)}d atraso` : d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
-                    </Badge>
-                  )}
-                  {r.status === "paid" && <Badge className="mt-1 bg-accent text-accent-foreground">Pago</Badge>}
-                  {r.status === "archived" && <Badge variant="outline" className="mt-1">Arquivado</Badge>}
-                </div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild><Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => setViewing(r)}><Eye className="h-4 w-4 mr-2" />Visualizar</DropdownMenuItem>
-                    {isPending && <DropdownMenuItem onClick={() => { setPaying(r); setPayOpen(true); }}><CheckCircle2 className="h-4 w-4 mr-2" />Marcar como pago</DropdownMenuItem>}
-                    <DropdownMenuItem onClick={() => { setEditing(r); setFormOpen(true); }}><Pencil className="h-4 w-4 mr-2" />Editar</DropdownMenuItem>
-                    {r.status !== "archived" && <DropdownMenuItem onClick={() => arch.mutate(r.id)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
-                    <DropdownMenuItem onClick={() => { if (confirm("Excluir este lembrete?")) del.mutate(r.id); }} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
-                  </DropdownMenuContent>
+                <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+                  <div className="text-right">
+                    <div className="font-semibold text-sm sm:text-base">{formatCurrency(r.valor)}</div>
+                    {isPending && (
+                      <Badge variant={d < 0 ? "destructive" : d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"} className="mt-1 text-[10px] sm:text-xs px-1.5">
+                        {d < 0 ? `${Math.abs(d)}d atraso` : d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
+                      </Badge>
+                    )}
+                    {r.status === "paid" && <Badge className="mt-1 bg-accent text-accent-foreground text-[10px] sm:text-xs">Pago</Badge>}
+                    {r.status === "archived" && <Badge variant="outline" className="mt-1 text-[10px] sm:text-xs">Arquivado</Badge>}
+                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className="h-8 w-8"><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => setViewing(r)}><Eye className="h-4 w-4 mr-2" />Visualizar</DropdownMenuItem>
+                      {isPending && <DropdownMenuItem onClick={() => { setPaying(r); setPayOpen(true); }}><CheckCircle2 className="h-4 w-4 mr-2" />Marcar como pago</DropdownMenuItem>}
+                      <DropdownMenuItem onClick={() => { setEditing(r); setFormOpen(true); }}><Pencil className="h-4 w-4 mr-2" />Editar</DropdownMenuItem>
+                      {r.status !== "archived" && <DropdownMenuItem onClick={() => arch.mutate(r.id)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
+                      <DropdownMenuItem onClick={() => { if (confirm("Excluir este lembrete?")) del.mutate(r.id); }} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
+                    </DropdownMenuContent>
 
-                </DropdownMenu>
+                  </DropdownMenu>
+                </div>
               </CardContent>
             </Card>
           );
