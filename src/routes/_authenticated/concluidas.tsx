@@ -170,6 +170,18 @@ function Concluidas() {
                 <div className="font-semibold">{formatCurrency(i.valor)}</div>
                 <Badge className="mt-1 bg-accent text-accent-foreground">Pago</Badge>
               </div>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={revert.isPending}
+                onClick={() => {
+                  if (confirm("Reverter para Não Pago e voltar ao Dashboard para validação?")) {
+                    revert.mutate(i);
+                  }
+                }}
+              >
+                <Undo2 className="h-4 w-4 mr-1" /> Reverter
+              </Button>
             </CardContent>
           </Card>
         ))}
