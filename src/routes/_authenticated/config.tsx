@@ -25,11 +25,22 @@ function Config() {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) return;
+      setAuthEmail(u.user.email ?? "");
       const { data } = await supabase.from("profiles").select("*").eq("id", u.user.id).maybeSingle();
       if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos(data.avisos_padrao ?? [1, 0]); }
       else { setEmail(u.user.email ?? ""); }
     })();
   }, []);
+
+  async function changeAuthEmail() {
+    if (!newAuthEmail) return toast.error("Digite o novo e-mail.");
+    setChangingEmail(true);
+    const { error } = await supabase.auth.updateUser({ email: newAuthEmail });
+    setChangingEmail(false);
+    if (error) return toast.error(error.message);
+    toast.success(`Enviamos um link de confirmação para ${newAuthEmail}. Clique no link para concluir a alteração.`, { duration: 8000 });
+    setNewAuthEmail("");
+  }
 
   async function save() {
     setLoading(true);
