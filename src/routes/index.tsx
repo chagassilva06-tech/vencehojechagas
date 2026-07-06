@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-40 bg-gradient-to-b from-[oklch(0.85_0.13_160)] via-[oklch(0.80_0.15_160)] to-[oklch(0.72_0.16_160)] text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-2px_4px_rgba(0,0,0,0.15),0_4px_10px_rgba(0,0,0,0.15)] border-b border-white/30">
+      <header className="sticky top-0 z-40 bg-gradient-to-b from-[oklch(0.94_0.08_160)] via-[oklch(0.90_0.10_160)] to-[oklch(0.84_0.13_160)] text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.12)] border-b border-white/40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img src={logo} alt="VenceHoje" width={36} height={36} loading="eager" decoding="async" fetchPriority="high" className="h-9 w-9 object-contain" />
