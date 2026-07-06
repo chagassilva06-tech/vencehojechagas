@@ -69,6 +69,23 @@ function Config() {
       </Card>
 
       <Card>
+        <CardHeader><CardTitle>Alterar e-mail de acesso</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          <div>
+            <Label>E-mail atual</Label>
+            <Input value={authEmail} disabled readOnly />
+          </div>
+          <div>
+            <Label>Novo e-mail</Label>
+            <Input type="email" placeholder="novo@email.com" value={newAuthEmail} onChange={(e) => setNewAuthEmail(e.target.value)} />
+          </div>
+          <p className="text-xs text-muted-foreground">Enviaremos um link de confirmação para o novo endereço. A alteração só é efetivada após você clicar no link.</p>
+          <Button onClick={changeAuthEmail} disabled={changingEmail} variant="outline">
+            {changingEmail ? "Enviando..." : "Alterar e-mail"}
+          </Button>
+        </CardContent>
+
+      <Card>
         <CardHeader><CardTitle>Avisos padrão</CardTitle></CardHeader>
         <CardContent className="space-y-2">
           <p className="text-sm text-muted-foreground mb-2">Usado como sugestão ao criar novos lembretes.</p>
