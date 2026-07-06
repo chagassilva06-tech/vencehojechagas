@@ -76,8 +76,8 @@ function Categorias() {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Nova categoria</DialogTitle></DialogHeader>
-          <form onSubmit={(e) => { e.preventDefault(); create.mutate(); }} className="space-y-3">
+          <DialogHeader><DialogTitle>{editingId ? "Editar categoria" : "Nova categoria"}</DialogTitle></DialogHeader>
+          <form onSubmit={(e) => { e.preventDefault(); save.mutate(); }} className="space-y-3">
             <div><Label>Nome</Label><Input required value={nome} onChange={(e) => setNome(e.target.value)} /></div>
             <div>
               <Label>Cor</Label>
@@ -91,7 +91,7 @@ function Categorias() {
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancelar</Button>
-              <Button type="submit" disabled={create.isPending}>Criar</Button>
+              <Button type="submit" disabled={save.isPending}>{editingId ? "Salvar" : "Criar"}</Button>
             </DialogFooter>
           </form>
         </DialogContent>
