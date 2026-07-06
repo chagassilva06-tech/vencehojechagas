@@ -155,7 +155,7 @@ function Dashboard() {
                     variant="outline"
                     className="h-8 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
                     disabled={markPaid.isPending}
-                    onClick={() => markPaid.mutate(r.id)}
+                    onClick={() => markPaid.mutate(r)}
                     title="Marcar como pago"
                   >
                     <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Pago
