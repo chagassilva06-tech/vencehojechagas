@@ -132,33 +132,36 @@ function Dashboard() {
             const d = daysUntil(r.data_vencimento);
             const bc = d === 0 ? "border-l-4 border-l-destructive" : d === 1 ? "border-l-4 border-l-orange-500" : d <= 3 ? "border-l-4 border-l-yellow-500" : "border-l-4 border-l-primary/60";
             return (
-              <div key={r.id} className={`${bc} flex items-center justify-between p-3 rounded-lg border shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-muted/50 transition-all duration-200`}>
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="h-10 w-10 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
+              <div key={r.id} className={`${bc} grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg border shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-muted/50 transition-all duration-200`}>
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                  <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
                     <span className="text-xs font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
                   </div>
                   <div className="min-w-0">
-                    <div className="font-medium truncate">{r.titulo}</div>
-                    <div className="text-xs text-muted-foreground">{r.categories?.nome} • {formatDate(r.data_vencimento)}</div>
+                    <div className="font-medium truncate text-sm sm:text-base">{r.titulo}</div>
+                    <div className="text-[11px] sm:text-xs text-muted-foreground truncate">
+                      <span className="sm:hidden font-semibold text-foreground">{formatCurrency(r.valor)} • </span>
+                      {r.categories?.nome} • {formatDate(r.data_vencimento)}
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                   <span className="font-semibold hidden sm:inline">{formatCurrency(r.valor)}</span>
-                  <Badge variant={d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"}>
+                  <Badge variant={d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"} className="text-[10px] sm:text-xs px-1.5 sm:px-2.5">
                     {d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
                   </Badge>
-                  <Button variant="ghost" size="icon" onClick={() => setViewing(r)} title="Ver detalhes">
+                  <Button variant="ghost" size="icon" className="h-8 w-8 hidden sm:inline-flex" onClick={() => setViewing(r)} title="Ver detalhes">
                     <Eye className="h-4 w-4" />
                   </Button>
                   <Button
                     size="sm"
                     variant="outline"
-                    className="h-8 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                    className="h-8 px-2 sm:px-3 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
                     disabled={markPaid.isPending}
                     onClick={() => markPaid.mutate(r)}
                     title="Marcar como pago"
                   >
-                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Pago
+                    <CheckCircle2 className="h-3.5 w-3.5 sm:mr-1" /> <span className="hidden sm:inline">Pago</span>
                   </Button>
                 </div>
               </div>
