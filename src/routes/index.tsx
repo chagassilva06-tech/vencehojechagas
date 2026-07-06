@@ -19,7 +19,7 @@ function Landing() {
       <header className="border-b bg-card/50 backdrop-blur sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="VenceHoje" className="h-9 w-9 object-contain" />
+            <img src={logo} alt="VenceHoje" width={36} height={36} loading="eager" decoding="async" fetchPriority="high" className="h-9 w-9 object-contain" />
             <span className="font-bold text-lg">VenceHoje</span>
           </div>
           <nav className="flex items-center gap-2">

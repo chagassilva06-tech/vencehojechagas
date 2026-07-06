@@ -87,8 +87,17 @@ function AuthPage() {
           className="pointer-events-none absolute -bottom-40 -left-20 h-96 w-96 rounded-full opacity-20 blur-3xl"
           style={{ background: "oklch(0.50 0.15 165)" }}
         />
+        <img
+          src={logo}
+          alt=""
+          aria-hidden="true"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 object-contain opacity-90 drop-shadow-2xl"
+        />
         <div className="relative flex items-center gap-2">
-          <img src={logo} alt="VenceHoje" className="h-10 w-10 object-contain" />
+          <img src={logo} alt="VenceHoje" width={40} height={40} loading="eager" decoding="async" className="h-10 w-10 object-contain" />
           <span className="font-bold text-lg">VenceHoje</span>
         </div>
         <div className="relative">
@@ -121,7 +130,7 @@ function AuthPage() {
         </div>
         <Card className="w-full p-6 bg-[oklch(0.18_0.035_260)] border-[oklch(0.28_0.04_260)] text-white">
           <div className="lg:hidden flex items-center gap-2 mb-4">
-            <img src={logo} alt="VenceHoje" className="h-8 w-8 object-contain" />
+            <img src={logo} alt="VenceHoje" width={32} height={32} loading="eager" decoding="async" className="h-8 w-8 object-contain" />
             <span className="font-bold">VenceHoje</span>
           </div>
           <Tabs defaultValue="signin">
