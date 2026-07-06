@@ -73,14 +73,6 @@ function Landing() {
               </Button>
               <Button
                 size="lg"
-                variant="outline"
-                onClick={() => { setTab("signin"); setOpen(true); }}
-                className="shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_4px_10px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all"
-              >
-                <GoogleIcon /> Entrar com Google
-              </Button>
-              <Button
-                size="lg"
                 variant="secondary"
                 onClick={() => { setTab("signup"); setOpen(true); }}
                 className="shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_4px_10px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all"
