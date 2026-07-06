@@ -92,7 +92,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     <span
                       aria-hidden
                       className="pointer-events-none absolute right-0 -bottom-6 h-6 w-6 rounded-tr-[24px]"
-                      style={{ boxShadow: "0 -24px 0 0 var(--background)" }}
+                      style={{ boxShadow: `0 -24px 0 0 ${mainBg}` }}
                     />
                   </>
                 )}
