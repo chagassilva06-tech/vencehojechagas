@@ -121,11 +121,13 @@ function Lembretes() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild><Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setViewing(r)}><Eye className="h-4 w-4 mr-2" />Visualizar</DropdownMenuItem>
                     {isPending && <DropdownMenuItem onClick={() => { setPaying(r); setPayOpen(true); }}><CheckCircle2 className="h-4 w-4 mr-2" />Marcar como pago</DropdownMenuItem>}
                     <DropdownMenuItem onClick={() => { setEditing(r); setFormOpen(true); }}><Pencil className="h-4 w-4 mr-2" />Editar</DropdownMenuItem>
                     {r.status !== "archived" && <DropdownMenuItem onClick={() => arch.mutate(r.id)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
                     <DropdownMenuItem onClick={() => { if (confirm("Excluir este lembrete?")) del.mutate(r.id); }} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
                   </DropdownMenuContent>
+
                 </DropdownMenu>
               </CardContent>
             </Card>
