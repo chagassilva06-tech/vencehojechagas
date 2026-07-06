@@ -61,7 +61,7 @@ function Categorias() {
         {categories.map((c) => (
           <Card
             key={c.id}
-            className="group relative rounded-2xl border-none shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-200 bg-card"
+            className="group relative rounded-2xl border-none shadow-[0_10px_25px_-5px_rgba(0,0,0,0.15),0_6px_10px_-6px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.25),0_10px_20px_-8px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-300 bg-card"
           >
             <CardContent className="p-4 flex flex-col items-center text-center gap-3">
               <div
