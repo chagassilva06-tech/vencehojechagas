@@ -87,26 +87,17 @@ function AuthPage() {
           className="pointer-events-none absolute -bottom-40 -left-20 h-96 w-96 rounded-full opacity-20 blur-3xl"
           style={{ background: "oklch(0.50 0.15 165)" }}
         />
-        <img
-          src={logo}
-          alt=""
-          aria-hidden="true"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 object-contain opacity-90 drop-shadow-2xl"
-        />
-        <div className="relative flex items-center gap-2">
-          <img src={logo} alt="VenceHoje" width={40} height={40} loading="eager" decoding="async" className="h-10 w-10 object-contain" />
-          <span className="font-bold text-lg">VenceHoje</span>
-        </div>
-        <div className="relative">
+        <div className="relative flex-1 flex flex-col items-center justify-center text-center">
+          <div className="flex items-center gap-3 mb-6">
+            <img src={logo} alt="VenceHoje" width={56} height={56} loading="eager" decoding="async" fetchPriority="high" className="h-14 w-14 object-contain" />
+            <span className="font-bold text-2xl">VenceHoje</span>
+          </div>
           <h2 className="text-3xl font-bold">Sua vida financeira, organizada.</h2>
           <p className="mt-3 text-white/70 max-w-md">
             Cadastre suas contas uma vez e receba lembretes automáticos por e-mail antes de cada vencimento.
           </p>
 
-          <div className="mt-8 rounded-2xl border border-white/15 bg-white/5 backdrop-blur p-5 max-w-md">
+          <div className="mt-8 rounded-2xl border border-white/15 bg-white/5 backdrop-blur p-5 max-w-md text-left">
             <div className="flex items-center gap-2 text-sm font-semibold text-white">
               <Bell className="h-4 w-4 text-accent" /> Por que o VenceHoje?
             </div>
@@ -118,6 +109,7 @@ function AuthPage() {
           </div>
         </div>
         <p className="relative text-xs text-white/50">© {new Date().getFullYear()} By Francisco Chagas</p>
+
       </div>
 
       <div className="flex items-center justify-center p-6 bg-[oklch(0.13_0.03_260)]">
