@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchPayments, formatCurrency, formatDate } from "@/lib/reminders";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, FileText } from "lucide-react";
+import { Search, FileText, Activity } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/historico")({
   component: Historico,
@@ -15,6 +15,10 @@ function Historico() {
   const [search, setSearch] = useState("");
   const filtered = payments.filter((p) => !search || p.reminders?.titulo?.toLowerCase().includes(search.toLowerCase()));
   const total = filtered.reduce((s, p) => s + (p.valor_pago ?? 0), 0);
+  const recent = [...payments]
+    .sort((a, b) => (b.created_at ?? "").localeCompare(a.created_at ?? ""))
+    .slice(0, 5);
+  const titleOptions = Array.from(new Set(payments.map((p) => p.reminders?.titulo).filter(Boolean) as string[]));
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -22,9 +26,41 @@ function Historico() {
         <h1 className="text-2xl font-bold">Histórico</h1>
         <p className="text-sm text-muted-foreground">Total pago: <span className="text-accent font-semibold">{formatCurrency(total)}</span></p>
       </div>
+
+      {recent.length > 0 && (
+        <Card className="shadow-md">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Activity className="h-4 w-4 text-accent" /> Últimas ações do Dashboard
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {recent.map((p) => (
+              <div key={p.id} className="flex items-center justify-between text-sm p-2 rounded-md border-l-4 border-l-accent bg-muted/30">
+                <div className="min-w-0">
+                  <span className="font-medium truncate">{p.reminders?.titulo ?? "Lembrete removido"}</span>
+                  <span className="text-muted-foreground"> — marcado como pago em {formatDate(p.data_pagamento)}</span>
+                </div>
+                <span className="font-semibold text-accent shrink-0 ml-2">{formatCurrency(p.valor_pago)}</span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input placeholder="Buscar por título..." className="pl-9" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <Input
+          placeholder="Buscar por título..."
+          className="pl-9"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          list="historico-titles"
+          autoComplete="on"
+        />
+        <datalist id="historico-titles">
+          {titleOptions.map((t) => <option key={t} value={t} />)}
+        </datalist>
       </div>
       <div className="space-y-2">
         {filtered.length === 0 && <Card><CardContent className="py-16 text-center text-muted-foreground">Nenhum pagamento registrado ainda</CardContent></Card>}
