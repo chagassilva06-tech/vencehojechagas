@@ -100,12 +100,22 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
           <div>
             <Label>Quando avisar</Label>
             <div className="flex gap-4 mt-2">
-              {[{ v: 3, l: "3 dias antes" }, { v: 1, l: "1 dia antes" }, { v: 0, l: "No dia" }].map((a) => (
-                <label key={a.v} className="flex items-center gap-2 text-sm cursor-pointer">
-                  <Checkbox checked={avisos.includes(a.v)} onCheckedChange={() => toggleAviso(a.v)} />
-                  {a.l}
-                </label>
-              ))}
+              {[{ v: 3, l: "3 dias antes" }, { v: 1, l: "1 dia antes" }, { v: 0, l: "No dia" }].map((a) => {
+                const base = dataVenc ? new Date(dataVenc + "T00:00:00") : null;
+                let dynLabel = a.l;
+                if (base) {
+                  base.setDate(base.getDate() - a.v);
+                  const formatted = base.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", weekday: "short" });
+                  dynLabel = `Avisar em ${formatted}`;
+                }
+                return (
+                  <label key={a.v} className="flex items-center gap-2 text-sm cursor-pointer group relative" title={dynLabel}>
+                    <Checkbox checked={avisos.includes(a.v)} onCheckedChange={() => toggleAviso(a.v)} />
+                    <span className="group-hover:hidden">{a.l}</span>
+                    <span className="hidden group-hover:inline text-accent">{dynLabel}</span>
+                  </label>
+                );
+              })}
             </div>
           </div>
           <div><Label>Observações</Label><Textarea value={observacoes} onChange={(e) => setObservacoes(e.target.value)} rows={2} /></div>
