@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     nav.find((n) => location.pathname === n.to) ||
     nav.find((n) => n.to !== "/dashboard" && location.pathname.startsWith(n.to)) ||
     nav[0];
-  const themeColor = activeItem.color;
+  const themeColor = "#3B82F6";
 
   async function signOut() {
     await qc.cancelQueries();
