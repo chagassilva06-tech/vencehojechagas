@@ -189,6 +189,7 @@ function AuthPage() {
             </TabsContent>
           </Tabs>
         </Card>
+        </div>
       </div>
     </div>
   );
