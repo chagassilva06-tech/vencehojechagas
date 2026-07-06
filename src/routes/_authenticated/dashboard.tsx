@@ -17,6 +17,7 @@ function Dashboard() {
     queryKey: ["reminders"],
     queryFn: () => fetchReminders(),
   });
+  const [viewing, setViewing] = useState<Reminder | null>(null);
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
