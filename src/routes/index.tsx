@@ -2,6 +2,7 @@ import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
 import logo from "@/assets/vencehoje-logo.png";
+import heroIllustration from "@/assets/hero-illustration.png";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
