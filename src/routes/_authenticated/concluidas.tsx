@@ -152,14 +152,14 @@ function Concluidas() {
         )}
         {filtered.map((i) => (
           <Card key={i.id} className="border-l-4 border-l-accent shadow-md hover:shadow-lg transition-all">
-            <CardContent className="p-4 flex items-center gap-4">
-              <div className="h-11 w-11 rounded-lg grid place-items-center shrink-0"
+            <CardContent className="p-3 sm:p-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
+              <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-lg grid place-items-center shrink-0"
                 style={{ backgroundColor: i.cor + "22", color: i.cor }}>
                 <CheckCircle2 className="h-5 w-5" />
               </div>
-              <div className="flex-1 min-w-0">
+              <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-medium truncate">{i.titulo}</span>
+                  <span className="font-medium truncate text-sm sm:text-base">{i.titulo}</span>
                   {i.anexo_url && (
                     <a href={i.anexo_url} target="_blank" rel="noreferrer"
                       className="text-muted-foreground hover:text-foreground">
@@ -167,22 +167,25 @@ function Concluidas() {
                     </a>
                   )}
                 </div>
-                <div className="text-xs text-muted-foreground mt-0.5">
+                <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 truncate">
                   {i.categoria ?? "Sem categoria"} • {formatDate(i.data)}
                 </div>
               </div>
-              <div className="text-right shrink-0">
-                <div className="font-semibold">{formatCurrency(i.valor)}</div>
-                <Badge className="mt-1 bg-accent text-accent-foreground">Pago</Badge>
+              <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+                <div className="text-right">
+                  <div className="font-semibold text-sm sm:text-base">{formatCurrency(i.valor)}</div>
+                  <Badge className="mt-1 bg-accent text-accent-foreground text-[10px] sm:text-xs">Pago</Badge>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 px-2 sm:px-3"
+                  disabled={revert.isPending}
+                  onClick={() => setPending(i)}
+                >
+                  <Undo2 className="h-4 w-4 sm:mr-1" /> <span className="hidden sm:inline">Reverter</span>
+                </Button>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={revert.isPending}
-                onClick={() => setPending(i)}
-              >
-                <Undo2 className="h-4 w-4 mr-1" /> Reverter
-              </Button>
             </CardContent>
           </Card>
         ))}
