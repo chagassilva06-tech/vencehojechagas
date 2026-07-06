@@ -79,11 +79,14 @@ function Dashboard() {
                     <div className="text-xs text-muted-foreground">{r.categories?.nome} • {formatDate(r.data_vencimento)}</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                   <span className="font-semibold hidden sm:inline">{formatCurrency(r.valor)}</span>
                   <Badge variant={d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"}>
                     {d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
                   </Badge>
+                  <Button variant="ghost" size="icon" onClick={() => setViewing(r)} title="Ver detalhes">
+                    <Eye className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             );
