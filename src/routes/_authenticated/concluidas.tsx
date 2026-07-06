@@ -1,12 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchReminders, fetchPayments, formatCurrency, formatDate } from "@/lib/reminders";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Search, CheckCircle2, Paperclip } from "lucide-react";
+import { ArrowLeft, Search, CheckCircle2, Paperclip, Undo2 } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/concluidas")({
   component: Concluidas,
@@ -14,6 +16,8 @@ export const Route = createFileRoute("/_authenticated/concluidas")({
 
 type Item = {
   id: string;
+  reminderId: string | null;
+  paymentId: string | null;
   titulo: string;
   categoria: string | null;
   cor: string;
@@ -24,6 +28,8 @@ type Item = {
 };
 
 function Concluidas() {
+  const qc = useQueryClient();
+  const navigate = useNavigate();
   const { data: payments } = useSuspenseQuery({ queryKey: ["payments"], queryFn: fetchPayments });
   const { data: paidReminders } = useSuspenseQuery({
     queryKey: ["reminders", "paid"],
@@ -31,10 +37,32 @@ function Concluidas() {
   });
   const [search, setSearch] = useState("");
 
+  const revert = useMutation({
+    mutationFn: async (item: Item) => {
+      if (item.paymentId) {
+        const { error: e1 } = await supabase.from("payments").delete().eq("id", item.paymentId);
+        if (e1) throw e1;
+      }
+      if (item.reminderId) {
+        const { error: e2 } = await supabase.from("reminders").update({ status: "pending" }).eq("id", item.reminderId);
+        if (e2) throw e2;
+      }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      qc.invalidateQueries({ queryKey: ["payments"] });
+      toast.success("Revertido para Não Pago");
+      navigate({ to: "/dashboard" });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   const paidWithPayment = new Set(payments.map((p) => p.reminder_id));
   const items: Item[] = [
     ...payments.map<Item>((p) => ({
       id: `p-${p.id}`,
+      reminderId: p.reminder_id,
+      paymentId: p.id,
       titulo: p.reminders?.titulo ?? "—",
       categoria: p.reminders?.categories?.nome ?? null,
       cor: p.reminders?.categories?.cor ?? "#10B981",
@@ -47,6 +75,8 @@ function Concluidas() {
       .filter((r) => !paidWithPayment.has(r.id))
       .map<Item>((r) => ({
         id: `r-${r.id}`,
+        reminderId: r.id,
+        paymentId: null,
         titulo: r.titulo,
         categoria: r.categories?.nome ?? null,
         cor: r.categories?.cor ?? "#10B981",
@@ -56,6 +86,7 @@ function Concluidas() {
         source: "reminder",
       })),
   ].sort((a, b) => b.data.localeCompare(a.data));
+
 
   const filtered = items.filter((i) =>
     !search || i.titulo.toLowerCase().includes(search.toLowerCase())
