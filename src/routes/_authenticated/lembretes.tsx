@@ -61,7 +61,7 @@ function Lembretes() {
           <p className="text-sm text-muted-foreground">{filtered.length} de {reminders.length}</p>
         </div>
         <Button onClick={() => { setEditing(null); setFormOpen(true); }} className="bg-accent text-accent-foreground hover:bg-accent/90">
-          <Plus className="h-4 w-4 mr-2" /> Novo
+          <Plus className="h-4 w-4 mr-2" /> Adicionar
         </Button>
       </div>
 
