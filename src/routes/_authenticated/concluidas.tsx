@@ -175,7 +175,7 @@ function Concluidas() {
                 size="sm"
                 disabled={revert.isPending}
                 onClick={() => {
-                  if (confirm("Reverter para Não Pago e voltar ao Dashboard para validação?")) {
+                  if (confirm("Voltar como pendente?")) {
                     revert.mutate(i);
                   }
                 }}
