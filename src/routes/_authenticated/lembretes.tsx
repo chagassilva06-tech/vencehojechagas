@@ -61,7 +61,7 @@ function Lembretes() {
           <p className="text-sm text-muted-foreground">{filtered.length} de {reminders.length}</p>
         </div>
         <Button onClick={() => { setEditing(null); setFormOpen(true); }} className="bg-accent text-accent-foreground hover:bg-accent/90">
-          <Plus className="h-4 w-4 mr-2" /> Novo
+          <Plus className="h-4 w-4 mr-2" /> Adicionar
         </Button>
       </div>
 
@@ -69,7 +69,19 @@ function Lembretes() {
         <CardContent className="p-4 flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Buscar..." className="pl-9" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Input
+              placeholder="Buscar..."
+              className="pl-9"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              list="reminder-titles"
+              autoComplete="on"
+            />
+            <datalist id="reminder-titles">
+              {Array.from(new Set(reminders.map((r) => r.titulo))).map((t) => (
+                <option key={t} value={t} />
+              ))}
+            </datalist>
           </div>
           <Select value={status} onValueChange={(v) => setStatus(v as ReminderStatus | "all")}>
             <SelectTrigger className="w-[160px]"><SelectValue /></SelectTrigger>
@@ -97,8 +109,19 @@ function Lembretes() {
         {filtered.map((r) => {
           const d = daysUntil(r.data_vencimento);
           const isPending = r.status === "pending";
+          const borderClass = !isPending
+            ? r.status === "paid"
+              ? "border-l-4 border-l-accent"
+              : "border-l-4 border-l-muted-foreground/40"
+            : d < 0
+              ? "border-l-4 border-l-destructive"
+              : d <= 1
+                ? "border-l-4 border-l-orange-500"
+                : d <= 3
+                  ? "border-l-4 border-l-yellow-500"
+                  : "border-l-4 border-l-primary/60";
           return (
-            <Card key={r.id}>
+            <Card key={r.id} className={borderClass}>
               <CardContent className="p-4 flex items-center gap-4">
                 <div className="h-11 w-11 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
                   <span className="text-sm font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
