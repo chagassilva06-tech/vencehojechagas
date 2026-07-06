@@ -36,10 +36,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     navigate({ to: "/auth", replace: true });
   }
 
-  const mainBg = "#0B1E45";
-
   return (
-    <div className="min-h-screen flex" style={{ background: mainBg }}>
+    <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
       <aside
         className={cn(
@@ -69,10 +67,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 className={cn(
                   "relative flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-300 ease-out",
                   active
-                    ? "font-semibold rounded-l-2xl rounded-r-none -mr-3 pl-5"
+                    ? "bg-background font-semibold rounded-l-2xl rounded-r-none -mr-3 pl-5"
                     : "rounded-lg text-white/90 hover:bg-white/10 hover:translate-x-0.5"
                 )}
-                style={active ? { color: item.color, background: mainBg } : undefined}
+                style={active ? { color: item.color } : undefined}
               >
                 {active && (
                   <>
@@ -86,13 +84,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     <span
                       aria-hidden
                       className="pointer-events-none absolute right-0 -top-6 h-6 w-6 rounded-br-[24px]"
-                      style={{ boxShadow: `0 24px 0 0 ${mainBg}` }}
+                      style={{ boxShadow: "0 24px 0 0 var(--background)" }}
                     />
                     {/* bottom concave scoop */}
                     <span
                       aria-hidden
                       className="pointer-events-none absolute right-0 -bottom-6 h-6 w-6 rounded-tr-[24px]"
-                      style={{ boxShadow: `0 -24px 0 0 ${mainBg}` }}
+                      style={{ boxShadow: "0 -24px 0 0 var(--background)" }}
                     />
                   </>
                 )}
