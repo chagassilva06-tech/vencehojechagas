@@ -114,13 +114,13 @@ function Concluidas() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <Card><CardContent className="p-4">
-          <div className="text-xs text-muted-foreground">Total pago</div>
-          <div className="text-2xl font-bold text-accent">{formatCurrency(total)}</div>
+        <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
+          <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Total pago</div>
+          <div className="text-2xl font-bold drop-shadow">{formatCurrency(total)}</div>
         </CardContent></Card>
-        <Card><CardContent className="p-4">
-          <div className="text-xs text-muted-foreground">Registros</div>
-          <div className="text-2xl font-bold">{filtered.length}</div>
+        <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-sky-400 to-blue-600 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
+          <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Registros</div>
+          <div className="text-2xl font-bold drop-shadow">{filtered.length}</div>
         </CardContent></Card>
       </div>
 
