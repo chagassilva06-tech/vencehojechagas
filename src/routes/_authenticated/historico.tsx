@@ -1,30 +1,72 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { fetchPayments, formatCurrency, formatDate } from "@/lib/reminders";
+import { fetchPayments, fetchReminders, formatCurrency, formatDate } from "@/lib/reminders";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, FileText, Activity } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Search, FileText, Activity, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/historico")({
   component: Historico,
 });
 
+type Item = {
+  id: string;
+  titulo: string;
+  categoria?: string | null;
+  valor: number | null;
+  data: string;
+  comprovante_url?: string | null;
+  source: "payment" | "reminder";
+};
+
 function Historico() {
   const { data: payments } = useSuspenseQuery({ queryKey: ["payments"], queryFn: fetchPayments });
+  const { data: reminders } = useSuspenseQuery({ queryKey: ["reminders"], queryFn: () => fetchReminders() });
   const [search, setSearch] = useState("");
-  const filtered = payments.filter((p) => !search || p.reminders?.titulo?.toLowerCase().includes(search.toLowerCase()));
-  const total = filtered.reduce((s, p) => s + (p.valor_pago ?? 0), 0);
+
+  const paidReminders = reminders.filter((r) => r.status === "paid");
+  const paidWithPayment = new Set(payments.map((p) => p.reminder_id));
+
+  const items: Item[] = [
+    ...payments.map((p) => ({
+      id: `p-${p.id}`,
+      titulo: p.reminders?.titulo ?? "Lembrete removido",
+      categoria: p.reminders?.categories?.nome ?? null,
+      valor: p.valor_pago,
+      data: p.data_pagamento,
+      comprovante_url: p.comprovante_url,
+      source: "payment" as const,
+    })),
+    ...paidReminders
+      .filter((r) => !paidWithPayment.has(r.id))
+      .map((r) => ({
+        id: `r-${r.id}`,
+        titulo: r.titulo,
+        categoria: r.categories?.nome ?? null,
+        valor: r.valor,
+        data: r.data_vencimento,
+        source: "reminder" as const,
+      })),
+  ].sort((a, b) => b.data.localeCompare(a.data));
+
+  const filtered = items.filter((it) => !search || it.titulo.toLowerCase().includes(search.toLowerCase()));
+  const total = filtered.reduce((s, it) => s + (it.valor ?? 0), 0);
+
   const recent = [...payments]
     .sort((a, b) => (b.created_at ?? "").localeCompare(a.created_at ?? ""))
     .slice(0, 5);
-  const titleOptions = Array.from(new Set(payments.map((p) => p.reminders?.titulo).filter(Boolean) as string[]));
+
+  const titleOptions = Array.from(new Set(items.map((it) => it.titulo).filter(Boolean)));
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Histórico</h1>
-        <p className="text-sm text-muted-foreground">Total pago: <span className="text-accent font-semibold">{formatCurrency(total)}</span></p>
+        <p className="text-sm text-muted-foreground">
+          {filtered.length} finalizados • Total: <span className="text-accent font-semibold">{formatCurrency(total)}</span>
+        </p>
       </div>
 
       {recent.length > 0 && (
@@ -62,21 +104,25 @@ function Historico() {
           {titleOptions.map((t) => <option key={t} value={t} />)}
         </datalist>
       </div>
+
       <div className="space-y-2">
-        {filtered.length === 0 && <Card><CardContent className="py-16 text-center text-muted-foreground">Nenhum pagamento registrado ainda</CardContent></Card>}
-        {filtered.map((p) => (
-          <Card key={p.id}>
+        {filtered.length === 0 && <Card><CardContent className="py-16 text-center text-muted-foreground">Nenhum lembrete finalizado ainda</CardContent></Card>}
+        {filtered.map((it) => (
+          <Card key={it.id} className="shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 border-l-4 border-l-accent">
             <CardContent className="p-4 flex items-center gap-4">
               <div className="h-11 w-11 rounded-lg grid place-items-center bg-accent/10 text-accent shrink-0">
-                <FileText className="h-5 w-5" />
+                {it.source === "payment" ? <FileText className="h-5 w-5" /> : <CheckCircle2 className="h-5 w-5" />}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-medium truncate">{p.reminders?.titulo ?? "Lembrete removido"}</div>
-                <div className="text-xs text-muted-foreground">{p.reminders?.categories?.nome} • pago em {formatDate(p.data_pagamento)}</div>
+                <div className="font-medium truncate flex items-center gap-2">
+                  {it.titulo}
+                  {it.source === "reminder" && <Badge variant="secondary" className="text-[10px]">sem pagamento</Badge>}
+                </div>
+                <div className="text-xs text-muted-foreground">{it.categoria} • {it.source === "payment" ? "pago" : "finalizado"} em {formatDate(it.data)}</div>
               </div>
               <div className="text-right">
-                <div className="font-semibold text-accent">{formatCurrency(p.valor_pago)}</div>
-                {p.comprovante_url && <a href={p.comprovante_url} target="_blank" rel="noreferrer" className="text-xs text-muted-foreground hover:underline">comprovante</a>}
+                <div className="font-semibold text-accent">{formatCurrency(it.valor)}</div>
+                {it.comprovante_url && <a href={it.comprovante_url} target="_blank" rel="noreferrer" className="text-xs text-muted-foreground hover:underline">comprovante</a>}
               </div>
             </CardContent>
           </Card>
