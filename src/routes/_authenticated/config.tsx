@@ -84,6 +84,8 @@ function Config() {
             {changingEmail ? "Enviando..." : "Alterar e-mail"}
           </Button>
         </CardContent>
+      </Card>
+
 
       <Card>
         <CardHeader><CardTitle>Avisos padrão</CardTitle></CardHeader>
