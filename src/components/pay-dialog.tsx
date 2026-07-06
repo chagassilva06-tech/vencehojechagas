@@ -38,7 +38,9 @@ export function PayDialog({ open, onOpenChange, reminder }: { open: boolean; onO
       qc.invalidateQueries({ queryKey: ["payments"] });
       toast.success("Pagamento registrado! Se recorrente, o próximo já foi criado.");
       onOpenChange(false);
+      navigate({ to: "/historico" });
     },
+
     onError: (e: Error) => toast.error(e.message),
   });
 
