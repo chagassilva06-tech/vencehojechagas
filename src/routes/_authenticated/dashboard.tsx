@@ -64,8 +64,9 @@ function Dashboard() {
           {upcoming.length === 0 && <p className="text-sm text-muted-foreground py-8 text-center">Nenhum lembrete pendente. 🎉</p>}
           {upcoming.map((r) => {
             const d = daysUntil(r.data_vencimento);
+            const bc = d === 0 ? "border-l-4 border-l-destructive" : d === 1 ? "border-l-4 border-l-orange-500" : d <= 3 ? "border-l-4 border-l-yellow-500" : "border-l-4 border-l-primary/60";
             return (
-              <div key={r.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50 transition">
+              <div key={r.id} className={`${bc} flex items-center justify-between p-3 rounded-lg border shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-muted/50 transition-all duration-200`}>
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="h-10 w-10 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
                     <span className="text-xs font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
