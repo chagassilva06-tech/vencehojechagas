@@ -48,7 +48,7 @@ function AuthPage() {
     });
     setLoading(false);
     if (error) return toast.error(error.message);
-    toast.success("Conta criada! Você já pode entrar.");
+    toast.success(`Conta criada! Enviamos um e-mail para ${email} para confirmar seu acesso.`, { duration: 8000 });
   }
 
   async function forgotPassword() {
