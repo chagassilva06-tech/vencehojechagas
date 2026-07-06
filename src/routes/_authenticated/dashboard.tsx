@@ -78,11 +78,11 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} color="text-destructive" borderClass="border-l-4 border-l-destructive" />
-        <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} color="text-warning" borderClass={`border-l-4 border-l-orange-500 ${tomorrow.length > 0 ? "animate-pulse ring-2 ring-orange-400/50" : ""}`} />
-        <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} color="text-accent" borderClass="border-l-4 border-l-yellow-500" />
-        <StatCard title="Pagos" value={paidCount} icon={CheckCircle2} color="text-accent" borderClass="border-l-4 border-l-accent" />
-        <StatCard title="Finalizados" value={finalizados.length} icon={Trophy} color="text-accent" borderClass="border-l-4 border-l-accent" />
+        <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} gradient="from-red-500 to-red-700" />
+        <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} gradient="from-orange-400 to-orange-600" pulse={tomorrow.length > 0} />
+        <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} gradient="from-yellow-400 to-amber-500" />
+        <StatCard title="Pagos" value={paidCount} icon={CheckCircle2} gradient="from-emerald-400 to-emerald-600" />
+        <StatCard title="Finalizados" value={finalizados.length} icon={Trophy} gradient="from-sky-400 to-blue-600" />
       </div>
 
 
@@ -206,16 +206,16 @@ function Dashboard() {
   );
 }
 
-function StatCard({ title, value, icon: Icon, color, borderClass = "" }: { title: string; value: number; icon: React.ComponentType<{ className?: string }>; color: string; borderClass?: string }) {
+function StatCard({ title, value, icon: Icon, gradient, pulse = false }: { title: string; value: number; icon: React.ComponentType<{ className?: string }>; gradient: string; pulse?: boolean }) {
   return (
-    <Card className={`${borderClass} shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}>
+    <Card className={`relative overflow-hidden border-none text-white bg-gradient-to-br ${gradient} shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300 ${pulse ? "animate-pulse ring-2 ring-white/40" : ""}`}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wide">{title}</div>
-            <div className="text-3xl font-bold mt-1">{value}</div>
+            <div className="text-xs uppercase tracking-wide text-white/80">{title}</div>
+            <div className="text-3xl font-bold mt-1 drop-shadow-sm">{value}</div>
           </div>
-          <Icon className={`h-8 w-8 ${color}`} />
+          <Icon className="h-8 w-8 text-white/90 drop-shadow" />
         </div>
       </CardContent>
     </Card>
