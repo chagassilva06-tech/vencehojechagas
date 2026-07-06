@@ -40,6 +40,7 @@ function Concluidas() {
     queryFn: () => fetchReminders({ status: "paid" }),
   });
   const [search, setSearch] = useState("");
+  const [pending, setPending] = useState<Item | null>(null);
 
   const revert = useMutation({
     mutationFn: async (item: Item) => {
