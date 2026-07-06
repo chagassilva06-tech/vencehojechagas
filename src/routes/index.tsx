@@ -205,10 +205,6 @@ function AuthDialog({
               </div>
               <Button type="submit" className="w-full" disabled={loading}>Entrar</Button>
             </form>
-            <Divider />
-            <Button variant="outline" className="w-full" onClick={googleSignIn} disabled={loading}>
-              <GoogleIcon /> Continuar com Google
-            </Button>
           </TabsContent>
 
           <TabsContent value="signup" className="space-y-4 mt-4">
