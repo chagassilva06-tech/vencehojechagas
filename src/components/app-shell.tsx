@@ -82,14 +82,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     {/* top concave scoop */}
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute right-0 -top-5 h-5 w-5 rounded-br-[20px]"
-                      style={{ boxShadow: "0 20px 0 0 var(--background)" }}
+                      className="pointer-events-none absolute right-0 -top-6 h-6 w-6 rounded-br-[24px]"
+                      style={{ boxShadow: "0 24px 0 0 var(--background)" }}
                     />
                     {/* bottom concave scoop */}
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute right-0 -bottom-5 h-5 w-5 rounded-tr-[20px]"
-                      style={{ boxShadow: "0 -20px 0 0 var(--background)" }}
+                      className="pointer-events-none absolute right-0 -bottom-6 h-6 w-6 rounded-tr-[24px]"
+                      style={{ boxShadow: "0 -24px 0 0 var(--background)" }}
                     />
                   </>
                 )}
