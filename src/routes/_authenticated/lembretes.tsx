@@ -9,10 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat } from "lucide-react";
+import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye } from "lucide-react";
 import { ReminderForm } from "@/components/reminder-form";
 import { PayDialog } from "@/components/pay-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/lembretes")({
   component: Lembretes,
@@ -29,6 +31,8 @@ function Lembretes() {
   const [editing, setEditing] = useState<Reminder | null>(null);
   const [payOpen, setPayOpen] = useState(false);
   const [paying, setPaying] = useState<Reminder | null>(null);
+  const [viewing, setViewing] = useState<Reminder | null>(null);
+
 
   const filtered = reminders.filter((r) => {
     if (status !== "all" && r.status !== status) return false;
@@ -117,11 +121,13 @@ function Lembretes() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild><Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setViewing(r)}><Eye className="h-4 w-4 mr-2" />Visualizar</DropdownMenuItem>
                     {isPending && <DropdownMenuItem onClick={() => { setPaying(r); setPayOpen(true); }}><CheckCircle2 className="h-4 w-4 mr-2" />Marcar como pago</DropdownMenuItem>}
                     <DropdownMenuItem onClick={() => { setEditing(r); setFormOpen(true); }}><Pencil className="h-4 w-4 mr-2" />Editar</DropdownMenuItem>
                     {r.status !== "archived" && <DropdownMenuItem onClick={() => arch.mutate(r.id)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
                     <DropdownMenuItem onClick={() => { if (confirm("Excluir este lembrete?")) del.mutate(r.id); }} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
                   </DropdownMenuContent>
+
                 </DropdownMenu>
               </CardContent>
             </Card>
@@ -131,6 +137,23 @@ function Lembretes() {
 
       {formOpen && <ReminderForm open={formOpen} onOpenChange={setFormOpen} categories={categories} reminder={editing} />}
       <PayDialog open={payOpen} onOpenChange={setPayOpen} reminder={paying} />
+      <Dialog open={!!viewing} onOpenChange={(v) => !v && setViewing(null)}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>{viewing?.titulo}</DialogTitle></DialogHeader>
+          {viewing && (
+            <div className="space-y-2 text-sm">
+              <div><span className="text-muted-foreground">Categoria:</span> {viewing.categories?.nome ?? "—"}</div>
+              <div><span className="text-muted-foreground">Vencimento:</span> {formatDate(viewing.data_vencimento)}</div>
+              <div><span className="text-muted-foreground">Valor:</span> {formatCurrency(viewing.valor)}</div>
+              <div><span className="text-muted-foreground">Recorrência:</span> {recurrenceLabels[viewing.recorrencia]}</div>
+              <div><span className="text-muted-foreground">Status:</span> {viewing.status}</div>
+              {viewing.observacoes && <div><span className="text-muted-foreground">Observações:</span> {viewing.observacoes}</div>}
+              {viewing.anexo_url && <div><a href={viewing.anexo_url} target="_blank" rel="noreferrer" className="text-accent hover:underline inline-flex items-center gap-1"><Paperclip className="h-3.5 w-3.5" />{viewing.anexo_nome ?? "Anexo"}</a></div>}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }

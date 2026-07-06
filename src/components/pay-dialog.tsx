@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { uploadAttachment, type Reminder } from "@/lib/reminders";
@@ -8,9 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
+
 export function PayDialog({ open, onOpenChange, reminder }: { open: boolean; onOpenChange: (v: boolean) => void; reminder: Reminder | null }) {
   const qc = useQueryClient();
+  const navigate = useNavigate();
   const [data, setData] = useState(new Date().toISOString().slice(0, 10));
+
   const [valor, setValor] = useState(reminder?.valor?.toString() ?? "");
   const [file, setFile] = useState<File | null>(null);
 
@@ -34,7 +38,9 @@ export function PayDialog({ open, onOpenChange, reminder }: { open: boolean; onO
       qc.invalidateQueries({ queryKey: ["payments"] });
       toast.success("Pagamento registrado! Se recorrente, o próximo já foi criado.");
       onOpenChange(false);
+      navigate({ to: "/historico" });
     },
+
     onError: (e: Error) => toast.error(e.message),
   });
 
