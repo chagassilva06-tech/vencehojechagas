@@ -21,17 +21,26 @@ function Categorias() {
   const qc = useQueryClient();
   const { data: categories } = useSuspenseQuery({ queryKey: ["categories"], queryFn: fetchCategories });
   const [open, setOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [nome, setNome] = useState("");
   const [cor, setCor] = useState(colors[0]);
 
-  const create = useMutation({
+  function openNew() { setEditingId(null); setNome(""); setCor(colors[0]); setOpen(true); }
+  function openEdit(c: { id: string; nome: string; cor: string }) { setEditingId(c.id); setNome(c.nome); setCor(c.cor); setOpen(true); }
+
+  const save = useMutation({
     mutationFn: async () => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) throw new Error("Não autenticado");
-      const { error } = await supabase.from("categories").insert({ user_id: u.user.id, nome, cor });
-      if (error) throw error;
+      if (editingId) {
+        const { error } = await supabase.from("categories").update({ nome, cor }).eq("id", editingId);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from("categories").insert({ user_id: u.user.id, nome, cor });
+        if (error) throw error;
+      }
     },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["categories"] }); toast.success("Criada"); setOpen(false); setNome(""); },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["categories"] }); toast.success(editingId ? "Atualizada" : "Criada"); setOpen(false); },
     onError: (e: Error) => toast.error(e.message),
   });
   const del = useMutation({
