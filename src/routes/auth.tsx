@@ -97,12 +97,30 @@ function AuthPage() {
           <p className="mt-3 text-white/70 max-w-md">
             Cadastre suas contas uma vez e receba lembretes automáticos por e-mail antes de cada vencimento.
           </p>
+
+          <div className="mt-8 rounded-2xl border border-white/15 bg-white/5 backdrop-blur p-5 max-w-md">
+            <div className="flex items-center gap-2 text-sm font-semibold text-white">
+              <Bell className="h-4 w-4 text-accent" /> Por que o VenceHoje?
+            </div>
+            <ul className="mt-3 space-y-2 text-sm text-white/80">
+              <li>• Lembretes por e-mail 3 dias antes, 1 dia antes ou no dia.</li>
+              <li>• Recorrência mensal, semanal, anual ou personalizada.</li>
+              <li>• Dashboard com tudo o que vence nos próximos dias.</li>
+            </ul>
+          </div>
         </div>
         <p className="relative text-xs text-white/50">© {new Date().getFullYear()} VenceHoje</p>
       </div>
 
       <div className="flex items-center justify-center p-6 bg-[oklch(0.13_0.03_260)]">
-        <Card className="w-full max-w-md p-6 bg-[oklch(0.18_0.035_260)] border-[oklch(0.28_0.04_260)] text-white">
+        <div className="w-full max-w-md space-y-4">
+        <div className="rounded-2xl border border-[oklch(0.28_0.04_260)] bg-[oklch(0.20_0.04_260)] p-4 text-white">
+          <div className="text-sm font-semibold">Bem-vindo 👋</div>
+          <p className="mt-1 text-xs text-white/70">
+            Entre com sua conta ou crie uma gratuita em menos de 1 minuto. Sem cartão de crédito.
+          </p>
+        </div>
+        <Card className="w-full p-6 bg-[oklch(0.18_0.035_260)] border-[oklch(0.28_0.04_260)] text-white">
           <div className="lg:hidden flex items-center gap-2 mb-4">
             <div className="h-8 w-8 rounded-lg bg-accent grid place-items-center">
               <Bell className="h-4 w-4 text-accent-foreground" />
