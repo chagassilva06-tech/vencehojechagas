@@ -16,23 +16,38 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 });
 
 function Dashboard() {
+  const qc = useQueryClient();
   const { data: reminders } = useSuspenseQuery({
     queryKey: ["reminders"],
     queryFn: () => fetchReminders(),
   });
   const [viewing, setViewing] = useState<Reminder | null>(null);
+  const [search, setSearch] = useState("");
+  const [appliedSearch, setAppliedSearch] = useState("");
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
   const tomorrow = pending.filter((r) => daysUntil(r.data_vencimento) === 1);
   const next3 = pending.filter((r) => { const d = daysUntil(r.data_vencimento); return d >= 0 && d <= 3; });
   const totalPending = pending.reduce((s, r) => s + (r.valor ?? 0), 0);
-  const paidThisMonth = reminders.filter((r) => r.status === "paid").length;
+  const paidCount = reminders.filter((r) => r.status === "paid").length;
+  const finalizados = reminders.filter((r) => r.status === "paid");
+
+  const markPaid = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("reminders").update({ status: "paid" }).eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["reminders"] }); toast.success("Marcado como pago"); },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   const upcoming = pending
     .filter((r) => daysUntil(r.data_vencimento) >= 0)
+    .filter((r) => !appliedSearch || r.titulo.toLowerCase().includes(appliedSearch.toLowerCase()))
     .sort((a, b) => a.data_vencimento.localeCompare(b.data_vencimento))
     .slice(0, 8);
+
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
