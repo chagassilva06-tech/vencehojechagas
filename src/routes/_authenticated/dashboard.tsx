@@ -82,7 +82,36 @@ function Dashboard() {
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>Próximos vencimentos</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between flex-wrap gap-3">
+            <span>Próximos vencimentos</span>
+            <form
+              onSubmit={(e) => { e.preventDefault(); setAppliedSearch(search); }}
+              className="flex items-center gap-2 w-full sm:w-auto"
+            >
+              <div className="relative flex-1 sm:w-64">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Buscar lembrete..."
+                  className="pl-9 h-9"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  list="dashboard-titles"
+                  autoComplete="on"
+                />
+                <datalist id="dashboard-titles">
+                  {Array.from(new Set(reminders.map((r) => r.titulo))).map((t) => (
+                    <option key={t} value={t} />
+                  ))}
+                </datalist>
+              </div>
+              <Button type="submit" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">Buscar</Button>
+              {appliedSearch && (
+                <Button type="button" variant="ghost" size="sm" onClick={() => { setSearch(""); setAppliedSearch(""); }}>Limpar</Button>
+              )}
+            </form>
+          </CardTitle>
+        </CardHeader>
         <CardContent className="space-y-2">
           {upcoming.length === 0 && <p className="text-sm text-muted-foreground py-8 text-center">Nenhum lembrete pendente. 🎉</p>}
           {upcoming.map((r) => {
@@ -107,12 +136,23 @@ function Dashboard() {
                   <Button variant="ghost" size="icon" onClick={() => setViewing(r)} title="Ver detalhes">
                     <Eye className="h-4 w-4" />
                   </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-8 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                    disabled={markPaid.isPending}
+                    onClick={() => markPaid.mutate(r.id)}
+                    title="Marcar como pago"
+                  >
+                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Pago
+                  </Button>
                 </div>
               </div>
             );
           })}
         </CardContent>
       </Card>
+
 
       {overdue.length > 0 && (
         <Card className="border-destructive/40">
