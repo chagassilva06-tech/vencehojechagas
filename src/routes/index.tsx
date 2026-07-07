@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield, Eye, EyeOff } from "lucide-react";
 import logo from "@/assets/vencehoje-logo.png";
 import heroIllustration from "@/assets/hero-illustration.png";
+import heroIllustrationWebp from "@/assets/hero-illustration.webp";
 import { supabase } from "@/integrations/supabase/client";
 
 import { toast } from "sonner";
