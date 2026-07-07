@@ -51,7 +51,7 @@ function Categorias() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <Button asChild variant="ghost" size="sm" className="-ml-2">
-        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar à tela principal</Link>
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
       </Button>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Categorias</h1>

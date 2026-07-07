@@ -1,11 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchPayments, fetchReminders, formatCurrency, formatDate } from "@/lib/reminders";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Search, FileText, Activity, CheckCircle2 } from "lucide-react";
+import { Search, FileText, Activity, CheckCircle2, ArrowLeft } from "lucide-react";
+
 
 export const Route = createFileRoute("/_authenticated/historico")({
   component: Historico,
@@ -62,6 +64,10 @@ function Historico() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
+      <Button asChild variant="ghost" size="sm" className="-ml-2">
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
+      </Button>
+
       <div>
         <h1 className="text-2xl font-bold">Histórico</h1>
         <p className="text-sm text-muted-foreground">

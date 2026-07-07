@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchReminders, formatCurrency } from "@/lib/reminders";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+
 
 export const Route = createFileRoute("/_authenticated/calendario")({
   component: Calendario,
@@ -32,6 +33,10 @@ function Calendario() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6">
+      <Button asChild variant="ghost" size="sm" className="-ml-2">
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
+      </Button>
+
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between">
         <h1 className="text-xl sm:text-2xl font-bold truncate">Calendário</h1>
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
