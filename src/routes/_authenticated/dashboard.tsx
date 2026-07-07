@@ -93,7 +93,7 @@ function Dashboard() {
 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Card>
+        <Card className="shadow-[0_10px_25px_-8px_rgba(16,185,129,0.35)] ring-1 ring-accent/20 hover:shadow-[0_18px_35px_-10px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 transition-all">
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <span>Total pendente</span>
@@ -101,7 +101,7 @@ function Dashboard() {
             </CardTitle>
           </CardHeader>
         </Card>
-        <Card>
+        <Card className="shadow-[0_10px_25px_-8px_rgba(16,185,129,0.35)] ring-1 ring-accent/20 hover:shadow-[0_18px_35px_-10px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 transition-all">
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <span>Em aberto no mês</span>
