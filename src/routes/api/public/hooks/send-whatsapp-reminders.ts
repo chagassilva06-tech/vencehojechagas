@@ -161,14 +161,15 @@ export const Route = createFileRoute("/api/public/hooks/send-whatsapp-reminders"
             l.valor != null
               ? Number(l.valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
               : null;
-          const quando =
-            dias === 0 ? "vence hoje" : dias === 1 ? "vence amanhã" : `vence em ${dias} dias`;
+          const quando = disparoPorHora
+            ? `hora agendada (${horaVenc})`
+            : dias === 0 ? "vence hoje" : dias === 1 ? "vence amanhã" : `vence em ${dias} dias`;
 
           const mensagem =
             `Olá, ${consent.nome}!\n\n` +
             `Lembrete: ${l.titulo} (${categoria})\n` +
             (valor ? `Valor: ${valor}\n` : "") +
-            `Vencimento: ${venc} — ${quando}.\n\n` +
+            `Vencimento: ${venc}${horaVenc ? ` às ${horaVenc}` : ""} — ${quando}.\n\n` +
             `Para deixar de receber, acesse Configurações e cancele a autorização de WhatsApp.`;
 
           try {
