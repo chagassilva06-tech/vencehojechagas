@@ -18,6 +18,7 @@ import { Route as AuthenticatedConfigRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedConcluidasRouteImport } from './routes/_authenticated/concluidas'
 import { Route as AuthenticatedCategoriasRouteImport } from './routes/_authenticated/categorias'
 import { Route as AuthenticatedCalendarioRouteImport } from './routes/_authenticated/calendario'
+import { Route as ApiPublicHooksSendWhatsappRemindersRouteImport } from './routes/api/public/hooks/send-whatsapp-reminders'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -63,6 +64,12 @@ const AuthenticatedCalendarioRoute = AuthenticatedCalendarioRouteImport.update({
   path: '/calendario',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiPublicHooksSendWhatsappRemindersRoute =
+  ApiPublicHooksSendWhatsappRemindersRouteImport.update({
+    id: '/api/public/hooks/send-whatsapp-reminders',
+    path: '/api/public/hooks/send-whatsapp-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/historico': typeof AuthenticatedHistoricoRoute
   '/lembretes': typeof AuthenticatedLembretesRoute
+  '/api/public/hooks/send-whatsapp-reminders': typeof ApiPublicHooksSendWhatsappRemindersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,6 +91,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/historico': typeof AuthenticatedHistoricoRoute
   '/lembretes': typeof AuthenticatedLembretesRoute
+  '/api/public/hooks/send-whatsapp-reminders': typeof ApiPublicHooksSendWhatsappRemindersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,6 +104,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/historico': typeof AuthenticatedHistoricoRoute
   '/_authenticated/lembretes': typeof AuthenticatedLembretesRoute
+  '/api/public/hooks/send-whatsapp-reminders': typeof ApiPublicHooksSendWhatsappRemindersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/historico'
     | '/lembretes'
+    | '/api/public/hooks/send-whatsapp-reminders'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/historico'
     | '/lembretes'
+    | '/api/public/hooks/send-whatsapp-reminders'
   id:
     | '__root__'
     | '/'
@@ -128,11 +140,13 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/historico'
     | '/_authenticated/lembretes'
+    | '/api/public/hooks/send-whatsapp-reminders'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ApiPublicHooksSendWhatsappRemindersRoute: typeof ApiPublicHooksSendWhatsappRemindersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -200,6 +214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCalendarioRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/hooks/send-whatsapp-reminders': {
+      id: '/api/public/hooks/send-whatsapp-reminders'
+      path: '/api/public/hooks/send-whatsapp-reminders'
+      fullPath: '/api/public/hooks/send-whatsapp-reminders'
+      preLoaderRoute: typeof ApiPublicHooksSendWhatsappRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -229,6 +250,8 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ApiPublicHooksSendWhatsappRemindersRoute:
+    ApiPublicHooksSendWhatsappRemindersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
