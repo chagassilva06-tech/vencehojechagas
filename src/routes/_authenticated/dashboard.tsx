@@ -81,8 +81,8 @@ function Dashboard() {
         <StatCard title="Atrasados" value={overdue.length} icon={AlertTriangle} gradient="from-red-500 to-red-700" />
         <StatCard title="Vence amanhã" value={tomorrow.length} icon={Clock} gradient="from-orange-400 to-orange-600" pulse={tomorrow.length > 0} />
         <StatCard title="Próximos 3 dias" value={next3.length} icon={TrendingUp} gradient="from-yellow-400 to-amber-500" />
-        <Link to="/concluidas" className="contents"><StatCard title="Pagos" value={paidCount} icon={CheckCircle2} gradient="from-emerald-400 to-emerald-600" /></Link>
-        <Link to="/concluidas" className="contents"><StatCard title="Finalizados" value={finalizados.length} icon={Trophy} gradient="from-sky-400 to-blue-600" /></Link>
+        <Link to="/concluidas" className="block cursor-pointer rounded-xl ring-2 ring-emerald-300/60 shadow-[0_15px_35px_-8px_rgba(16,185,129,0.55)] hover:ring-emerald-200 hover:shadow-[0_25px_50px_-10px_rgba(16,185,129,0.75)] transition-all"><StatCard title="Pagos" value={paidCount} icon={CheckCircle2} gradient="from-emerald-400 to-emerald-600" /></Link>
+        <Link to="/concluidas" className="block cursor-pointer rounded-xl ring-2 ring-sky-300/60 shadow-[0_15px_35px_-8px_rgba(56,189,248,0.55)] hover:ring-sky-200 hover:shadow-[0_25px_50px_-10px_rgba(56,189,248,0.75)] transition-all"><StatCard title="Finalizados" value={finalizados.length} icon={Trophy} gradient="from-sky-400 to-blue-600" /></Link>
       </div>
 
 
