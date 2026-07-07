@@ -92,7 +92,32 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
                 <SelectContent>{categories.map((c) => <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>)}</SelectContent>
               </Select>
             </div>
-            <div><Label>Data de vencimento</Label><Input type="date" required value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} /></div>
+            <div>
+              <div className="flex items-center justify-between">
+                <Label>Data de vencimento</Label>
+                <Button
+                  type="button"
+                  variant={showHora ? "default" : "ghost"}
+                  size="sm"
+                  className={`h-6 px-2 text-xs gap-1 ${showHora ? "bg-accent text-accent-foreground hover:bg-accent/90" : ""}`}
+                  onClick={() => { setShowHora((v) => !v); if (showHora) setHoraVenc(""); }}
+                  title={showHora ? "Remover horário" : "Adicionar horário de término"}
+                >
+                  <Clock className="h-3.5 w-3.5" />
+                  {showHora ? (horaVenc || "--:--") : "Horário"}
+                </Button>
+              </div>
+              <Input type="date" required value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
+              {showHora && (
+                <div className="mt-2 flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                  <Input type="time" value={horaVenc} onChange={(e) => setHoraVenc(e.target.value)} className="flex-1" />
+                  <Button type="button" variant="ghost" size="icon" className="h-8 w-8" onClick={() => { setShowHora(false); setHoraVenc(""); }} title="Remover">
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
           <div><Label>Valor (opcional)</Label><Input type="number" step="0.01" value={valor} onChange={(e) => setValor(e.target.value)} placeholder="0,00" /></div>
           <div>
