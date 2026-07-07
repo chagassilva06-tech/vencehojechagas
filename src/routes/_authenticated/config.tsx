@@ -46,6 +46,24 @@ function Config() {
   const [wppAceite, setWppAceite] = useState(false);
   const [wppLoading, setWppLoading] = useState(false);
   const [wppConsent, setWppConsent] = useState<WhatsappConsent | null>(null);
+  const [wppTestLoading, setWppTestLoading] = useState(false);
+  const enviarTeste = useServerFn(enviarWhatsappTeste);
+
+  async function enviarMensagemTesteWhatsapp() {
+    setWppTestLoading(true);
+    try {
+      await enviarTeste({});
+      toast.success("Mensagem de teste enviada com sucesso para o WhatsApp cadastrado.");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
+      toast.error(
+        msg ||
+          "Não foi possível enviar a mensagem. Verifique se o número de WhatsApp está cadastrado e se a autorização de envio está ativa.",
+      );
+    } finally {
+      setWppTestLoading(false);
+    }
+  }
 
   async function reloadConsent(userId: string) {
     const { data } = await supabase
