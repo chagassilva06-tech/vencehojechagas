@@ -101,7 +101,7 @@ function Concluidas() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <Button asChild variant="ghost" size="sm" className="-ml-2">
+      <Button asChild variant="ghost" size="sm" className="-ml-2 bg-sky-100 text-sky-700 hover:bg-sky-200 hover:text-sky-800 dark:bg-sky-900/40 dark:text-sky-200 dark:hover:bg-sky-900/60">
         <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
       </Button>
 
