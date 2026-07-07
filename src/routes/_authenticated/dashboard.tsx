@@ -92,14 +92,24 @@ function Dashboard() {
       </div>
 
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <span>Total pendente</span>
-            <span className="text-2xl font-bold text-accent">{formatCurrency(totalPending)}</span>
-          </CardTitle>
-        </CardHeader>
-      </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span>Total pendente</span>
+              <span className="text-2xl font-bold text-accent">{formatCurrency(totalPending)}</span>
+            </CardTitle>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span>Em aberto no mês</span>
+              <span className="text-2xl font-bold text-accent">{formatCurrency(upcoming.reduce((s, r) => s + (r.valor ?? 0), 0))}</span>
+            </CardTitle>
+          </CardHeader>
+        </Card>
+      </div>
 
       <Card>
         <CardHeader>
