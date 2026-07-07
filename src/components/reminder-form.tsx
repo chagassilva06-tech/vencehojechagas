@@ -25,6 +25,8 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
   const [categoriaId, setCategoriaId] = useState(reminder?.categoria_id ?? categories[0]?.id ?? "");
   const [valor, setValor] = useState(reminder?.valor?.toString() ?? "");
   const [dataVenc, setDataVenc] = useState(reminder?.data_vencimento ?? new Date().toISOString().slice(0, 10));
+  const [horaVenc, setHoraVenc] = useState<string>((reminder as unknown as { hora_vencimento?: string | null })?.hora_vencimento?.slice(0, 5) ?? "");
+  const [showHora, setShowHora] = useState<boolean>(!!(reminder as unknown as { hora_vencimento?: string | null })?.hora_vencimento);
   const [observacoes, setObservacoes] = useState(reminder?.observacoes ?? "");
   const [recorrencia, setRecorrencia] = useState<Recurrence>(reminder?.recorrencia ?? "none");
   const [intervaloDias, setIntervaloDias] = useState(reminder?.intervalo_dias?.toString() ?? "30");
