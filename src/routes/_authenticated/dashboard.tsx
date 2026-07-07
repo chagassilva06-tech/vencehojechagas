@@ -58,6 +58,19 @@ function Dashboard() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const deleteReminder = useMutation({
+    mutationFn: async (r: Reminder) => {
+      const { error } = await supabase.from("reminders").delete().eq("id", r.id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      toast.success("Lembrete excluído");
+      setDeleting(null);
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   const now = new Date();
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth();
