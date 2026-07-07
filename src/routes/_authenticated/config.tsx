@@ -14,6 +14,21 @@ export const Route = createFileRoute("/_authenticated/config")({
   component: Config,
 });
 
+const TEXTO_AUTORIZACAO_WHATSAPP =
+  "Quero receber lembretes pelo WhatsApp sobre vencimentos, contas e compromissos cadastrados por mim neste site. Autorizo o envio de mensagens para o número informado. Posso cancelar o recebimento a qualquer momento.";
+
+interface WhatsappConsent {
+  id: string;
+  nome: string;
+  whatsapp_numero: string;
+  permissao: "autorizado" | "nao_autorizado";
+  aceite_em: string | null;
+  status: "ativo" | "cancelado";
+  cancelado_em: string | null;
+}
+
+
+
 function Config() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
