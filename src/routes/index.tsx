@@ -84,16 +84,19 @@ function Landing() {
           </div>
 
           <div className="relative flex justify-center md:justify-end">
-            <img
-              src={heroIllustration}
-              alt="Painel VenceHoje com calendário, faturas e lembretes"
-              width={560}
-              height={560}
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              className="relative w-full max-w-md md:max-w-lg h-auto drop-shadow-xl"
-            />
+            <picture>
+              <source srcSet={heroIllustrationWebp} type="image/webp" />
+              <img
+                src={heroIllustration}
+                alt="Painel VenceHoje com calendário, faturas e lembretes"
+                width={560}
+                height={560}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                className="relative w-full max-w-md md:max-w-lg h-auto drop-shadow-xl"
+              />
+            </picture>
           </div>
         </div>
       </section>
