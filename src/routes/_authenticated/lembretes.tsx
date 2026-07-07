@@ -209,16 +209,11 @@ function Lembretes() {
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem onClick={() => setViewing(r)}><Eye className="h-4 w-4 mr-2" />Visualizar</DropdownMenuItem>
                       {isPending && <DropdownMenuItem onClick={() => { setPaying(r); setPayOpen(true); }}><CheckCircle2 className="h-4 w-4 mr-2" />Marcar como pago</DropdownMenuItem>}
-                      {isPending && <DropdownMenuItem onClick={() => {
-                        const v = prompt("Adiar em quantos dias?", "1");
-                        const n = Number(v);
-                        if (!v || !Number.isFinite(n) || n === 0) return;
-                        adiar.mutate({ id: r.id, dias: Math.trunc(n), dataAtual: r.data_vencimento });
-                      }}><Clock className="h-4 w-4 mr-2" />Adiar</DropdownMenuItem>}
+                      {isPending && <DropdownMenuItem onClick={() => { setAdiarDias("1"); setAdiando(r); }}><Clock className="h-4 w-4 mr-2" />Adiar</DropdownMenuItem>}
                       <DropdownMenuItem onClick={() => repetirProxMes.mutate(r)}><CalendarPlus className="h-4 w-4 mr-2" />Repetir no próximo mês</DropdownMenuItem>
                       <DropdownMenuItem onClick={() => { setEditing(r); setFormOpen(true); }}><Pencil className="h-4 w-4 mr-2" />Editar</DropdownMenuItem>
-                      {r.status !== "archived" && <DropdownMenuItem onClick={() => arch.mutate(r.id)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
-                      <DropdownMenuItem onClick={() => { if (confirm("Excluir este lembrete?")) del.mutate(r.id); }} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
+                      {r.status !== "archived" && <DropdownMenuItem onClick={() => setArchiving(r)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
+                      <DropdownMenuItem onClick={() => setDeleting(r)} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
 
                   </DropdownMenu>
