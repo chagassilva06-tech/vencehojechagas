@@ -205,9 +205,19 @@ function Config() {
               <p className="text-xs text-muted-foreground">
                 Os envios serão realizados pela integração oficial com a WhatsApp Business Platform (Cloud API), usando mensagens de lembrete autorizadas por você. Você pode cancelar o recebimento a qualquer momento.
               </p>
-              <Button variant="destructive" onClick={cancelarConsentimentoWhatsapp} disabled={wppLoading}>
-                {wppLoading ? "Cancelando..." : "Cancelar recebimento por WhatsApp"}
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button
+                  onClick={enviarMensagemTesteWhatsapp}
+                  disabled={wppTestLoading}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                >
+                  <Send className="h-4 w-4 mr-2" />
+                  {wppTestLoading ? "Enviando..." : "Enviar lembrete de teste no WhatsApp"}
+                </Button>
+                <Button variant="destructive" onClick={cancelarConsentimentoWhatsapp} disabled={wppLoading}>
+                  {wppLoading ? "Cancelando..." : "Cancelar recebimento por WhatsApp"}
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="space-y-3">
