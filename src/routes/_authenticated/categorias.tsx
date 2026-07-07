@@ -65,10 +65,11 @@ function Categorias() {
           >
             <CardContent className="p-4 flex flex-col items-center text-center gap-3">
               <div
-                className="h-20 w-20 rounded-2xl grid place-items-center text-white text-2xl font-bold shadow-lg"
+                className="h-20 w-20 rounded-2xl grid place-items-center text-2xl font-bold shadow-md"
                 style={{
-                  background: `linear-gradient(135deg, ${c.cor} 0%, ${c.cor}bb 100%)`,
-                  boxShadow: `0 10px 20px -6px ${c.cor}66`,
+                  background: `linear-gradient(135deg, ${c.cor}33 0%, ${c.cor}1f 100%)`,
+                  color: c.cor,
+                  boxShadow: `0 8px 18px -8px ${c.cor}44`,
                 }}
               >
                 {c.nome.charAt(0).toUpperCase()}
