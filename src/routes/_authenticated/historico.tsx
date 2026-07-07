@@ -87,7 +87,51 @@ function Historico() {
         <p className="text-sm text-muted-foreground">
           {filtered.length} finalizados • Total: <span className="text-accent font-semibold">{formatCurrency(total)}</span>
         </p>
+        <p className="text-xs text-muted-foreground mt-1">Este histórico é permanente — não é apagado ao sair ou atualizar a página.</p>
       </div>
+
+      <Card className="shadow-md border-l-4 border-l-emerald-500">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <ShieldCheck className="h-4 w-4 text-emerald-500" /> Permissões de envio
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2 text-sm">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Mail className="h-4 w-4 text-accent" />
+            <span className="font-medium">E-mail:</span>
+            <Badge className="bg-emerald-500 text-white">Autorizado</Badge>
+            <span className="text-muted-foreground text-xs">Você autorizou o envio ao criar sua conta.</span>
+          </div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <MessageCircle className="h-4 w-4 text-muted-foreground" />
+            <span className="font-medium">WhatsApp:</span>
+            <Badge variant="outline">Em breve</Badge>
+            <span className="text-muted-foreground text-xs">Requer autorização explícita antes do primeiro envio.</span>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-md">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Bell className="h-4 w-4 text-accent" /> Avisos enviados ({avisos.length})
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2 max-h-96 overflow-y-auto">
+          {avisos.length === 0 && <p className="text-sm text-muted-foreground">Nenhum aviso enviado ainda.</p>}
+          {avisos.map((a: { id: string; enviado_em: string; data_alvo: string; dias_antes: number; tipo: string; reminders?: { titulo: string } | null }) => (
+            <div key={a.id} className="flex items-center justify-between text-sm p-2 rounded-md border-l-4 border-l-primary/40 bg-muted/30">
+              <div className="min-w-0">
+                <span className="font-medium truncate">{a.reminders?.titulo ?? "Lembrete removido"}</span>
+                <span className="text-muted-foreground"> — {a.tipo} • {a.dias_antes === 0 ? "no dia" : `${a.dias_antes}d antes`} • venc. {formatDate(a.data_alvo)}</span>
+              </div>
+              <span className="text-xs text-muted-foreground shrink-0 ml-2">{new Date(a.enviado_em).toLocaleString("pt-BR")}</span>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
 
       {recent.length > 0 && (
         <Card className="shadow-md">
