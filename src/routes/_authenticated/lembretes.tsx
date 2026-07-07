@@ -53,7 +53,7 @@ function Lembretes() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <Button asChild variant="ghost" size="sm" className="-ml-2">
-        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar à tela principal</Link>
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
       </Button>
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
@@ -70,6 +70,7 @@ function Lembretes() {
           <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Total exibido</div>
           <div className="text-xl font-bold drop-shadow">{formatCurrency(filtered.reduce((s, r) => s + (Number(r.valor) || 0), 0))}</div>
           <div className="text-xs opacity-90 mt-1 drop-shadow-sm">{filtered.length} lembrete(s)</div>
+          <div className="text-[10px] opacity-90 mt-1 drop-shadow-sm">Refere-se a tudo adicionado de Julho a Dezembro de 2026</div>
         </CardContent></Card>
         <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-red-500 to-red-700 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
           <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Pendentes</div>
