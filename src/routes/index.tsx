@@ -1,23 +1,13 @@
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { lazy, Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield, Eye, EyeOff } from "lucide-react";
+import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
 import logo from "@/assets/vencehoje-logo.png";
 import heroIllustration from "@/assets/hero-illustration.png";
 import heroIllustrationWebp from "@/assets/hero-illustration.webp";
 import { supabase } from "@/integrations/supabase/client";
 
-import { toast } from "sonner";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+const AuthDialog = lazy(() => import("@/components/landing-auth-dialog"));
 
 export const Route = createFileRoute("/")({
   beforeLoad: async () => {
