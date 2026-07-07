@@ -209,6 +209,51 @@ export type Database = {
           },
         ]
       }
+      whatsapp_consents: {
+        Row: {
+          aceite_em: string | null
+          cancelado_em: string | null
+          created_at: string
+          id: string
+          nome: string
+          origem_aceite: string
+          permissao: string
+          status: string
+          texto_autorizacao: string
+          updated_at: string
+          user_id: string
+          whatsapp_numero: string
+        }
+        Insert: {
+          aceite_em?: string | null
+          cancelado_em?: string | null
+          created_at?: string
+          id?: string
+          nome: string
+          origem_aceite?: string
+          permissao?: string
+          status?: string
+          texto_autorizacao: string
+          updated_at?: string
+          user_id: string
+          whatsapp_numero: string
+        }
+        Update: {
+          aceite_em?: string | null
+          cancelado_em?: string | null
+          created_at?: string
+          id?: string
+          nome?: string
+          origem_aceite?: string
+          permissao?: string
+          status?: string
+          texto_autorizacao?: string
+          updated_at?: string
+          user_id?: string
+          whatsapp_numero?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
