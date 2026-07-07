@@ -34,6 +34,10 @@ function Lembretes() {
   const [payOpen, setPayOpen] = useState(false);
   const [paying, setPaying] = useState<Reminder | null>(null);
   const [viewing, setViewing] = useState<Reminder | null>(null);
+  const [deleting, setDeleting] = useState<Reminder | null>(null);
+  const [archiving, setArchiving] = useState<Reminder | null>(null);
+  const [adiando, setAdiando] = useState<Reminder | null>(null);
+  const [adiarDias, setAdiarDias] = useState("1");
 
 
   const filtered = reminders.filter((r) => {
