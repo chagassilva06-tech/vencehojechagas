@@ -50,6 +50,39 @@ function Lembretes() {
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["reminders"] }); toast.success("Arquivado"); },
   });
 
+  const adiar = useMutation({
+    mutationFn: async ({ id, dias, dataAtual }: { id: string; dias: number; dataAtual: string }) => {
+      const d = new Date(dataAtual + "T00:00:00");
+      d.setDate(d.getDate() + dias);
+      const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      const { error } = await supabase.from("reminders").update({ data_vencimento: iso }).eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["reminders"] }); toast.success("Vencimento adiado"); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const repetirProxMes = useMutation({
+    mutationFn: async (r: Reminder) => {
+      const base = new Date(r.data_vencimento + "T00:00:00");
+      const nextMonth = base.getMonth() + 1;
+      const nextYear = base.getFullYear() + Math.floor(nextMonth / 12);
+      const targetMonth = nextMonth % 12;
+      const day = base.getDate();
+      const lastDay = new Date(nextYear, targetMonth + 1, 0).getDate();
+      const d = new Date(nextYear, targetMonth, Math.min(day, lastDay));
+      const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      const { error } = await supabase.from("reminders").insert({
+        user_id: r.user_id, categoria_id: r.categoria_id, titulo: r.titulo, valor: r.valor,
+        observacoes: r.observacoes, data_vencimento: iso, recorrencia: r.recorrencia,
+        intervalo_dias: r.intervalo_dias, avisos: r.avisos, status: "pending",
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["reminders"] }); toast.success("Duplicado para o próximo mês"); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <Button asChild variant="ghost" size="sm" className="-ml-2">
