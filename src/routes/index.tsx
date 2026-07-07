@@ -51,7 +51,7 @@ function Landing() {
           <div className="h-[520px] w-[520px] rounded-full bg-accent/40" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-16 md:pt-10 md:pb-20 grid md:grid-cols-2 gap-10 items-start">
+        <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-4 md:pt-10 md:pb-6 grid md:grid-cols-2 gap-10 items-start">
           <div className="text-left">
             <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground mb-6">
               <span className="h-2 w-2 rounded-full bg-accent" /> Plano gratuito com até 20 lembretes
@@ -97,7 +97,7 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-24 grid md:grid-cols-3 gap-6">
+      <section className="mx-auto max-w-6xl px-4 pt-2 pb-24 grid md:grid-cols-3 gap-6">
         {[
           { icon: Bell, title: "Lembretes automáticos", desc: "Escolha avisos 3 dias antes, 1 dia antes ou no dia do vencimento." },
           { icon: Repeat, title: "Recorrência", desc: "Mensal, semanal, anual ou personalizada. O próximo vencimento é criado sozinho." },
