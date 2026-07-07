@@ -76,9 +76,13 @@ export const Route = createFileRoute("/api/public/hooks/send-whatsapp-reminders"
         dataMax.setUTCDate(dataMax.getUTCDate() + 30);
         const dataMaxStr = dataMax.toISOString().slice(0, 10);
 
+        // Hora atual em São Paulo (HH:MM)
+        const agoraSP = new Date(Date.now() - 3 * 60 * 60 * 1000);
+        const horaAgoraSP = agoraSP.toISOString().slice(11, 16); // "HH:MM"
+
         const { data: lembretes, error: errLem } = await supabase
           .from("reminders")
-          .select("id, user_id, titulo, valor, data_vencimento, avisos, categoria_id, categories(nome)")
+          .select("id, user_id, titulo, valor, data_vencimento, hora_vencimento, avisos, categoria_id, categories(nome)")
           .eq("status", "pending")
           .gte("data_vencimento", hoje)
           .lte("data_vencimento", dataMaxStr);
@@ -100,7 +104,19 @@ export const Route = createFileRoute("/api/public/hooks/send-whatsapp-reminders"
         for (const l of lembretes ?? []) {
           const dias = diffDays(l.data_vencimento, hoje);
           const avisos: number[] = Array.isArray(l.avisos) ? l.avisos : [];
-          if (!avisos.includes(dias)) continue;
+
+          // Regras:
+          // - avisos padrão (0,1,3,...): dispara se avisos.includes(dias)
+          // - "Hora agendada" (-1): dispara no dia do vencimento quando a hora atual (SP) >= hora_vencimento
+          const horaVenc = (l as { hora_vencimento?: string | null }).hora_vencimento?.slice(0, 5) ?? null;
+          const disparoPorDia = avisos.includes(dias) && dias !== -1;
+          const disparoPorHora =
+            avisos.includes(-1) && dias === 0 && horaVenc != null && horaAgoraSP >= horaVenc;
+          if (!disparoPorDia && !disparoPorHora) continue;
+
+          // Chave lógica para o log (dias_antes = -1 quando for "hora agendada")
+          const diasLog = disparoPorHora ? -1 : dias;
+
 
           // Consentimento
           let consent = consentCache.get(l.user_id);
