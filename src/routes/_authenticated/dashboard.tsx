@@ -25,6 +25,7 @@ function Dashboard() {
   const [viewing, setViewing] = useState<Reminder | null>(null);
   const [search, setSearch] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
+  const [deleting, setDeleting] = useState<Reminder | null>(null);
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
