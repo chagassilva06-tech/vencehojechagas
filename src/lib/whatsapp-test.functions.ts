@@ -102,8 +102,16 @@ export const enviarWhatsappTeste = createServerFn({ method: "POST" })
     if (!resp.ok) {
       const body = await resp.text();
       console.error(`Twilio WhatsApp falhou [${resp.status}]: ${body}`);
+      let detalhe = "";
+      try {
+        const j = JSON.parse(body) as { message?: string; code?: number };
+        if (j?.message) detalhe = ` (Twilio ${j.code ?? resp.status}: ${j.message})`;
+      } catch {
+        /* body não é JSON */
+      }
       throw new Error(
-        "Não foi possível enviar a mensagem. Verifique se o número de WhatsApp está cadastrado e se a autorização de envio está ativa.",
+        "Não foi possível enviar a mensagem. Verifique se o número de WhatsApp está cadastrado e se a autorização de envio está ativa." +
+          detalhe,
       );
     }
 
