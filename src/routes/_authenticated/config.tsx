@@ -1,13 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import { toast } from "sonner";
+import { enviarWhatsappTeste } from "@/lib/whatsapp-test.functions";
 
 
 export const Route = createFileRoute("/_authenticated/config")({
@@ -44,6 +46,24 @@ function Config() {
   const [wppAceite, setWppAceite] = useState(false);
   const [wppLoading, setWppLoading] = useState(false);
   const [wppConsent, setWppConsent] = useState<WhatsappConsent | null>(null);
+  const [wppTestLoading, setWppTestLoading] = useState(false);
+  const enviarTeste = useServerFn(enviarWhatsappTeste);
+
+  async function enviarMensagemTesteWhatsapp() {
+    setWppTestLoading(true);
+    try {
+      await enviarTeste({});
+      toast.success("Mensagem de teste enviada com sucesso para o WhatsApp cadastrado.");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
+      toast.error(
+        msg ||
+          "Não foi possível enviar a mensagem. Verifique se o número de WhatsApp está cadastrado e se a autorização de envio está ativa.",
+      );
+    } finally {
+      setWppTestLoading(false);
+    }
+  }
 
   async function reloadConsent(userId: string) {
     const { data } = await supabase
@@ -185,9 +205,19 @@ function Config() {
               <p className="text-xs text-muted-foreground">
                 Os envios serão realizados pela integração oficial com a WhatsApp Business Platform (Cloud API), usando mensagens de lembrete autorizadas por você. Você pode cancelar o recebimento a qualquer momento.
               </p>
-              <Button variant="destructive" onClick={cancelarConsentimentoWhatsapp} disabled={wppLoading}>
-                {wppLoading ? "Cancelando..." : "Cancelar recebimento por WhatsApp"}
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button
+                  onClick={enviarMensagemTesteWhatsapp}
+                  disabled={wppTestLoading}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                >
+                  <Send className="h-4 w-4 mr-2" />
+                  {wppTestLoading ? "Enviando..." : "Enviar lembrete de teste no WhatsApp"}
+                </Button>
+                <Button variant="destructive" onClick={cancelarConsentimentoWhatsapp} disabled={wppLoading}>
+                  {wppLoading ? "Cancelando..." : "Cancelar recebimento por WhatsApp"}
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="space-y-3">
