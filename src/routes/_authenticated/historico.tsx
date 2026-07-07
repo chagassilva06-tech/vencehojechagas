@@ -29,6 +29,19 @@ function Historico() {
   const { data: reminders } = useSuspenseQuery({ queryKey: ["reminders"], queryFn: () => fetchReminders() });
   const [search, setSearch] = useState("");
 
+  const { data: avisos = [] } = useQuery({
+    queryKey: ["notifications_log"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("notifications_log")
+        .select("id, enviado_em, data_alvo, dias_antes, tipo, reminder_id, reminders(titulo)")
+        .order("enviado_em", { ascending: false })
+        .limit(200);
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
   const paidReminders = reminders.filter((r) => r.status === "paid");
   const paidWithPayment = new Set(payments.map((p) => p.reminder_id));
 
