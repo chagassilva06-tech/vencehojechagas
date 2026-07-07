@@ -27,7 +27,7 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
   const [observacoes, setObservacoes] = useState(reminder?.observacoes ?? "");
   const [recorrencia, setRecorrencia] = useState<Recurrence>(reminder?.recorrencia ?? "none");
   const [intervaloDias, setIntervaloDias] = useState(reminder?.intervalo_dias?.toString() ?? "30");
-  const [avisos, setAvisos] = useState<number[]>(reminder?.avisos ?? [1, 0]);
+  const [avisos, setAvisos] = useState<number[]>(reminder?.avisos ?? [1]);
   const [file, setFile] = useState<File | null>(null);
 
   const mut = useMutation({

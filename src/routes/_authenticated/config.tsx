@@ -20,7 +20,7 @@ function Config() {
   const [authEmail, setAuthEmail] = useState("");
   const [newAuthEmail, setNewAuthEmail] = useState("");
   const [changingEmail, setChangingEmail] = useState(false);
-  const [avisos, setAvisos] = useState<number[]>([1, 0]);
+  const [avisos, setAvisos] = useState<number[]>([1]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function Config() {
       if (!u.user) return;
       setAuthEmail(u.user.email ?? "");
       const { data } = await supabase.from("profiles").select("*").eq("id", u.user.id).maybeSingle();
-      if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos(data.avisos_padrao ?? [1, 0]); }
+      if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos(data.avisos_padrao ?? [1]); }
       else { setEmail(u.user.email ?? ""); }
     })();
   }, []);
