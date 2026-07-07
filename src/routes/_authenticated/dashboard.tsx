@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip, Search, Trophy } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip, Search, Trophy, Trash2 } from "lucide-react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
@@ -24,6 +25,7 @@ function Dashboard() {
   const [viewing, setViewing] = useState<Reminder | null>(null);
   const [search, setSearch] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
+  const [deleting, setDeleting] = useState<Reminder | null>(null);
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
@@ -52,6 +54,19 @@ function Dashboard() {
       qc.invalidateQueries({ queryKey: ["reminders"] });
       qc.invalidateQueries({ queryKey: ["payments"] });
       toast.success("Marcado como pago");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const deleteReminder = useMutation({
+    mutationFn: async (r: Reminder) => {
+      const { error } = await supabase.from("reminders").delete().eq("id", r.id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      toast.success("Lembrete excluído");
+      setDeleting(null);
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -179,6 +194,15 @@ function Dashboard() {
                   >
                     <CheckCircle2 className="h-3.5 w-3.5 sm:mr-1" /> <span className="hidden sm:inline">Pago</span>
                   </Button>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                    onClick={() => setDeleting(r)}
+                    title="Excluir lembrete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             );
@@ -221,6 +245,27 @@ function Dashboard() {
           )}
         </DialogContent>
       </Dialog>
+
+      <AlertDialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir lembrete?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir <strong>{deleting?.titulo}</strong>? Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={(e) => { e.preventDefault(); if (deleting) deleteReminder.mutate(deleting); }}
+              disabled={deleteReminder.isPending}
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
