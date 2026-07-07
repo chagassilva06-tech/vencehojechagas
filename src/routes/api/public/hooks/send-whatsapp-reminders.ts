@@ -145,7 +145,7 @@ export const Route = createFileRoute("/api/public/hooks/send-whatsapp-reminders"
             .select("id")
             .eq("reminder_id", l.id)
             .eq("data_alvo", l.data_vencimento)
-            .eq("dias_antes", dias)
+            .eq("dias_antes", diasLog)
             .eq("tipo", "whatsapp_lembrete")
             .limit(1)
             .maybeSingle();
