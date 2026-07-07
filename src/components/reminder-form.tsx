@@ -45,6 +45,7 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
         valor: valor ? Number(valor) : null, observacoes: observacoes || null,
         data_vencimento: dataVenc, recorrencia, intervalo_dias: recorrencia === "custom" ? Number(intervaloDias) : null,
         avisos, anexo_url, anexo_nome,
+        hora_vencimento: showHora && horaVenc ? horaVenc : null,
       };
       if (reminder) {
         const { error } = await supabase.from("reminders").update(payload).eq("id", reminder.id);
