@@ -12,7 +12,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye, ArrowLeft, Clock, CalendarPlus } from "lucide-react";
 import { ReminderForm } from "@/components/reminder-form";
 import { PayDialog } from "@/components/pay-dialog";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 
@@ -32,6 +34,10 @@ function Lembretes() {
   const [payOpen, setPayOpen] = useState(false);
   const [paying, setPaying] = useState<Reminder | null>(null);
   const [viewing, setViewing] = useState<Reminder | null>(null);
+  const [deleting, setDeleting] = useState<Reminder | null>(null);
+  const [archiving, setArchiving] = useState<Reminder | null>(null);
+  const [adiando, setAdiando] = useState<Reminder | null>(null);
+  const [adiarDias, setAdiarDias] = useState("1");
 
 
   const filtered = reminders.filter((r) => {
@@ -203,16 +209,11 @@ function Lembretes() {
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem onClick={() => setViewing(r)}><Eye className="h-4 w-4 mr-2" />Visualizar</DropdownMenuItem>
                       {isPending && <DropdownMenuItem onClick={() => { setPaying(r); setPayOpen(true); }}><CheckCircle2 className="h-4 w-4 mr-2" />Marcar como pago</DropdownMenuItem>}
-                      {isPending && <DropdownMenuItem onClick={() => {
-                        const v = prompt("Adiar em quantos dias?", "1");
-                        const n = Number(v);
-                        if (!v || !Number.isFinite(n) || n === 0) return;
-                        adiar.mutate({ id: r.id, dias: Math.trunc(n), dataAtual: r.data_vencimento });
-                      }}><Clock className="h-4 w-4 mr-2" />Adiar</DropdownMenuItem>}
+                      {isPending && <DropdownMenuItem onClick={() => { setAdiarDias("1"); setAdiando(r); }}><Clock className="h-4 w-4 mr-2" />Adiar</DropdownMenuItem>}
                       <DropdownMenuItem onClick={() => repetirProxMes.mutate(r)}><CalendarPlus className="h-4 w-4 mr-2" />Repetir no próximo mês</DropdownMenuItem>
                       <DropdownMenuItem onClick={() => { setEditing(r); setFormOpen(true); }}><Pencil className="h-4 w-4 mr-2" />Editar</DropdownMenuItem>
-                      {r.status !== "archived" && <DropdownMenuItem onClick={() => arch.mutate(r.id)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
-                      <DropdownMenuItem onClick={() => { if (confirm("Excluir este lembrete?")) del.mutate(r.id); }} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
+                      {r.status !== "archived" && <DropdownMenuItem onClick={() => setArchiving(r)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
+                      <DropdownMenuItem onClick={() => setDeleting(r)} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
 
                   </DropdownMenu>
@@ -239,6 +240,63 @@ function Lembretes() {
               {viewing.anexo_url && <div><a href={viewing.anexo_url} target="_blank" rel="noreferrer" className="text-accent hover:underline inline-flex items-center gap-1"><Paperclip className="h-3.5 w-3.5" />{viewing.anexo_nome ?? "Anexo"}</a></div>}
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <AlertDialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir lembrete?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {deleting ? `"${deleting.titulo}" será removido permanentemente. Esta ação não pode ser desfeita.` : ""}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => { if (deleting) { del.mutate(deleting.id); setDeleting(null); } }}
+            >Excluir</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={!!archiving} onOpenChange={(v) => !v && setArchiving(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Arquivar lembrete?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {archiving ? `"${archiving.titulo}" será arquivado e sairá da lista de pendentes.` : ""}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => { if (archiving) { arch.mutate(archiving.id); setArchiving(null); } }}
+            >Arquivar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <Dialog open={!!adiando} onOpenChange={(v) => !v && setAdiando(null)}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Adiar vencimento</DialogTitle></DialogHeader>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const n = Number(adiarDias);
+            if (!Number.isFinite(n) || n === 0) { toast.error("Informe um número de dias válido"); return; }
+            if (adiando) { adiar.mutate({ id: adiando.id, dias: Math.trunc(n), dataAtual: adiando.data_vencimento }); setAdiando(null); }
+          }} className="space-y-3">
+            <div>
+              <Label>Adiar em quantos dias?</Label>
+              <Input type="number" autoFocus value={adiarDias} onChange={(e) => setAdiarDias(e.target.value)} />
+              <p className="text-xs text-muted-foreground mt-1">Use um número negativo para antecipar.</p>
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setAdiando(null)}>Cancelar</Button>
+              <Button type="submit">Confirmar</Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
 
