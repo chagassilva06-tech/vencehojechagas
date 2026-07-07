@@ -9,7 +9,7 @@ export interface Category {
 export interface Reminder {
   id: string; user_id: string; categoria_id: string | null;
   titulo: string; valor: number | null; observacoes: string | null;
-  data_vencimento: string; recorrencia: Recurrence; intervalo_dias: number | null;
+  data_vencimento: string; hora_vencimento?: string | null; recorrencia: Recurrence; intervalo_dias: number | null;
   avisos: number[]; status: ReminderStatus; anexo_url: string | null; anexo_nome: string | null;
   created_at: string; updated_at: string;
   categories?: Category | null;
