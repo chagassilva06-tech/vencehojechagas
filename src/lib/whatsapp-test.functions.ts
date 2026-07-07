@@ -109,7 +109,8 @@ export const enviarWhatsappTeste = createServerFn({ method: "POST" })
 
     // 4) Registrar no histórico (não altera status do lembrete)
     if (lembrete?.id) {
-      await supabase.from("notifications_log").insert({
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      await supabaseAdmin.from("notifications_log").insert({
         user_id: userId,
         reminder_id: lembrete.id,
         tipo: "whatsapp_teste",
