@@ -139,7 +139,7 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
           )}
           <div>
             <Label>Quando avisar</Label>
-            <div className="flex gap-4 mt-2">
+            <div className="flex flex-wrap gap-4 mt-2">
               {[{ v: 3, l: "3 dias antes" }, { v: 1, l: "1 dia antes" }, { v: 0, l: "No dia" }].map((a) => {
                 const base = dataVenc ? new Date(dataVenc + "T00:00:00") : null;
                 let dynLabel = a.l;
@@ -156,6 +156,18 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
                   </label>
                 );
               })}
+              <label
+                className={`flex items-center gap-2 text-sm ${showHora && horaVenc ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}
+                title={showHora && horaVenc ? `Avisar na hora agendada (${horaVenc})` : "Defina o horário no campo de vencimento para habilitar"}
+              >
+                <Checkbox
+                  checked={avisos.includes(-1)}
+                  disabled={!showHora || !horaVenc}
+                  onCheckedChange={() => toggleAviso(-1)}
+                />
+                <Clock className="h-3.5 w-3.5 text-accent" />
+                <span>Hora agendada{showHora && horaVenc ? ` (${horaVenc})` : ""}</span>
+              </label>
             </div>
           </div>
           <div><Label>Observações</Label><Textarea value={observacoes} onChange={(e) => setObservacoes(e.target.value)} rows={2} /></div>
