@@ -243,6 +243,63 @@ function Lembretes() {
         </DialogContent>
       </Dialog>
 
+      <AlertDialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir lembrete?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {deleting ? `"${deleting.titulo}" será removido permanentemente. Esta ação não pode ser desfeita.` : ""}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => { if (deleting) { del.mutate(deleting.id); setDeleting(null); } }}
+            >Excluir</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={!!archiving} onOpenChange={(v) => !v && setArchiving(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Arquivar lembrete?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {archiving ? `"${archiving.titulo}" será arquivado e sairá da lista de pendentes.` : ""}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => { if (archiving) { arch.mutate(archiving.id); setArchiving(null); } }}
+            >Arquivar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <Dialog open={!!adiando} onOpenChange={(v) => !v && setAdiando(null)}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Adiar vencimento</DialogTitle></DialogHeader>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const n = Number(adiarDias);
+            if (!Number.isFinite(n) || n === 0) { toast.error("Informe um número de dias válido"); return; }
+            if (adiando) { adiar.mutate({ id: adiando.id, dias: Math.trunc(n), dataAtual: adiando.data_vencimento }); setAdiando(null); }
+          }} className="space-y-3">
+            <div>
+              <Label>Adiar em quantos dias?</Label>
+              <Input type="number" autoFocus value={adiarDias} onChange={(e) => setAdiarDias(e.target.value)} />
+              <p className="text-xs text-muted-foreground mt-1">Use um número negativo para antecipar.</p>
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setAdiando(null)}>Cancelar</Button>
+              <Button type="submit">Confirmar</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }
