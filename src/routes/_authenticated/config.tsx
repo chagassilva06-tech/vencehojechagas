@@ -38,16 +38,76 @@ function Config() {
   const [avisos, setAvisos] = useState<number[]>([1]);
   const [loading, setLoading] = useState(false);
 
+  // WhatsApp consent state
+  const [wppNome, setWppNome] = useState("");
+  const [wppNumero, setWppNumero] = useState("");
+  const [wppAceite, setWppAceite] = useState(false);
+  const [wppLoading, setWppLoading] = useState(false);
+  const [wppConsent, setWppConsent] = useState<WhatsappConsent | null>(null);
+
+  async function reloadConsent(userId: string) {
+    const { data } = await supabase
+      .from("whatsapp_consents")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    setWppConsent((data as WhatsappConsent | null) ?? null);
+  }
+
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) return;
       setAuthEmail(u.user.email ?? "");
       const { data } = await supabase.from("profiles").select("*").eq("id", u.user.id).maybeSingle();
-      if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos([1]); }
+      if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos([1]); setWppNome(data.nome ?? ""); }
       else { setEmail(u.user.email ?? ""); }
+      await reloadConsent(u.user.id);
     })();
   }, []);
+
+  async function salvarConsentimentoWhatsapp() {
+    if (!wppNome.trim()) return toast.error("Informe seu nome.");
+    const numeroLimpo = wppNumero.replace(/\D/g, "");
+    if (numeroLimpo.length < 10) return toast.error("Informe um número de WhatsApp válido com DDD.");
+    if (!wppAceite) return toast.error("Você precisa marcar a autorização para prosseguir.");
+    setWppLoading(true);
+    const { data: u } = await supabase.auth.getUser();
+    if (!u.user) { setWppLoading(false); return; }
+    const { error } = await supabase.from("whatsapp_consents").insert({
+      user_id: u.user.id,
+      nome: wppNome.trim(),
+      whatsapp_numero: numeroLimpo,
+      permissao: "autorizado",
+      aceite_em: new Date().toISOString(),
+      origem_aceite: "configuracoes",
+      texto_autorizacao: TEXTO_AUTORIZACAO_WHATSAPP,
+      status: "ativo",
+    });
+    setWppLoading(false);
+    if (error) return toast.error(error.message);
+    toast.success("Autorização registrada. Você receberá lembretes pelo WhatsApp.");
+    setWppAceite(false);
+    setWppNumero("");
+    await reloadConsent(u.user.id);
+  }
+
+  async function cancelarConsentimentoWhatsapp() {
+    if (!wppConsent) return;
+    setWppLoading(true);
+    const { error } = await supabase
+      .from("whatsapp_consents")
+      .update({ status: "cancelado", permissao: "nao_autorizado", cancelado_em: new Date().toISOString() })
+      .eq("id", wppConsent.id);
+    setWppLoading(false);
+    if (error) return toast.error(error.message);
+    toast.success("Recebimento por WhatsApp cancelado.");
+    const { data: u } = await supabase.auth.getUser();
+    if (u.user) await reloadConsent(u.user.id);
+  }
+
 
   async function changeAuthEmail() {
     if (!newAuthEmail) return toast.error("Digite o novo e-mail.");
