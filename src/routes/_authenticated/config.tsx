@@ -29,7 +29,7 @@ function Config() {
       if (!u.user) return;
       setAuthEmail(u.user.email ?? "");
       const { data } = await supabase.from("profiles").select("*").eq("id", u.user.id).maybeSingle();
-      if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos(data.avisos_padrao ?? [1]); }
+      if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos([1]); }
       else { setEmail(u.user.email ?? ""); }
     })();
   }, []);
