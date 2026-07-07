@@ -194,6 +194,15 @@ function Dashboard() {
                   >
                     <CheckCircle2 className="h-3.5 w-3.5 sm:mr-1" /> <span className="hidden sm:inline">Pago</span>
                   </Button>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                    onClick={() => setDeleting(r)}
+                    title="Excluir lembrete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             );
