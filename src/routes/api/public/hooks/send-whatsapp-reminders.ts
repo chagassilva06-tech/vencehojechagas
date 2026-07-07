@@ -107,11 +107,12 @@ export const Route = createFileRoute("/api/public/hooks/send-whatsapp-reminders"
 
           // Regras:
           // - avisos padrão (0,1,3,...): dispara se avisos.includes(dias)
-          // - "Hora agendada" (-1): dispara no dia do vencimento quando a hora atual (SP) >= hora_vencimento
+          // - hora preenchida: dispara no dia do vencimento quando a hora atual (SP) >= hora_vencimento
+          //   Mesmo que o formulário tenha salvo apenas {1}, a hora programada deve ser respeitada.
           const horaVenc = (l as { hora_vencimento?: string | null }).hora_vencimento?.slice(0, 5) ?? null;
           const disparoPorDia = avisos.includes(dias) && dias !== -1;
           const disparoPorHora =
-            avisos.includes(-1) && dias === 0 && horaVenc != null && horaAgoraSP >= horaVenc;
+            dias === 0 && horaVenc != null && horaAgoraSP >= horaVenc;
           if (!disparoPorDia && !disparoPorHora) continue;
 
           // Chave lógica para o log (dias_antes = -1 quando for "hora agendada")
