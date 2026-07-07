@@ -56,11 +56,17 @@ function Dashboard() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
   const upcoming = pending
     .filter((r) => daysUntil(r.data_vencimento) >= 0)
+    .filter((r) => {
+      const d = new Date(r.data_vencimento + "T00:00:00");
+      return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
+    })
     .filter((r) => !appliedSearch || r.titulo.toLowerCase().includes(appliedSearch.toLowerCase()))
-    .sort((a, b) => a.data_vencimento.localeCompare(b.data_vencimento))
-    .slice(0, 8);
+    .sort((a, b) => a.data_vencimento.localeCompare(b.data_vencimento));
 
 
   return (
