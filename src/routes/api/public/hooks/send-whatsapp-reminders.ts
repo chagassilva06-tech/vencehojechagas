@@ -186,10 +186,10 @@ export const Route = createFileRoute("/api/public/hooks/send-whatsapp-reminders"
               reminder_id: l.id,
               tipo: "whatsapp_lembrete",
               data_alvo: l.data_vencimento,
-              dias_antes: dias,
+              dias_antes: diasLog,
             });
             enviados++;
-            detalhes.push({ reminder_id: l.id, dias, ok: true });
+            detalhes.push({ reminder_id: l.id, dias: diasLog, ok: true });
           } catch (e) {
             falhas++;
             detalhes.push({
