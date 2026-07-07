@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/config")({
   component: Config,
@@ -58,7 +60,11 @@ function Config() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
+      <Button asChild variant="ghost" size="sm" className="-ml-2">
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
+      </Button>
       <h1 className="text-2xl font-bold">Configurações</h1>
+
 
       <Card>
         <CardHeader><CardTitle>Perfil</CardTitle></CardHeader>
