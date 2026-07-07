@@ -1,22 +1,13 @@
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { lazy, Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield, Eye, EyeOff } from "lucide-react";
+import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
 import logo from "@/assets/vencehoje-logo.png";
 import heroIllustration from "@/assets/hero-illustration.png";
+import heroIllustrationWebp from "@/assets/hero-illustration.webp";
 import { supabase } from "@/integrations/supabase/client";
 
-import { toast } from "sonner";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+const AuthDialog = lazy(() => import("@/components/landing-auth-dialog"));
 
 export const Route = createFileRoute("/")({
   beforeLoad: async () => {
@@ -83,21 +74,24 @@ function Landing() {
           </div>
 
           <div className="relative flex justify-center md:justify-end">
-            <img
-              src={heroIllustration}
-              alt="Painel VenceHoje com calendário, faturas e lembretes"
-              width={560}
-              height={560}
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              className="relative w-full max-w-md md:max-w-lg h-auto drop-shadow-xl"
-            />
+            <picture>
+              <source srcSet={heroIllustrationWebp} type="image/webp" />
+              <img
+                src={heroIllustration}
+                alt="Painel VenceHoje com calendário, faturas e lembretes"
+                width={560}
+                height={560}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                className="relative w-full max-w-md md:max-w-lg h-auto drop-shadow-xl"
+              />
+            </picture>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pt-2 pb-24 grid md:grid-cols-3 gap-6">
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }} className="mx-auto max-w-6xl px-4 pt-2 pb-24 grid md:grid-cols-3 gap-6">
         {[
           { icon: Bell, title: "Lembretes automáticos", desc: "Escolha avisos 3 dias antes, 1 dia antes ou no dia do vencimento." },
           { icon: Repeat, title: "Recorrência", desc: "Mensal, semanal, anual ou personalizada. O próximo vencimento é criado sozinho." },
@@ -118,127 +112,13 @@ function Landing() {
         © {new Date().getFullYear()} By Francisco Chagas
       </footer>
 
-      <AuthDialog open={open} setOpen={setOpen} tab={tab} setTab={setTab} />
+      {open && (
+        <Suspense fallback={null}>
+          <AuthDialog open={open} setOpen={setOpen} tab={tab} setTab={setTab} />
+        </Suspense>
+      )}
     </div>
   );
 }
 
-function AuthDialog({
-  open, setOpen, tab, setTab,
-}: { open: boolean; setOpen: (v: boolean) => void; tab: "signin" | "signup"; setTab: (v: "signin" | "signup") => void }) {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
-
-  async function signIn(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (error) return toast.error(error.message);
-    toast.success("Bem-vindo de volta!");
-    navigate({ to: "/dashboard" });
-  }
-
-  async function signUp(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    const { error } = await supabase.auth.signUp({
-      email, password,
-      options: { emailRedirectTo: window.location.origin, data: { name } },
-    });
-    setLoading(false);
-    if (error) return toast.error(error.message);
-    toast.success(`Conta criada! Enviamos um e-mail para ${email} para confirmar seu acesso.`, { duration: 8000 });
-  }
-
-  async function forgotPassword() {
-    if (!email) return toast.error("Digite seu e-mail para recuperar a senha.");
-    setLoading(true);
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/`,
-    });
-    setLoading(false);
-    if (error) return toast.error(error.message);
-    toast.success("Enviamos um link de recuperação para o seu e-mail.");
-  }
-
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Bem-vindo ao VenceHoje</DialogTitle>
-          <DialogDescription>Entre na sua conta ou crie uma gratuita.</DialogDescription>
-        </DialogHeader>
-        <Tabs value={tab} onValueChange={(v) => setTab(v as "signin" | "signup")}>
-          <TabsList className="grid grid-cols-2 w-full">
-            <TabsTrigger value="signin">Entrar</TabsTrigger>
-            <TabsTrigger value="signup">Criar conta</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="signin" className="space-y-4 mt-4">
-            <form onSubmit={signIn} className="space-y-3">
-              <div>
-                <Label>E-mail</Label>
-                <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-              </div>
-              <div>
-                <div className="flex items-center justify-between">
-                  <Label>Senha</Label>
-                  <button type="button" onClick={forgotPassword} className="text-xs text-accent hover:underline" disabled={loading}>
-                    Esqueceu a senha?
-                  </button>
-                </div>
-                <PasswordInput value={password} onChange={setPassword} show={showSignIn} toggle={() => setShowSignIn((s) => !s)} />
-              </div>
-              <Button type="submit" className="w-full" disabled={loading}>Entrar</Button>
-            </form>
-          </TabsContent>
-
-          <TabsContent value="signup" className="space-y-4 mt-4">
-            <form onSubmit={signUp} className="space-y-3">
-              <div><Label>Nome</Label><Input required value={name} onChange={(e) => setName(e.target.value)} /></div>
-              <div><Label>E-mail</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-              <div>
-                <Label>Senha</Label>
-                <PasswordInput value={password} onChange={setPassword} show={showSignUp} toggle={() => setShowSignUp((s) => !s)} minLength={6} />
-              </div>
-              <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={loading}>Criar conta grátis</Button>
-            </form>
-          </TabsContent>
-        </Tabs>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-function PasswordInput({
-  value, onChange, show, toggle, minLength,
-}: { value: string; onChange: (v: string) => void; show: boolean; toggle: () => void; minLength?: number }) {
-  return (
-    <div className="relative">
-      <Input
-        type={show ? "text" : "password"}
-        required
-        minLength={minLength}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="pr-10"
-      />
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={show ? "Ocultar senha" : "Mostrar senha"}
-        className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
-      >
-        {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-      </button>
-    </div>
-  );
-}
 
