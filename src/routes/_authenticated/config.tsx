@@ -167,6 +167,70 @@ function Config() {
         </CardContent>
       </Card>
 
+      <Card>
+        <CardHeader>
+          <CardTitle>Lembretes por WhatsApp</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {wppConsent && wppConsent.status === "ativo" && wppConsent.permissao === "autorizado" ? (
+            <div className="space-y-3">
+              <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm dark:border-emerald-900/50 dark:bg-emerald-950/30">
+                <p className="font-medium text-emerald-800 dark:text-emerald-200">Recebimento autorizado</p>
+                <p className="text-emerald-700 dark:text-emerald-300 mt-1">
+                  Nome: <strong>{wppConsent.nome}</strong><br />
+                  Número: <strong>{wppConsent.whatsapp_numero}</strong><br />
+                  Aceite em: {wppConsent.aceite_em ? new Date(wppConsent.aceite_em).toLocaleString("pt-BR") : "—"}
+                </p>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Os envios serão realizados pela integração oficial com a WhatsApp Business Platform (Cloud API), usando mensagens de lembrete autorizadas por você. Você pode cancelar o recebimento a qualquer momento.
+              </p>
+              <Button variant="destructive" onClick={cancelarConsentimentoWhatsapp} disabled={wppLoading}>
+                {wppLoading ? "Cancelando..." : "Cancelar recebimento por WhatsApp"}
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {wppConsent && wppConsent.status === "cancelado" && (
+                <div className="rounded-md border border-muted bg-muted/40 p-3 text-xs text-muted-foreground">
+                  Recebimento cancelado em {wppConsent.cancelado_em ? new Date(wppConsent.cancelado_em).toLocaleString("pt-BR") : "—"}. Você pode autorizar novamente abaixo.
+                </div>
+              )}
+              <div>
+                <Label>Nome</Label>
+                <Input value={wppNome} onChange={(e) => setWppNome(e.target.value)} placeholder="Seu nome completo" />
+              </div>
+              <div>
+                <Label>Número de WhatsApp (com DDD)</Label>
+                <Input
+                  type="tel"
+                  value={wppNumero}
+                  onChange={(e) => setWppNumero(e.target.value)}
+                  placeholder="Ex.: 11987654321"
+                  inputMode="tel"
+                  maxLength={20}
+                />
+                <p className="text-xs text-muted-foreground mt-1">Informe apenas números, incluindo DDD. Para números internacionais, inclua o código do país.</p>
+              </div>
+              <label className="flex items-start gap-2 text-sm cursor-pointer rounded-md border p-3 bg-muted/30">
+                <Checkbox
+                  checked={wppAceite}
+                  onCheckedChange={(v) => setWppAceite(v === true)}
+                  className="mt-0.5"
+                />
+                <span className="leading-snug">{TEXTO_AUTORIZACAO_WHATSAPP}</span>
+              </label>
+              <p className="text-xs text-muted-foreground">
+                Não utilizamos automações não oficiais. O envio será feito por meio da integração oficial com a WhatsApp Business Platform (Cloud API), respeitando o opt-in e opt-out do usuário.
+              </p>
+              <Button onClick={salvarConsentimentoWhatsapp} disabled={wppLoading || !wppAceite}>
+                {wppLoading ? "Salvando..." : "Autorizar recebimento por WhatsApp"}
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
 
       <Card>
         <CardHeader><CardTitle>Avisos padrão</CardTitle></CardHeader>
