@@ -155,6 +155,7 @@ export type Database = {
           categoria_id: string | null
           created_at: string
           data_vencimento: string
+          hora_vencimento: string | null
           id: string
           intervalo_dias: number | null
           observacoes: string | null
@@ -172,6 +173,7 @@ export type Database = {
           categoria_id?: string | null
           created_at?: string
           data_vencimento: string
+          hora_vencimento?: string | null
           id?: string
           intervalo_dias?: number | null
           observacoes?: string | null
@@ -189,6 +191,7 @@ export type Database = {
           categoria_id?: string | null
           created_at?: string
           data_vencimento?: string
+          hora_vencimento?: string | null
           id?: string
           intervalo_dias?: number | null
           observacoes?: string | null

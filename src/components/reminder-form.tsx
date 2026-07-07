@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Clock, X } from "lucide-react";
 import { toast } from "sonner";
 
 interface Props {
@@ -24,6 +25,8 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
   const [categoriaId, setCategoriaId] = useState(reminder?.categoria_id ?? categories[0]?.id ?? "");
   const [valor, setValor] = useState(reminder?.valor?.toString() ?? "");
   const [dataVenc, setDataVenc] = useState(reminder?.data_vencimento ?? new Date().toISOString().slice(0, 10));
+  const [horaVenc, setHoraVenc] = useState<string>((reminder as unknown as { hora_vencimento?: string | null })?.hora_vencimento?.slice(0, 5) ?? "");
+  const [showHora, setShowHora] = useState<boolean>(!!(reminder as unknown as { hora_vencimento?: string | null })?.hora_vencimento);
   const [observacoes, setObservacoes] = useState(reminder?.observacoes ?? "");
   const [recorrencia, setRecorrencia] = useState<Recurrence>(reminder?.recorrencia ?? "none");
   const [intervaloDias, setIntervaloDias] = useState(reminder?.intervalo_dias?.toString() ?? "30");
@@ -42,6 +45,7 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
         valor: valor ? Number(valor) : null, observacoes: observacoes || null,
         data_vencimento: dataVenc, recorrencia, intervalo_dias: recorrencia === "custom" ? Number(intervaloDias) : null,
         avisos, anexo_url, anexo_nome,
+        hora_vencimento: showHora && horaVenc ? horaVenc : null,
       };
       if (reminder) {
         const { error } = await supabase.from("reminders").update(payload).eq("id", reminder.id);
@@ -88,7 +92,32 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
                 <SelectContent>{categories.map((c) => <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>)}</SelectContent>
               </Select>
             </div>
-            <div><Label>Data de vencimento</Label><Input type="date" required value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} /></div>
+            <div>
+              <div className="flex items-center justify-between">
+                <Label>Data de vencimento</Label>
+                <Button
+                  type="button"
+                  variant={showHora ? "default" : "ghost"}
+                  size="sm"
+                  className={`h-6 px-2 text-xs gap-1 ${showHora ? "bg-accent text-accent-foreground hover:bg-accent/90" : ""}`}
+                  onClick={() => { setShowHora((v) => !v); if (showHora) setHoraVenc(""); }}
+                  title={showHora ? "Remover horário" : "Adicionar horário de término"}
+                >
+                  <Clock className="h-3.5 w-3.5" />
+                  {showHora ? (horaVenc || "--:--") : "Horário"}
+                </Button>
+              </div>
+              <Input type="date" required value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
+              {showHora && (
+                <div className="mt-2 flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                  <Input type="time" value={horaVenc} onChange={(e) => setHoraVenc(e.target.value)} className="flex-1" />
+                  <Button type="button" variant="ghost" size="icon" className="h-8 w-8" onClick={() => { setShowHora(false); setHoraVenc(""); }} title="Remover">
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
           <div><Label>Valor (opcional)</Label><Input type="number" step="0.01" value={valor} onChange={(e) => setValor(e.target.value)} placeholder="0,00" /></div>
           <div>
