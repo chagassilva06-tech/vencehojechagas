@@ -103,7 +103,7 @@ function Landing() {
         ))}
       </section>
 
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
+      <footer className="border-t py-4 text-center text-sm text-muted-foreground">
         © {new Date().getFullYear()} By Francisco Chagas
       </footer>
 
