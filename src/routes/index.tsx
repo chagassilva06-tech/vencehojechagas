@@ -53,10 +53,10 @@ function Landing() {
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#DCEBFB] via-[#BFDBFB] to-[#8EC2F5] flex items-center justify-center p-4 md:p-10">
       {/* Decorative blue shapes */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-10 left-10 h-20 w-[35%] rounded-b-[30px] bg-[#1E90FF]" />
-        <div className="absolute -top-4 right-0 h-16 w-24 rounded-bl-[30px] bg-[#1E90FF]" />
-        <div className="absolute -bottom-6 left-0 h-14 w-44 rounded-tr-[30px] bg-[#1E90FF]" />
-        <div className="absolute -bottom-10 right-10 h-20 w-[30%] rounded-t-[30px] bg-[#1E90FF]" />
+        <div className="absolute -top-10 left-10 h-20 w-[35%] rounded-b-[30px] bg-gradient-to-b from-[#4FA8FF] to-[#1565D8] shadow-[0_10px_25px_-8px_rgba(21,101,216,0.55),inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-6px_12px_-6px_rgba(0,0,0,0.25)]" />
+        <div className="absolute -top-4 right-0 h-16 w-24 rounded-bl-[30px] bg-gradient-to-b from-[#4FA8FF] to-[#1565D8] shadow-[0_10px_25px_-8px_rgba(21,101,216,0.55),inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-6px_12px_-6px_rgba(0,0,0,0.25)]" />
+        <div className="absolute -bottom-6 left-0 h-14 w-44 rounded-tr-[30px] bg-gradient-to-t from-[#1565D8] to-[#4FA8FF] shadow-[0_-10px_25px_-8px_rgba(21,101,216,0.55),inset_0_-1px_0_rgba(255,255,255,0.35),inset_0_6px_12px_-6px_rgba(0,0,0,0.25)]" />
+        <div className="absolute -bottom-10 right-10 h-20 w-[30%] rounded-t-[30px] bg-gradient-to-t from-[#1565D8] to-[#4FA8FF] shadow-[0_-10px_25px_-8px_rgba(21,101,216,0.55),inset_0_-1px_0_rgba(255,255,255,0.35),inset_0_6px_12px_-6px_rgba(0,0,0,0.25)]" />
       </div>
 
       {/* Card */}
