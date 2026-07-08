@@ -49,7 +49,7 @@ function Landing() {
             />
           </div>
 
-          <div className="rounded-[2.5rem] bg-card overflow-hidden border-2 border-border/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25),0_-8px_20px_-8px_rgba(0,0,0,0.08),12px_0_24px_-12px_rgba(0,0,0,0.15),-12px_0_24px_-12px_rgba(0,0,0,0.15),inset_0_2px_0_rgba(255,255,255,0.9),inset_0_-3px_6px_rgba(0,0,0,0.08),inset_2px_0_4px_rgba(255,255,255,0.5),inset_-2px_0_4px_rgba(0,0,0,0.05)]">
+          <div className="w-full max-w-sm md:justify-self-end rounded-[2.5rem] bg-card overflow-hidden border-2 border-border/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25),0_-8px_20px_-8px_rgba(0,0,0,0.08),12px_0_24px_-12px_rgba(0,0,0,0.15),-12px_0_24px_-12px_rgba(0,0,0,0.15),inset_0_2px_0_rgba(255,255,255,0.9),inset_0_-3px_6px_rgba(0,0,0,0.08),inset_2px_0_4px_rgba(255,255,255,0.5),inset_-2px_0_4px_rgba(0,0,0,0.05)]">
             <div className="flex items-center gap-3 px-8 py-6 border-b bg-card">
               <BellRing className="h-9 w-9 text-accent" strokeWidth={2.5} />
               <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain" />
