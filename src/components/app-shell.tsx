@@ -51,7 +51,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-white/15">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="VenceHoje" loading="eager" decoding="async" className="h-8 w-auto object-contain bg-white rounded px-1.5 py-0.5" />
+            <img src={logo} alt="VenceHoje" loading="eager" decoding="async" className="h-12 w-auto object-contain" />
           </div>
           <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
         </div>
