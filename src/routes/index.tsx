@@ -25,13 +25,6 @@ function Landing() {
     <div className="min-h-screen bg-[oklch(0.96_0.03_160)]">
 
 
-      <header className="sticky top-0 z-40 bg-gradient-to-b from-[oklch(0.94_0.08_160)] via-[oklch(0.90_0.10_160)] to-[oklch(0.84_0.13_160)] text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.12)] border-b border-white/40">
-        <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="VenceHoje" loading="eager" decoding="async" fetchPriority="high" className="h-10 w-auto object-contain" />
-          </div>
-        </div>
-      </header>
 
 
       <section className="relative overflow-hidden">
@@ -68,7 +61,7 @@ function Landing() {
               <div className="mt-12 flex flex-col gap-3 items-center">
                 <Button
                   onClick={() => { setTab("signin"); setOpen(true); }}
-                  className="w-44 h-11 rounded-full border-2 border-accent-foreground/20 bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_14px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
+                  className="w-full h-11 rounded-full border-2 border-accent-foreground/20 bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_14px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
                 >
                   <LogIn className="h-5 w-5" />
                   Entrar
@@ -76,7 +69,7 @@ function Landing() {
                 <Button
                   variant="outline"
                   onClick={() => { setTab("signup"); setOpen(true); }}
-                  className="w-44 h-11 rounded-full border-2 border-border text-base font-medium hover:bg-muted"
+                  className="w-full h-11 rounded-full border-2 border-border text-base font-medium hover:bg-muted"
                 >
                   <UserPlus className="h-5 w-5" />
                   Criar Conta
@@ -93,7 +86,7 @@ function Landing() {
 
 
 
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }} className="mx-auto max-w-6xl px-4 pt-2 pb-24 grid md:grid-cols-3 gap-6">
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }} className="mx-auto max-w-6xl px-4 pt-2 pb-8 grid md:grid-cols-3 gap-6">
         {[
           { icon: Bell, title: "Lembretes automáticos", desc: "Escolha avisos 3 dias antes, 1 dia antes ou no dia do vencimento." },
           { icon: Repeat, title: "Recorrência", desc: "Mensal, semanal, anual ou personalizada. O próximo vencimento é criado sozinho." },
@@ -110,7 +103,7 @@ function Landing() {
         ))}
       </section>
 
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
+      <footer className="border-t py-4 text-center text-sm text-muted-foreground">
         © {new Date().getFullYear()} By Francisco Chagas
       </footer>
 
