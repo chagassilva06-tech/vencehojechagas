@@ -121,6 +121,14 @@ function Dashboard() {
         </Card>
       </div>
 
+      <div className="flex justify-end">
+        <Link to="/lembretes">
+          <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <Plus className="h-4 w-4 mr-2" /> Novo lembrete
+          </Button>
+        </Link>
+      </div>
+
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between flex-wrap gap-3">
