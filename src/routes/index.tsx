@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import illustration from "@/assets/login-illustration.png";
+import AuthDialog from "@/components/landing-auth-dialog";
 
 
 
@@ -25,6 +26,8 @@ function Landing() {
   const [remember, setRemember] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authTab, setAuthTab] = useState<"signin" | "signup">("signup");
 
 
   async function onSubmit(e: React.FormEvent) {
@@ -119,6 +122,13 @@ function Landing() {
             >
               ENTRAR
             </button>
+            <button
+              type="button"
+              onClick={() => { setAuthTab("signup"); setAuthOpen(true); }}
+              className="w-full h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/60 text-white font-semibold tracking-[0.3em] text-sm transition-colors"
+            >
+              CRIAR CONTA
+            </button>
           </form>
         </div>
 
@@ -135,6 +145,7 @@ function Landing() {
           />
         </div>
       </div>
+      <AuthDialog open={authOpen} setOpen={setAuthOpen} tab={authTab} setTab={setAuthTab} />
     </div>
   );
 }
