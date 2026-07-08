@@ -91,11 +91,6 @@ function Dashboard() {
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="text-sm text-muted-foreground">Uma visão rápida das suas contas</p>
         </div>
-        <Link to="/lembretes">
-          <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
-            <Plus className="h-4 w-4 mr-2" /> Novo lembrete
-          </Button>
-        </Link>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
@@ -124,6 +119,14 @@ function Dashboard() {
             </CardTitle>
           </CardHeader>
         </Card>
+      </div>
+
+      <div className="flex justify-end">
+        <Link to="/lembretes">
+          <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <Plus className="h-4 w-4 mr-2" /> Novo lembrete
+          </Button>
+        </Link>
       </div>
 
       <Card>
