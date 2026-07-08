@@ -53,10 +53,10 @@ function Landing() {
     <div className="relative min-h-screen w-full overflow-hidden bg-[#EAF2FB] flex items-center justify-center p-4 md:p-10">
       {/* Decorative blue shapes */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-16 left-10 h-40 w-[55%] rounded-b-[40px] bg-[#1E90FF]" />
-        <div className="absolute -top-6 right-0 h-32 w-40 rounded-bl-[40px] bg-[#1E90FF]" />
-        <div className="absolute -bottom-10 left-0 h-24 w-72 rounded-tr-[40px] bg-[#1E90FF]" />
-        <div className="absolute -bottom-16 right-10 h-40 w-[45%] rounded-t-[40px] bg-[#1E90FF]" />
+        <div className="absolute -top-10 left-10 h-20 w-[35%] rounded-b-[30px] bg-[#1E90FF]" />
+        <div className="absolute -top-4 right-0 h-16 w-24 rounded-bl-[30px] bg-[#1E90FF]" />
+        <div className="absolute -bottom-6 left-0 h-14 w-44 rounded-tr-[30px] bg-[#1E90FF]" />
+        <div className="absolute -bottom-10 right-10 h-20 w-[30%] rounded-t-[30px] bg-[#1E90FF]" />
       </div>
 
       {/* Card */}
@@ -129,6 +129,9 @@ function Landing() {
             >
               CRIAR CONTA
             </button>
+            <p className="text-center text-xs text-white/80 pt-1 tracking-wide">
+              By Francisco Chagas
+            </p>
           </form>
         </div>
 
