@@ -10,6 +10,12 @@ import bgImage from "@/assets/landing-bg.png.asset.json";
 const AuthDialog = lazy(() => import("@/components/landing-auth-dialog"));
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [
+      { rel: "preload", as: "image", href: workspace, fetchpriority: "high" } as any,
+      { rel: "preload", as: "image", href: bgImage.url } as any,
+    ],
+  }),
   beforeLoad: async () => {
     if (typeof window === "undefined") return;
     const { data } = await supabase.auth.getSession();
@@ -47,7 +53,7 @@ function Landing() {
             <div className="flex items-center gap-3 px-8 py-6 border-b bg-card shadow-[0_4px_6px_-4px_rgba(0,0,0,0.15)]">
               <BellRing className="h-9 w-9 text-accent shrink-0" strokeWidth={2.5} />
               <div className="flex flex-col">
-                <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain drop-shadow-[0_2px_3px_rgba(0,0,0,0.25)]" />
+                <img src={logo} alt="VenceHoje" width={200} height={32} loading="eager" decoding="async" className="h-8 w-auto object-contain drop-shadow-[0_2px_3px_rgba(0,0,0,0.25)]" />
                 <span className="text-[10px] text-muted-foreground mt-0.5 tracking-wide">By Francisco Chagas</span>
               </div>
             </div>
