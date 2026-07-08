@@ -124,8 +124,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <header
           className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-white transition-all duration-500 shadow-sm"
           style={{
-            background: `linear-gradient(90deg, #1E3A8A 0%, #0B1E45 100%)`,
-            boxShadow: "0 2px 24px rgba(11,30,69,0.45)",
+            background: `linear-gradient(90deg, #60A5FA 0%, #3B82F6 100%)`,
+            boxShadow: "0 2px 24px rgba(59,130,246,0.25)",
           }}
         >
           <button className="lg:hidden" onClick={() => setOpen(true)}><Menu className="h-5 w-5" /></button>
