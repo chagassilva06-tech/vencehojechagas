@@ -3,7 +3,6 @@ import { lazy, Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
 import logo from "@/assets/vencehoje-logo-title.png";
-import landingBg from "@/assets/landing-bg.png";
 import { supabase } from "@/integrations/supabase/client";
 
 const AuthDialog = lazy(() => import("@/components/landing-auth-dialog"));
@@ -22,8 +21,8 @@ function Landing() {
   const [tab, setTab] = useState<"signin" | "signup">("signin");
 
   return (
-    <div className="min-h-screen bg-[oklch(0.96_0.03_160)] bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: `url(${landingBg})` }}>
-      <div className="min-h-screen bg-background/70 backdrop-blur-[2px]">
+    <div className="min-h-screen bg-[oklch(0.96_0.03_160)]">
+
 
       <header className="sticky top-0 z-40 bg-gradient-to-b from-[oklch(0.94_0.08_160)] via-[oklch(0.90_0.10_160)] to-[oklch(0.84_0.13_160)] text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.12)] border-b border-white/40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
@@ -96,8 +95,8 @@ function Landing() {
         </Suspense>
       )}
 
-      </div>
     </div>
+
 
   );
 }
