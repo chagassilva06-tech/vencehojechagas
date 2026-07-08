@@ -203,7 +203,7 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
                   size="sm"
                   variant="outline"
                   className="h-7 gap-1 text-xs hover:bg-accent hover:text-accent-foreground"
-                  onClick={() => window.open(URL.createObjectURL(file), "_blank", "noopener,noreferrer")}
+                  onClick={() => openPreviewForFile(file)}
                 >
                   <Eye className="h-3.5 w-3.5" /> Visualizar
                 </Button>
@@ -218,7 +218,7 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
                     size="sm"
                     variant="outline"
                     className="h-7 gap-1 text-xs hover:bg-accent hover:text-accent-foreground"
-                    onClick={() => window.open(reminder.anexo_url!, "_blank", "noopener,noreferrer")}
+                    onClick={() => openPreviewForUrl(reminder.anexo_url!, reminder.anexo_nome ?? "anexo")}
                   >
                     <Eye className="h-3.5 w-3.5" /> Visualizar
                   </Button>
@@ -236,5 +236,26 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
         </form>
       </DialogContent>
     </Dialog>
+    <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden p-0">
+        <DialogHeader className="px-4 pt-4">
+          <DialogTitle className="text-sm truncate">{previewName || "Visualizar anexo"}</DialogTitle>
+        </DialogHeader>
+        <div className="p-4 pt-2 flex items-center justify-center bg-muted/20 max-h-[80vh] overflow-auto">
+          {previewSrc && previewIsPdf ? (
+            <iframe src={previewSrc} title={previewName} className="w-full h-[75vh] rounded-md border" />
+          ) : previewSrc ? (
+            <img src={previewSrc} alt={previewName} className="max-w-full max-h-[75vh] object-contain rounded-md" />
+          ) : null}
+        </div>
+        {previewSrc && (
+          <div className="flex justify-end gap-2 px-4 pb-4">
+            <Button type="button" variant="outline" size="sm" onClick={() => window.open(previewSrc!, "_blank", "noopener,noreferrer")}>Abrir em nova aba</Button>
+            <Button type="button" size="sm" onClick={() => setPreviewOpen(false)}>Fechar</Button>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
