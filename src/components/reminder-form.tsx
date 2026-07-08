@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { uploadAttachment, type Reminder, type Category, type Recurrence } from "@/lib/reminders";
@@ -32,6 +32,27 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
   const [intervaloDias, setIntervaloDias] = useState(reminder?.intervalo_dias?.toString() ?? "30");
   const [avisos, setAvisos] = useState<number[]>(reminder?.avisos ?? [1]);
   const [file, setFile] = useState<File | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
+  const [previewName, setPreviewName] = useState<string>("");
+  const [previewIsPdf, setPreviewIsPdf] = useState(false);
+
+  const isImage = (name?: string | null) => !!name && /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(name);
+  const isPdf = (name?: string | null) => !!name && /\.pdf$/i.test(name);
+
+  function openPreviewForFile(f: File) {
+    const url = URL.createObjectURL(f);
+    setPreviewSrc(url);
+    setPreviewName(f.name);
+    setPreviewIsPdf(f.type === "application/pdf" || isPdf(f.name));
+    setPreviewOpen(true);
+  }
+  function openPreviewForUrl(url: string, name: string) {
+    setPreviewSrc(url);
+    setPreviewName(name);
+    setPreviewIsPdf(isPdf(name));
+    setPreviewOpen(true);
+  }
 
   const mut = useMutation({
     mutationFn: async () => {
