@@ -50,9 +50,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         }}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-white/15">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="VenceHoje" loading="eager" decoding="async" className="h-12 w-auto object-contain" />
-          </div>
+          <Link to="/dashboard" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(96,165,250,0.55)]">
+            <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:rotate-[-6deg]" aria-hidden="true">
+              <path d="M6 22 L16 32 L36 8" fill="none" stroke="#3B82F6" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="text-2xl font-extrabold tracking-tight leading-none">
+              <span className="text-white">Vence</span><span className="text-blue-400">Hoje</span>
+            </span>
+          </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
         </div>
         <nav className="flex-1 p-3 pb-8 space-y-2.5">
