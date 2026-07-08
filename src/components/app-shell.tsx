@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           boxShadow: "inset -1px 0 0 rgba(30,58,138,0.5), 0 0 24px rgba(11,30,69,0.45)",
         }}
       >
-        <div className="h-16 flex items-center justify-between px-4 border-b border-white/15">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-white/15 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.55),inset_0_-1px_0_rgba(255,255,255,0.18)]">
           <Link to="/dashboard" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(96,165,250,0.55)]">
             <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:rotate-[-6deg]" aria-hidden="true">
               <path d="M6 22 L16 32 L36 8" fill="none" stroke="#3B82F6" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
