@@ -95,7 +95,10 @@ function Landing() {
           <AuthDialog open={open} setOpen={setOpen} tab={tab} setTab={setTab} />
         </Suspense>
       )}
+      )}
+      </div>
     </div>
+
   );
 }
 
