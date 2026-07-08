@@ -229,10 +229,42 @@ function Historico() {
                 <div className="font-semibold text-accent">{formatCurrency(it.valor)}</div>
                 {it.comprovante_url && <a href={it.comprovante_url} target="_blank" rel="noreferrer" className="text-xs text-muted-foreground hover:underline">comprovante</a>}
               </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-destructive hover:text-destructive hover:bg-destructive/10 shrink-0"
+                onClick={() => setPendingDelete(it)}
+                disabled={del.isPending}
+                aria-label="Excluir"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
             </CardContent>
           </Card>
         ))}
       </div>
+
+      <AlertDialog open={!!pendingDelete} onOpenChange={(v) => !v && setPendingDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir do histórico?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {pendingDelete?.titulo} será removido permanentemente do histórico.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (pendingDelete) del.mutate(pendingDelete);
+                setPendingDelete(null);
+              }}
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
