@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/vencehoje-logo-title.png";
+
 
 const nav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, color: "#10B981" },
