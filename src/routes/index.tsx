@@ -3,8 +3,7 @@ import { lazy, Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
 import logo from "@/assets/vencehoje-logo-title.png";
-import heroIllustration from "@/assets/hero-illustration.png";
-import heroIllustrationWebp from "@/assets/hero-illustration.webp";
+import landingBg from "@/assets/landing-bg.png";
 import { supabase } from "@/integrations/supabase/client";
 
 const AuthDialog = lazy(() => import("@/components/landing-auth-dialog"));
@@ -23,7 +22,9 @@ function Landing() {
   const [tab, setTab] = useState<"signin" | "signup">("signin");
 
   return (
-    <div className="min-h-screen bg-[oklch(0.96_0.03_160)]">
+    <div className="min-h-screen bg-[oklch(0.96_0.03_160)] bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: `url(${landingBg})` }}>
+      <div className="min-h-screen bg-background/70 backdrop-blur-[2px]">
+
       <header className="sticky top-0 z-40 bg-gradient-to-b from-[oklch(0.94_0.08_160)] via-[oklch(0.90_0.10_160)] to-[oklch(0.84_0.13_160)] text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.12)] border-b border-white/40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -34,15 +35,8 @@ function Landing() {
 
 
       <section className="relative overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute -right-40 top-1/2 -translate-y-1/2 hidden md:block">
-          <div className="h-[640px] w-[640px] rounded-full bg-accent/25" />
-        </div>
-        <div aria-hidden className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 hidden md:block">
-          <div className="h-[520px] w-[520px] rounded-full bg-accent/40" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-4 md:pt-10 md:pb-6 grid md:grid-cols-2 gap-10 items-start">
-          <div className="text-left">
+        <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-4 md:pt-10 md:pb-6">
+          <div className="text-left max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground mb-6">
               <span className="h-2 w-2 rounded-full bg-accent" /> Plano gratuito com até 20 lembretes
             </div>
@@ -71,24 +65,9 @@ function Landing() {
               </Button>
             </div>
           </div>
-
-          <div className="relative flex justify-center md:justify-end">
-            <picture>
-              <source srcSet={heroIllustrationWebp} type="image/webp" />
-              <img
-                src={heroIllustration}
-                alt="Painel VenceHoje com calendário, faturas e lembretes"
-                width={560}
-                height={560}
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                className="relative w-full max-w-md md:max-w-lg h-auto drop-shadow-xl"
-              />
-            </picture>
-          </div>
         </div>
       </section>
+
 
       <section style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }} className="mx-auto max-w-6xl px-4 pt-2 pb-24 grid md:grid-cols-3 gap-6">
         {[
@@ -116,7 +95,10 @@ function Landing() {
           <AuthDialog open={open} setOpen={setOpen} tab={tab} setTab={setTab} />
         </Suspense>
       )}
+
+      </div>
     </div>
+
   );
 }
 
