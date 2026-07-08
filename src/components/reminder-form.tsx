@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Clock, X } from "lucide-react";
+import { Clock, X, Eye } from "lucide-react";
 import { toast } from "sonner";
 
 interface Props {
@@ -174,7 +174,36 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
           <div>
             <Label>Anexo (boleto/PDF)</Label>
             <Input type="file" accept=".pdf,image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-            {reminder?.anexo_nome && !file && <p className="text-xs text-muted-foreground mt-1">Atual: {reminder.anexo_nome}</p>}
+            {file && (
+              <div className="mt-2 flex items-center justify-between gap-2 rounded-md border bg-muted/30 px-3 py-2">
+                <span className="text-xs truncate">{file.name}</span>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  className="h-7 gap-1 text-xs hover:bg-accent hover:text-accent-foreground"
+                  onClick={() => window.open(URL.createObjectURL(file), "_blank", "noopener,noreferrer")}
+                >
+                  <Eye className="h-3.5 w-3.5" /> Visualizar
+                </Button>
+              </div>
+            )}
+            {reminder?.anexo_nome && !file && (
+              <div className="mt-2 flex items-center justify-between gap-2 rounded-md border bg-muted/30 px-3 py-2">
+                <span className="text-xs truncate">Atual: {reminder.anexo_nome}</span>
+                {reminder.anexo_url && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    className="h-7 gap-1 text-xs hover:bg-accent hover:text-accent-foreground"
+                    onClick={() => window.open(reminder.anexo_url!, "_blank", "noopener,noreferrer")}
+                  >
+                    <Eye className="h-3.5 w-3.5" /> Visualizar
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
           <DialogFooter className="sticky bottom-0 bg-background pt-3 -mx-6 px-6 border-t flex-col-reverse sm:flex-row gap-2">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">Cancelar</Button>
