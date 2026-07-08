@@ -35,38 +35,56 @@ function Landing() {
 
 
       <section className="relative overflow-hidden">
-        <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-4 md:pt-10 md:pb-6">
-          <div className="text-left max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground mb-6">
-              <span className="h-2 w-2 rounded-full bg-accent" /> Plano gratuito com até 20 lembretes
+        <div className="relative mx-auto max-w-6xl px-4 pt-10 pb-8 md:pt-16 md:pb-12 grid md:grid-cols-2 gap-10 items-center">
+          <div className="flex justify-center md:justify-start">
+            <img
+              src={workspace}
+              alt="Ilustração de mesa de trabalho com calendário e relógio"
+              width={1280}
+              height={1024}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full max-w-lg h-auto"
+            />
+          </div>
+
+          <div className="rounded-3xl bg-card border p-8 md:p-10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.8)]">
+            <div className="flex items-center gap-3 pb-6 border-b">
+              <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain" />
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-              Nunca mais <span className="text-accent">esqueça</span> uma conta para pagar.
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-xl">
-              Cadastre seus vencimentos, receba lembretes automáticos por e-mail e mantenha
-              o controle de tudo em um só lugar.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="pt-6 text-center">
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
+                BEM-VINDO
+              </h1>
+              <p className="mt-2 text-muted-foreground">
+                Organize seus vencimentos hoje mesmo.
+              </p>
+            </div>
+            <div className="mt-8 flex flex-col gap-3">
               <Button
                 size="lg"
                 onClick={() => { setTab("signin"); setOpen(true); }}
-                className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-2px_4px_rgba(0,0,0,0.15),0_4px_10px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-2px_6px_rgba(0,0,0,0.18),0_6px_14px_rgba(0,0,0,0.18)] hover:-translate-y-0.5 transition-all"
+                className="w-full rounded-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_14px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all"
               >
-                Entrar
+                Entrar na minha conta
               </Button>
               <Button
                 size="lg"
                 variant="secondary"
                 onClick={() => { setTab("signup"); setOpen(true); }}
-                className="shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_4px_10px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all"
+                className="w-full rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_4px_10px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all"
               >
-                Criar conta
+                Criar conta grátis
               </Button>
             </div>
+            <p className="mt-6 text-center text-xs text-muted-foreground">
+              Plano gratuito com até 20 lembretes
+            </p>
           </div>
         </div>
       </section>
+
 
 
       <section style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }} className="mx-auto max-w-6xl px-4 pt-2 pb-24 grid md:grid-cols-3 gap-6">
