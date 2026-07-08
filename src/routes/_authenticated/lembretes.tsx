@@ -238,7 +238,12 @@ function Lembretes() {
               <div><span className="text-muted-foreground">Recorrência:</span> {recurrenceLabels[viewing.recorrencia]}</div>
               <div><span className="text-muted-foreground">Status:</span> {viewing.status}</div>
               {viewing.observacoes && <div><span className="text-muted-foreground">Observações:</span> {viewing.observacoes}</div>}
-              {viewing.anexo_url && <div><AttachmentPreview url={viewing.anexo_url} name={viewing.anexo_nome} /></div>}
+              {viewing.anexo_url && (
+                <div className="flex items-center gap-2 pt-1">
+                  <span className="text-muted-foreground inline-flex items-center gap-1"><Paperclip className="h-3.5 w-3.5" />{viewing.anexo_nome ?? "Anexo"}</span>
+                  <AttachmentPreview url={viewing.anexo_url} name={viewing.anexo_nome} variant="button" />
+                </div>
+              )}
             </div>
           )}
         </DialogContent>
