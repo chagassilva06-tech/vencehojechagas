@@ -51,8 +51,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         }}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-white/20 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.25),inset_0_-1px_0_rgba(255,255,255,0.25)]">
-          <Link to="/dashboard" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.55)]">
-            <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:rotate-[-6deg]" aria-hidden="true">
+          <Link to="/dashboard" className="flex items-center gap-2">
+            <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0" aria-hidden="true">
               <path d="M6 22 L16 32 L36 8" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span className="text-2xl font-extrabold tracking-tight leading-none">
@@ -80,7 +80,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     ? { color: item.color }
                     : {
                         background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 50%, rgba(0,0,0,0.10) 100%)",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.15)",
+                        boxShadow: "0 2px 6px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.18)",
                       }
                 }
               >
