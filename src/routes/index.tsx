@@ -1,8 +1,10 @@
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import illustration from "@/assets/login-illustration.png";
+
 
 export const Route = createFileRoute("/")({
   beforeLoad: async () => {
@@ -18,7 +20,9 @@ function Landing() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -60,19 +64,29 @@ function Landing() {
             <input
               type="email"
               required
-              placeholder="Username"
+              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full h-12 rounded-full bg-white px-6 text-center text-sm text-gray-700 placeholder:text-gray-500 focus:outline-none shadow-sm"
             />
-            <input
-              type="password"
-              required
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-12 rounded-full bg-white px-6 text-center text-sm text-gray-700 tracking-widest placeholder:text-gray-400 focus:outline-none shadow-sm"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full h-12 rounded-full bg-white px-6 pr-12 text-center text-sm text-gray-700 tracking-widest placeholder:text-gray-400 focus:outline-none shadow-sm"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
 
             <div className="flex items-center justify-between text-xs text-white px-2">
               <label className="flex items-center gap-2 cursor-pointer">
@@ -82,12 +96,13 @@ function Landing() {
                   onChange={(e) => setRemember(e.target.checked)}
                   className="h-3.5 w-3.5 rounded-sm accent-white"
                 />
-                <span>Remember</span>
+                <span>Lembrar senha</span>
               </label>
               <button type="button" onClick={forgotPassword} className="hover:underline">
-                Forgot Password ?
+                Esqueceu Senha?
               </button>
             </div>
+
 
             <button
               type="submit"
