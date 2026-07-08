@@ -55,7 +55,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
           <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
         </div>
-        <nav className="flex-1 p-3 space-y-1">
+        <nav className="flex-1 p-3 pb-8 space-y-2.5">
           {nav.map((item) => {
             const active = location.pathname === item.to || (item.to !== "/dashboard" && location.pathname.startsWith(item.to));
             return (
