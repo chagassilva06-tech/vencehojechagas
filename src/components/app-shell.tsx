@@ -112,8 +112,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="p-3 border-t border-white/20">
-          <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/15 hover:text-white" onClick={signOut}>
+        <div
+          className="p-3 border-t border-white/20"
+          style={{
+            background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.20) 100%)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 -4px 12px rgba(0,0,0,0.15)",
+          }}
+        >
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-white hover:text-white"
+            style={{
+              background: "linear-gradient(180deg, #1E40AF 0%, #0B1E45 100%)",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.3)",
+            }}
+            onClick={signOut}
+          >
             <LogOut className="h-4 w-4 mr-2" /> Sair
           </Button>
         </div>
