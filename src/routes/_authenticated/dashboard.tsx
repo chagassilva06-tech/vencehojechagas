@@ -207,6 +207,18 @@ function Dashboard() {
               </div>
             );
           })}
+          {upcoming.length > 5 && (
+            <div className="flex justify-center pt-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+              >
+                ↑ Início
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
 
