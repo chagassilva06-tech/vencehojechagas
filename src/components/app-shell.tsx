@@ -50,13 +50,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           color: "#1F2937",
         }}
       >
-        <div className="h-16 flex items-center justify-between px-4 border-b border-white/15 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.55),inset_0_-1px_0_rgba(255,255,255,0.18)]">
-          <Link to="/dashboard" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(96,165,250,0.55)]">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-black/10 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(255,255,255,0.6)]">
+          <Link to="/dashboard" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.35)]">
             <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:rotate-[-6deg]" aria-hidden="true">
               <path d="M6 22 L16 32 L36 8" fill="none" stroke="#3B82F6" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span className="text-2xl font-extrabold tracking-tight leading-none">
-              <span className="text-white">Vence</span><span className="text-blue-400">Hoje</span>
+              <span className="text-slate-800">Vence</span><span className="text-blue-500">Hoje</span>
             </span>
           </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
