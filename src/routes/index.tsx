@@ -95,8 +95,8 @@ function Landing() {
         </Suspense>
       )}
 
-      </div>
     </div>
+
 
   );
 }
