@@ -65,22 +65,21 @@ function Landing() {
 
               <div className="mt-12 flex flex-col gap-3 items-center">
                 <Button
-                  size="sm"
                   onClick={() => { setTab("signin"); setOpen(true); }}
-                  className="h-9 px-6 rounded-full border-2 border-accent-foreground/20 bg-accent text-accent-foreground text-sm font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_14px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
+                  className="h-11 px-8 rounded-full border-2 border-accent-foreground/20 bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_14px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
                 >
-                  <LogIn className="h-4 w-4" />
+                  <LogIn className="h-5 w-5" />
                   Entrar
                 </Button>
                 <Button
-                  size="sm"
                   variant="outline"
                   onClick={() => { setTab("signup"); setOpen(true); }}
-                  className="h-9 px-6 rounded-full border-2 border-border text-sm font-medium hover:bg-muted"
+                  className="h-11 px-8 rounded-full border-2 border-border text-base font-medium hover:bg-muted"
                 >
-                  <UserPlus className="h-4 w-4" />
+                  <UserPlus className="h-5 w-5" />
                   Criar Conta
                 </Button>
+
 
               </div>
             </div>
