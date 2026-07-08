@@ -129,6 +129,9 @@ function Landing() {
             >
               CRIAR CONTA
             </button>
+            <p className="text-center text-xs text-white/80 pt-1 tracking-wide">
+              By Francisco Chagas
+            </p>
           </form>
         </div>
 
