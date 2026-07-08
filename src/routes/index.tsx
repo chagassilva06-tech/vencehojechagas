@@ -49,36 +49,39 @@ function Landing() {
             />
           </div>
 
-          <div className="rounded-[2rem] bg-card border-2 border-border/60 p-8 md:p-10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25),0_-8px_20px_-8px_rgba(0,0,0,0.08),12px_0_24px_-12px_rgba(0,0,0,0.15),-12px_0_24px_-12px_rgba(0,0,0,0.15),inset_0_2px_0_rgba(255,255,255,0.9),inset_0_-3px_6px_rgba(0,0,0,0.08),inset_2px_0_4px_rgba(255,255,255,0.5),inset_-2px_0_4px_rgba(0,0,0,0.05)]">
-            <div className="flex items-center gap-3 pb-6 border-b">
+          <div className="rounded-[2.5rem] bg-card overflow-hidden border-2 border-border/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25),0_-8px_20px_-8px_rgba(0,0,0,0.08),12px_0_24px_-12px_rgba(0,0,0,0.15),-12px_0_24px_-12px_rgba(0,0,0,0.15),inset_0_2px_0_rgba(255,255,255,0.9),inset_0_-3px_6px_rgba(0,0,0,0.08),inset_2px_0_4px_rgba(255,255,255,0.5),inset_-2px_0_4px_rgba(0,0,0,0.05)]">
+            <div className="flex items-center gap-3 px-8 py-6 border-b bg-card">
+              <BellRing className="h-9 w-9 text-accent" strokeWidth={2.5} />
               <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain" />
             </div>
-            <div className="pt-6 text-center">
-              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-                Dashboard lembretes
-              </h1>
+
+            <div className="px-8 pt-8 pb-8 text-center">
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground/90">
+                DASHBOARD
+              </h2>
               <p className="mt-2 text-muted-foreground">
                 Organize seus vencimentos hoje mesmo.
               </p>
-            </div>
-            <div className="mt-8 flex flex-col gap-3">
-              <Button
-                size="sm"
-                onClick={() => { setTab("signin"); setOpen(true); }}
-                className="w-full rounded-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_14px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all"
-              >
-                Entrar na minha conta
-              </Button>
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={() => { setTab("signup"); setOpen(true); }}
-                className="w-full rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_4px_10px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all"
-              >
-                Criar conta grátis
-              </Button>
+
+              <div className="mt-8 flex flex-col gap-3">
+                <Button
+                  onClick={() => { setTab("signin"); setOpen(true); }}
+                  className="w-full h-12 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_8px_20px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
+                >
+                  <LogIn className="h-5 w-5" />
+                  Entrar na minha conta
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => { setTab("signup"); setOpen(true); }}
+                  className="w-full rounded-full text-muted-foreground hover:text-foreground"
+                >
+                  Criar conta grátis
+                </Button>
+              </div>
             </div>
           </div>
+
 
         </div>
       </section>
