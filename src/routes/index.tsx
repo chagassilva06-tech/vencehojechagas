@@ -75,7 +75,7 @@ function Landing() {
                 <Button
                   variant="outline"
                   onClick={() => { setTab("signup"); setOpen(true); }}
-                  className="h-11 px-8 rounded-full border-2 border-border text-base font-medium hover:bg-muted"
+                  className="w-44 h-11 rounded-full border-2 border-border text-base font-medium hover:bg-muted"
                 >
                   <UserPlus className="h-5 w-5" />
                   Criar Conta
