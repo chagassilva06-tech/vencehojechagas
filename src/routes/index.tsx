@@ -60,8 +60,13 @@ function Landing() {
       <div className="relative w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-lg overflow-hidden shadow-2xl bg-white">
         {/* Left: form */}
         <div className="bg-gradient-to-b from-[#2FA3FF] to-[#1976FF] px-8 py-12 md:px-14 md:py-16 flex flex-col justify-center">
-          <h1 className="text-white text-3xl md:text-4xl font-bold tracking-[0.35em] text-center mb-10">
-            VENCEHOJE
+          <h1
+            style={{ fontFamily: "'Outfit', sans-serif" }}
+            className="select-none text-white text-5xl md:text-6xl tracking-tighter flex items-baseline justify-center mb-10"
+          >
+            <span className="font-light opacity-90">Vence</span>
+            <span className="font-bold">Hoje</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
           </h1>
           <form onSubmit={onSubmit} className="space-y-5 max-w-sm w-full mx-auto">
             <input
