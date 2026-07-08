@@ -67,16 +67,17 @@ function Landing() {
 
                 <Button
                   onClick={() => { setTab("signin"); setOpen(true); }}
-                  className="w-full h-12 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_8px_20px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
+                  className="w-full h-12 rounded-full border-2 border-accent-foreground/20 bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_8px_20px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
                 >
                   <LogIn className="h-5 w-5" />
                   Entrar
                 </Button>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   onClick={() => { setTab("signup"); setOpen(true); }}
-                  className="w-full rounded-full text-muted-foreground hover:text-foreground"
+                  className="w-full h-12 rounded-full border-2 border-border text-base font-medium hover:bg-muted"
                 >
+
                   Criar Conta
 
                 </Button>
