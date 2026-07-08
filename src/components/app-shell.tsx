@@ -45,8 +45,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           open ? "translate-x-0" : "-translate-x-full"
         )}
         style={{
-          background: `linear-gradient(180deg, #1E3A8A 0%, #0B1E45 100%)`,
-          boxShadow: "inset -1px 0 0 rgba(30,58,138,0.5), 0 0 24px rgba(11,30,69,0.45)",
+          background: `linear-gradient(180deg, #60A5FA 0%, #3B82F6 100%)`,
+          boxShadow: "inset -1px 0 0 rgba(59,130,246,0.35), 0 0 24px rgba(59,130,246,0.25)",
         }}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-white/15 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.55),inset_0_-1px_0_rgba(255,255,255,0.18)]">
@@ -124,8 +124,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <header
           className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-white transition-all duration-500 shadow-sm"
           style={{
-            background: `linear-gradient(90deg, #1E3A8A 0%, #0B1E45 100%)`,
-            boxShadow: "0 2px 24px rgba(11,30,69,0.45)",
+            background: `linear-gradient(90deg, #60A5FA 0%, #3B82F6 100%)`,
+            boxShadow: "0 2px 24px rgba(59,130,246,0.25)",
           }}
         >
           <button className="lg:hidden" onClick={() => setOpen(true)}><Menu className="h-5 w-5" /></button>
