@@ -29,6 +29,16 @@ function Historico() {
   const { data: reminders } = useSuspenseQuery({ queryKey: ["reminders"], queryFn: () => fetchReminders() });
   const [search, setSearch] = useState("");
 
+  const { data: userName } = useQuery({
+    queryKey: ["profile_name"],
+    queryFn: async () => {
+      const { data: u } = await supabase.auth.getUser();
+      if (!u.user) return "";
+      const { data } = await supabase.from("profiles").select("nome, email").eq("id", u.user.id).maybeSingle();
+      return (data?.nome || data?.email || u.user.email || "").toString();
+    },
+  });
+
   const { data: avisos = [] } = useQuery({
     queryKey: ["notifications_log"],
     queryFn: async () => {
@@ -141,11 +151,14 @@ function Historico() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {recent.map((p) => (
+            {recent.map((p, idx) => (
               <div key={p.id} className="flex items-center justify-between text-sm p-2 rounded-md border-l-4 border-l-accent bg-muted/30">
                 <div className="min-w-0">
                   <span className="font-medium truncate">{p.reminders?.titulo ?? "Lembrete removido"}</span>
                   <span className="text-muted-foreground"> — marcado como pago em {formatDate(p.data_pagamento)}</span>
+                  {idx === 0 && userName && (
+                    <span className="text-muted-foreground italic"> • Por {userName}</span>
+                  )}
                 </div>
                 <span className="font-semibold text-accent shrink-0 ml-2">{formatCurrency(p.valor_pago)}</span>
               </div>
