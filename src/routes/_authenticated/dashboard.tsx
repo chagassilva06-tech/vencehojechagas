@@ -123,7 +123,7 @@ function Dashboard() {
 
       <div className="flex justify-end">
         <Link to="/lembretes">
-          <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button className="bg-accent text-accent-foreground shadow-[0_8px_20px_-6px_rgba(16,185,129,0.55)] hover:bg-accent/90 hover:shadow-[0_14px_28px_-8px_rgba(16,185,129,0.75)] hover:-translate-y-0.5 hover:scale-[1.03] transition-all duration-300">
             <Plus className="h-4 w-4 mr-2" /> Novo lembrete
           </Button>
         </Link>
