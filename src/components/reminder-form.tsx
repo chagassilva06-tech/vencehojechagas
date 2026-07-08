@@ -100,6 +100,7 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
   }
 
   return (
+    <>
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader><DialogTitle>{reminder ? "Editar lembrete" : "Novo lembrete"}</DialogTitle></DialogHeader>
