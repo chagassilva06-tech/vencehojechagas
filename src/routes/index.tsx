@@ -69,14 +69,15 @@ function Landing() {
                   className="w-full h-12 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_8px_20px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
                 >
                   <LogIn className="h-5 w-5" />
-                  Entrar na minha conta
+                  Entrar
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => { setTab("signup"); setOpen(true); }}
                   className="w-full rounded-full text-muted-foreground hover:text-foreground"
                 >
-                  Criar conta grátis
+                  Criar Conta
+
                 </Button>
               </div>
             </div>
