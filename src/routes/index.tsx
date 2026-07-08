@@ -38,7 +38,7 @@ function Landing() {
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              className="w-full max-w-lg h-auto md:max-w-[calc(32rem+2cm)]"
+              className="w-full max-w-lg h-auto md:max-w-[calc(32rem+5cm)]"
             />
           </div>
 
