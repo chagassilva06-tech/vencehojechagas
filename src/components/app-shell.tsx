@@ -123,10 +123,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex-1 flex flex-col min-w-0">
         <header
-          className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-white transition-all duration-500 shadow-sm"
+          className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-slate-800 transition-all duration-500 shadow-sm"
           style={{
-            background: `linear-gradient(90deg, #60A5FA 0%, #3B82F6 100%)`,
-            boxShadow: "0 2px 24px rgba(59,130,246,0.25)",
+            background: `linear-gradient(90deg, #F3F4F6 0%, #D1D5DB 100%)`,
+            boxShadow: "0 2px 24px rgba(0,0,0,0.08)",
           }}
         >
           <button className="lg:hidden" onClick={() => setOpen(true)}><Menu className="h-5 w-5" /></button>
