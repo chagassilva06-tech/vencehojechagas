@@ -50,7 +50,7 @@ function Landing() {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#EAF2FB] flex items-center justify-center p-4 md:p-10">
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#DCEBFB] via-[#BFDBFB] to-[#8EC2F5] flex items-center justify-center p-4 md:p-10">
       {/* Decorative blue shapes */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -top-10 left-10 h-20 w-[35%] rounded-b-[30px] bg-[#1E90FF]" />
