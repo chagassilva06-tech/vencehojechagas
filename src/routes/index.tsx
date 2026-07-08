@@ -60,7 +60,7 @@ function Landing() {
       </div>
 
       {/* Card */}
-      <div className="relative w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_30px_60px_-20px_rgba(30,144,255,0.35),0_18px_36px_-18px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.6)]">
+      <div className="relative w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_30px_60px_-20px_rgba(30,144,255,0.35),0_18px_36px_-18px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-12px_24px_-12px_rgba(21,101,216,0.35)]">
         {/* Left: form */}
         <div className="bg-gradient-to-b from-[#2FA3FF] to-[#1976FF] px-8 py-12 md:px-14 md:py-16 flex flex-col justify-center">
           <h1
