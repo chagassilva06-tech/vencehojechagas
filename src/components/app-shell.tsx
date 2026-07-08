@@ -45,9 +45,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           open ? "translate-x-0" : "-translate-x-full"
         )}
         style={{
-          background: `linear-gradient(180deg, #F3F4F6 0%, #D1D5DB 100%)`,
-          boxShadow: "inset -1px 0 0 rgba(0,0,0,0.06), 0 0 24px rgba(0,0,0,0.08)",
-          color: "#1F2937",
+          background: `linear-gradient(180deg, #38BDF8 0%, #2563EB 100%)`,
+          boxShadow: "inset -1px 0 0 rgba(37,99,235,0.35), 0 0 24px rgba(56,189,248,0.25)",
+          color: "#ffffff",
         }}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-black/10 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(255,255,255,0.6)]">
