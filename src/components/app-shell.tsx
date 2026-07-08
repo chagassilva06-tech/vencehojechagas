@@ -73,14 +73,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   "relative flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-300 ease-out",
                   active
                     ? "bg-background font-semibold rounded-l-2xl rounded-r-none -mr-3 pl-5"
-                    : "rounded-lg text-slate-700 hover:bg-black/5 hover:translate-x-0.5"
+                    : "rounded-lg text-white/90 hover:bg-white/15 hover:translate-x-0.5"
                 )}
                 style={
                   active
                     ? { color: item.color }
                     : {
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 50%, rgba(0,0,0,0.04) 100%)",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.06)",
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 50%, rgba(0,0,0,0.10) 100%)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.15)",
                       }
                 }
               >
