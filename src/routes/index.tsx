@@ -145,6 +145,7 @@ function Landing() {
           />
         </div>
       </div>
+      <AuthDialog open={authOpen} setOpen={setAuthOpen} tab={authTab} setTab={setAuthTab} />
     </div>
   );
 }
