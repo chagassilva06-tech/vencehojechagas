@@ -112,8 +112,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="p-3 border-t border-white/15">
-          <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/10 hover:text-white" onClick={signOut}>
+        <div className="p-3 border-t border-black/10">
+          <Button variant="ghost" className="w-full justify-start text-slate-800 hover:bg-black/5 hover:text-slate-900" onClick={signOut}>
             <LogOut className="h-4 w-4 mr-2" /> Sair
           </Button>
         </div>
