@@ -61,8 +61,9 @@ function Landing() {
                 DASHBOARD
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Organize seus vencimentos hoje mesmo.
+                Cadastre seus vencimentos, receba lembretes automáticos por e-mail e mantenha o controle de tudo em um só lugar
               </p>
+
 
               <div className="mt-12 flex flex-col gap-3 items-center">
                 <Button
