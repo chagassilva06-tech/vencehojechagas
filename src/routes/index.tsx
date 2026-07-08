@@ -5,6 +5,7 @@ import { Bell, BellRing, Calendar, CheckCircle2, LogIn, Mail, Repeat, Shield, Us
 import logo from "@/assets/vencehoje-logo-title.png";
 import workspace from "@/assets/landing-workspace.png";
 import { supabase } from "@/integrations/supabase/client";
+import bgImage from "@/assets/landing-bg.png.asset.json";
 
 const AuthDialog = lazy(() => import("@/components/landing-auth-dialog"));
 
@@ -22,7 +23,7 @@ function Landing() {
   const [tab, setTab] = useState<"signin" | "signup">("signin");
 
   return (
-    <div className="min-h-screen bg-[oklch(0.96_0.03_160)]">
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: `url(${bgImage.url})` }}>
 
 
 
