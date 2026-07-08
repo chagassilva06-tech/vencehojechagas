@@ -106,7 +106,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     />
                   </>
                 )}
-                <item.icon className="h-4 w-4" />
+                <item.icon className="h-5 w-5" />
                 {item.label}
               </Link>
             );
