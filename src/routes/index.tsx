@@ -22,7 +22,7 @@ function Landing() {
   const [tab, setTab] = useState<"signin" | "signup">("signin");
 
   return (
-    <div className="min-h-screen bg-[oklch(0.96_0.03_160)]">
+    <div className="min-h-screen bg-[oklch(0.88_0.09_150)]">
 
 
 
