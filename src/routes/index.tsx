@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import illustration from "@/assets/login-illustration.png";
+import AuthDialog from "@/components/landing-auth-dialog";
 
 
 
