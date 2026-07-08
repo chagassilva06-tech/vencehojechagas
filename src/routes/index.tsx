@@ -49,13 +49,13 @@ function Landing() {
             />
           </div>
 
-          <div className="rounded-3xl bg-card border p-8 md:p-10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.8)]">
+          <div className="rounded-[2rem] bg-card border-2 border-border/60 p-8 md:p-10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25),0_-8px_20px_-8px_rgba(0,0,0,0.08),12px_0_24px_-12px_rgba(0,0,0,0.15),-12px_0_24px_-12px_rgba(0,0,0,0.15),inset_0_2px_0_rgba(255,255,255,0.9),inset_0_-3px_6px_rgba(0,0,0,0.08),inset_2px_0_4px_rgba(255,255,255,0.5),inset_-2px_0_4px_rgba(0,0,0,0.05)]">
             <div className="flex items-center gap-3 pb-6 border-b">
               <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain" />
             </div>
             <div className="pt-6 text-center">
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-                BEM-VINDO
+              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+                Dashboard lembretes
               </h1>
               <p className="mt-2 text-muted-foreground">
                 Organize seus vencimentos hoje mesmo.
@@ -63,14 +63,14 @@ function Landing() {
             </div>
             <div className="mt-8 flex flex-col gap-3">
               <Button
-                size="lg"
+                size="sm"
                 onClick={() => { setTab("signin"); setOpen(true); }}
                 className="w-full rounded-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_6px_14px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all"
               >
                 Entrar na minha conta
               </Button>
               <Button
-                size="lg"
+                size="sm"
                 variant="secondary"
                 onClick={() => { setTab("signup"); setOpen(true); }}
                 className="w-full rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_4px_10px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all"
@@ -78,10 +78,8 @@ function Landing() {
                 Criar conta grátis
               </Button>
             </div>
-            <p className="mt-6 text-center text-xs text-muted-foreground">
-              Plano gratuito com até 20 lembretes
-            </p>
           </div>
+
         </div>
       </section>
 
