@@ -41,21 +41,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 flex flex-col transition-all duration-500 lg:translate-x-0 lg:static text-white",
+          "fixed inset-y-0 left-0 z-50 w-64 flex flex-col transition-all duration-500 lg:translate-x-0 lg:static text-slate-800",
           open ? "translate-x-0" : "-translate-x-full"
         )}
         style={{
-          background: `linear-gradient(180deg, #60A5FA 0%, #3B82F6 100%)`,
-          boxShadow: "inset -1px 0 0 rgba(59,130,246,0.35), 0 0 24px rgba(59,130,246,0.25)",
+          background: `linear-gradient(180deg, #F3F4F6 0%, #D1D5DB 100%)`,
+          boxShadow: "inset -1px 0 0 rgba(0,0,0,0.06), 0 0 24px rgba(0,0,0,0.08)",
+          color: "#1F2937",
         }}
       >
-        <div className="h-16 flex items-center justify-between px-4 border-b border-white/15 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.55),inset_0_-1px_0_rgba(255,255,255,0.18)]">
-          <Link to="/dashboard" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(96,165,250,0.55)]">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-black/10 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(255,255,255,0.6)]">
+          <Link to="/dashboard" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.35)]">
             <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:rotate-[-6deg]" aria-hidden="true">
               <path d="M6 22 L16 32 L36 8" fill="none" stroke="#3B82F6" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span className="text-2xl font-extrabold tracking-tight leading-none">
-              <span className="text-white">Vence</span><span className="text-blue-400">Hoje</span>
+              <span className="text-slate-800">Vence</span><span className="text-blue-500">Hoje</span>
             </span>
           </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
@@ -72,14 +73,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   "relative flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-300 ease-out",
                   active
                     ? "bg-background font-semibold rounded-l-2xl rounded-r-none -mr-3 pl-5"
-                    : "rounded-lg text-white/90 hover:bg-white/10 hover:translate-x-0.5"
+                    : "rounded-lg text-slate-700 hover:bg-black/5 hover:translate-x-0.5"
                 )}
                 style={
                   active
                     ? { color: item.color }
                     : {
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.15) 100%)",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.25)",
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 50%, rgba(0,0,0,0.04) 100%)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.06)",
                       }
                 }
               >
@@ -111,8 +112,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="p-3 border-t border-white/15">
-          <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/10 hover:text-white" onClick={signOut}>
+        <div className="p-3 border-t border-black/10">
+          <Button variant="ghost" className="w-full justify-start text-slate-800 hover:bg-black/5 hover:text-slate-900" onClick={signOut}>
             <LogOut className="h-4 w-4 mr-2" /> Sair
           </Button>
         </div>
@@ -122,10 +123,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex-1 flex flex-col min-w-0">
         <header
-          className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-white transition-all duration-500 shadow-sm"
+          className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-slate-800 transition-all duration-500 shadow-sm"
           style={{
-            background: `linear-gradient(90deg, #60A5FA 0%, #3B82F6 100%)`,
-            boxShadow: "0 2px 24px rgba(59,130,246,0.25)",
+            background: `linear-gradient(90deg, #F3F4F6 0%, #D1D5DB 100%)`,
+            boxShadow: "0 2px 24px rgba(0,0,0,0.08)",
           }}
         >
           <button className="lg:hidden" onClick={() => setOpen(true)}><Menu className="h-5 w-5" /></button>
