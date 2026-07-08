@@ -124,7 +124,7 @@ function Landing() {
             </button>
             <button
               type="button"
-              onClick={() => navigate({ to: "/cadastro" })}
+              onClick={() => { setAuthTab("signup"); setAuthOpen(true); }}
               className="w-full h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/60 text-white font-semibold tracking-[0.3em] text-sm transition-colors"
             >
               CRIAR CONTA
