@@ -1,9 +1,12 @@
+import "@fontsource/outfit/300.css";
+import "@fontsource/outfit/700.css";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import illustration from "@/assets/login-illustration.png";
+
 
 
 export const Route = createFileRoute("/")({
