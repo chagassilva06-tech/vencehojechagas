@@ -112,8 +112,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="p-3 border-t border-white/20">
-          <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/15 hover:text-white" onClick={signOut}>
+        <div
+          className="p-3 border-t border-white/20"
+          style={{
+            background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.20) 100%)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 -4px 12px rgba(0,0,0,0.15)",
+          }}
+        >
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-white hover:text-white"
+            style={{
+              background: "linear-gradient(180deg, #1E40AF 0%, #0B1E45 100%)",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.3)",
+            }}
+            onClick={signOut}
+          >
             <LogOut className="h-4 w-4 mr-2" /> Sair
           </Button>
         </div>
@@ -123,10 +137,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex-1 flex flex-col min-w-0">
         <header
-          className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-white transition-all duration-500 shadow-sm"
+          className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-white transition-all duration-500"
           style={{
             background: `linear-gradient(90deg, #38BDF8 0%, #2563EB 100%)`,
-            boxShadow: "0 2px 24px rgba(56,189,248,0.25)",
+            boxShadow: "0 10px 20px -6px rgba(0,0,0,0.25), 0 4px 10px rgba(37,99,235,0.35), inset 0 -1px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25)",
           }}
         >
           <button className="lg:hidden" onClick={() => setOpen(true)}><Menu className="h-5 w-5" /></button>
