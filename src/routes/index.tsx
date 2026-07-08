@@ -55,15 +55,16 @@ function Landing() {
               <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain" />
             </div>
 
-            <div className="px-8 pt-8 pb-8 text-center">
+            <div className="px-8 pt-14 pb-14 md:pt-16 md:pb-16 text-center">
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground/90">
                 DASHBOARD
               </h2>
-              <p className="mt-2 text-muted-foreground">
+              <p className="mt-3 text-muted-foreground">
                 Organize seus vencimentos hoje mesmo.
               </p>
 
-              <div className="mt-8 flex flex-col gap-3">
+              <div className="mt-12 flex flex-col gap-4">
+
                 <Button
                   onClick={() => { setTab("signin"); setOpen(true); }}
                   className="w-full h-12 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_8px_20px_-4px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all"
