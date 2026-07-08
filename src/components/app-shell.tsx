@@ -70,7 +70,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "relative flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-300 ease-out",
+                  "relative flex items-center gap-3 px-4 py-2.5 text-base transition-all duration-300 ease-out",
                   active
                     ? "bg-background font-semibold rounded-l-2xl rounded-r-none -mr-3 pl-5"
                     : "rounded-lg text-white/90 hover:bg-white/15 hover:translate-x-0.5"
@@ -106,7 +106,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     />
                   </>
                 )}
-                <item.icon className="h-4 w-4" />
+                <item.icon className="h-5 w-5" />
                 {item.label}
               </Link>
             );
