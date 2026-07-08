@@ -3,6 +3,7 @@ import { lazy, Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
 import logo from "@/assets/vencehoje-logo-title.png";
+import workspace from "@/assets/landing-workspace.png";
 import { supabase } from "@/integrations/supabase/client";
 
 const AuthDialog = lazy(() => import("@/components/landing-auth-dialog"));
