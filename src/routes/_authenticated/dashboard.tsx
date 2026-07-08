@@ -216,12 +216,23 @@ function Dashboard() {
           <CardHeader><CardTitle className="text-destructive flex items-center gap-2"><AlertTriangle className="h-5 w-5" /> Atrasados</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             {overdue.map((r) => (
-              <div key={r.id} className="flex items-center justify-between p-3 rounded-lg border border-l-4 border-l-destructive shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                <div>
-                  <div className="font-medium">{r.titulo}</div>
+              <div key={r.id} className="flex items-center justify-between gap-3 p-3 rounded-lg border border-l-4 border-l-destructive shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{r.titulo}</div>
                   <div className="text-xs text-muted-foreground">{formatDate(r.data_vencimento)} • {Math.abs(daysUntil(r.data_vencimento))} dias em atraso</div>
                 </div>
-                <span className="font-semibold text-destructive">{formatCurrency(r.valor)}</span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="font-semibold text-destructive">{formatCurrency(r.valor)}</span>
+                  <Button
+                    size="sm"
+                    className="h-8 px-3 bg-accent text-accent-foreground hover:bg-accent/90"
+                    disabled={markPaid.isPending}
+                    onClick={() => markPaid.mutate(r)}
+                    title="Finalizar lembrete"
+                  >
+                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Finalizar
+                  </Button>
+                </div>
               </div>
             ))}
           </CardContent>
