@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/vencehoje-logo.png";
+import logo from "@/assets/vencehoje-logo-title.png";
 
 const nav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, color: "#10B981" },
@@ -51,8 +51,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-white/15">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="VenceHoje" width={32} height={32} loading="eager" decoding="async" className="h-8 w-8 object-contain" />
-            <span className="font-bold">VenceHoje</span>
+            <img src={logo} alt="VenceHoje" loading="eager" decoding="async" className="h-8 w-auto object-contain bg-white rounded px-1.5 py-0.5" />
           </div>
           <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
         </div>

@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { lazy, Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, CheckCircle2, Mail, Repeat, Shield } from "lucide-react";
-import logo from "@/assets/vencehoje-logo.png";
+import logo from "@/assets/vencehoje-logo-title.png";
 import heroIllustration from "@/assets/hero-illustration.png";
 import heroIllustrationWebp from "@/assets/hero-illustration.webp";
 import { supabase } from "@/integrations/supabase/client";
@@ -27,8 +27,7 @@ function Landing() {
       <header className="sticky top-0 z-40 bg-gradient-to-b from-[oklch(0.94_0.08_160)] via-[oklch(0.90_0.10_160)] to-[oklch(0.84_0.13_160)] text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.12)] border-b border-white/40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="VenceHoje" width={36} height={36} loading="eager" decoding="async" fetchPriority="high" className="h-9 w-9 object-contain" />
-            <span className="font-bold text-lg">VenceHoje</span>
+            <img src={logo} alt="VenceHoje" loading="eager" decoding="async" fetchPriority="high" className="h-10 w-auto object-contain" />
           </div>
         </div>
       </header>
