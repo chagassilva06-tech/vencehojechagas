@@ -29,6 +29,16 @@ function Historico() {
   const { data: reminders } = useSuspenseQuery({ queryKey: ["reminders"], queryFn: () => fetchReminders() });
   const [search, setSearch] = useState("");
 
+  const { data: userName } = useQuery({
+    queryKey: ["profile_name"],
+    queryFn: async () => {
+      const { data: u } = await supabase.auth.getUser();
+      if (!u.user) return "";
+      const { data } = await supabase.from("profiles").select("nome, email").eq("id", u.user.id).maybeSingle();
+      return (data?.nome || data?.email || u.user.email || "").toString();
+    },
+  });
+
   const { data: avisos = [] } = useQuery({
     queryKey: ["notifications_log"],
     queryFn: async () => {
