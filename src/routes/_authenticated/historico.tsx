@@ -64,6 +64,7 @@ function Historico() {
   const items: Item[] = [
     ...payments.map((p) => ({
       id: `p-${p.id}`,
+      rawId: p.id,
       titulo: p.reminders?.titulo ?? "Lembrete removido",
       categoria: p.reminders?.categories?.nome ?? null,
       valor: p.valor_pago,
@@ -75,6 +76,7 @@ function Historico() {
       .filter((r) => !paidWithPayment.has(r.id))
       .map((r) => ({
         id: `r-${r.id}`,
+        rawId: r.id,
         titulo: r.titulo,
         categoria: r.categories?.nome ?? null,
         valor: r.valor,
