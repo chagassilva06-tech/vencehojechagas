@@ -1,13 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery, useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPayments, fetchReminders, formatCurrency, formatDate } from "@/lib/reminders";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Search, FileText, Activity, CheckCircle2, ArrowLeft, Bell, Mail, MessageCircle, ShieldCheck } from "lucide-react";
+import { Search, FileText, Activity, CheckCircle2, ArrowLeft, Bell, Mail, MessageCircle, ShieldCheck, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 
 export const Route = createFileRoute("/_authenticated/historico")({
@@ -16,6 +21,7 @@ export const Route = createFileRoute("/_authenticated/historico")({
 
 type Item = {
   id: string;
+  rawId: string;
   titulo: string;
   categoria?: string | null;
   valor: number | null;
@@ -28,6 +34,26 @@ function Historico() {
   const { data: payments } = useSuspenseQuery({ queryKey: ["payments"], queryFn: fetchPayments });
   const { data: reminders } = useSuspenseQuery({ queryKey: ["reminders"], queryFn: () => fetchReminders() });
   const [search, setSearch] = useState("");
+  const [pendingDelete, setPendingDelete] = useState<Item | null>(null);
+  const qc = useQueryClient();
+
+  const del = useMutation({
+    mutationFn: async (item: Item) => {
+      if (item.source === "payment") {
+        const { error } = await supabase.from("payments").delete().eq("id", item.rawId);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from("reminders").update({ status: "archived" }).eq("id", item.rawId);
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["payments"] });
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      toast.success("Removido do histórico");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   const { data: userName } = useQuery({
     queryKey: ["profile_name"],
@@ -58,6 +84,7 @@ function Historico() {
   const items: Item[] = [
     ...payments.map((p) => ({
       id: `p-${p.id}`,
+      rawId: p.id,
       titulo: p.reminders?.titulo ?? "Lembrete removido",
       categoria: p.reminders?.categories?.nome ?? null,
       valor: p.valor_pago,
@@ -69,6 +96,7 @@ function Historico() {
       .filter((r) => !paidWithPayment.has(r.id))
       .map((r) => ({
         id: `r-${r.id}`,
+        rawId: r.id,
         titulo: r.titulo,
         categoria: r.categories?.nome ?? null,
         valor: r.valor,
@@ -201,10 +229,42 @@ function Historico() {
                 <div className="font-semibold text-accent">{formatCurrency(it.valor)}</div>
                 {it.comprovante_url && <a href={it.comprovante_url} target="_blank" rel="noreferrer" className="text-xs text-muted-foreground hover:underline">comprovante</a>}
               </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-destructive hover:text-destructive hover:bg-destructive/10 shrink-0"
+                onClick={() => setPendingDelete(it)}
+                disabled={del.isPending}
+                aria-label="Excluir"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
             </CardContent>
           </Card>
         ))}
       </div>
+
+      <AlertDialog open={!!pendingDelete} onOpenChange={(v) => !v && setPendingDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir do histórico?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {pendingDelete?.titulo} será removido permanentemente do histórico.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (pendingDelete) del.mutate(pendingDelete);
+                setPendingDelete(null);
+              }}
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
