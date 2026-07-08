@@ -35,15 +35,8 @@ function Landing() {
 
 
       <section className="relative overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute -right-40 top-1/2 -translate-y-1/2 hidden md:block">
-          <div className="h-[640px] w-[640px] rounded-full bg-accent/25" />
-        </div>
-        <div aria-hidden className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 hidden md:block">
-          <div className="h-[520px] w-[520px] rounded-full bg-accent/40" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-4 md:pt-10 md:pb-6 grid md:grid-cols-2 gap-10 items-start">
-          <div className="text-left">
+        <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-4 md:pt-10 md:pb-6">
+          <div className="text-left max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground mb-6">
               <span className="h-2 w-2 rounded-full bg-accent" /> Plano gratuito com até 20 lembretes
             </div>
@@ -72,24 +65,9 @@ function Landing() {
               </Button>
             </div>
           </div>
-
-          <div className="relative flex justify-center md:justify-end">
-            <picture>
-              <source srcSet={heroIllustrationWebp} type="image/webp" />
-              <img
-                src={heroIllustration}
-                alt="Painel VenceHoje com calendário, faturas e lembretes"
-                width={560}
-                height={560}
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                className="relative w-full max-w-md md:max-w-lg h-auto drop-shadow-xl"
-              />
-            </picture>
-          </div>
         </div>
       </section>
+
 
       <section style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }} className="mx-auto max-w-6xl px-4 pt-2 pb-24 grid md:grid-cols-3 gap-6">
         {[
