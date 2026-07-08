@@ -34,6 +34,26 @@ function Historico() {
   const { data: payments } = useSuspenseQuery({ queryKey: ["payments"], queryFn: fetchPayments });
   const { data: reminders } = useSuspenseQuery({ queryKey: ["reminders"], queryFn: () => fetchReminders() });
   const [search, setSearch] = useState("");
+  const [pendingDelete, setPendingDelete] = useState<Item | null>(null);
+  const qc = useQueryClient();
+
+  const del = useMutation({
+    mutationFn: async (item: Item) => {
+      if (item.source === "payment") {
+        const { error } = await supabase.from("payments").delete().eq("id", item.rawId);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from("reminders").update({ status: "archived" }).eq("id", item.rawId);
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["payments"] });
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      toast.success("Removido do histórico");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   const { data: userName } = useQuery({
     queryKey: ["profile_name"],
