@@ -44,9 +44,13 @@ function Landing() {
 
           <div className="w-full max-w-sm md:justify-self-end rounded-[2.5rem] bg-card overflow-hidden border-2 border-border/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25),0_-8px_20px_-8px_rgba(0,0,0,0.08),12px_0_24px_-12px_rgba(0,0,0,0.15),-12px_0_24px_-12px_rgba(0,0,0,0.15),inset_0_2px_0_rgba(255,255,255,0.9),inset_0_-3px_6px_rgba(0,0,0,0.08),inset_2px_0_4px_rgba(255,255,255,0.5),inset_-2px_0_4px_rgba(0,0,0,0.05)]">
             <div className="flex items-center gap-3 px-8 py-6 border-b bg-card shadow-[0_4px_6px_-4px_rgba(0,0,0,0.15)]">
-              <BellRing className="h-9 w-9 text-accent" strokeWidth={2.5} />
-              <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain drop-shadow-[0_2px_3px_rgba(0,0,0,0.25)]" />
+              <BellRing className="h-9 w-9 text-accent shrink-0" strokeWidth={2.5} />
+              <div className="flex flex-col">
+                <img src={logo} alt="VenceHoje" className="h-8 w-auto object-contain drop-shadow-[0_2px_3px_rgba(0,0,0,0.25)]" />
+                <span className="text-[10px] text-muted-foreground mt-0.5 tracking-wide">By Francisco Chagas</span>
+              </div>
             </div>
+
 
 
             <div className="px-8 pt-14 pb-14 md:pt-16 md:pb-16 text-center">
