@@ -41,6 +41,26 @@ function Concluidas() {
   });
   const [search, setSearch] = useState("");
   const [pending, setPending] = useState<Item | null>(null);
+  const [deleting, setDeleting] = useState<Item | null>(null);
+
+  const remove = useMutation({
+    mutationFn: async (item: Item) => {
+      if (item.paymentId) {
+        const { error: e1 } = await supabase.from("payments").delete().eq("id", item.paymentId);
+        if (e1) throw e1;
+      }
+      if (item.reminderId) {
+        const { error: e2 } = await supabase.from("reminders").delete().eq("id", item.reminderId);
+        if (e2) throw e2;
+      }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      qc.invalidateQueries({ queryKey: ["payments"] });
+      toast.success("Registro excluído");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   const revert = useMutation({
     mutationFn: async (item: Item) => {
