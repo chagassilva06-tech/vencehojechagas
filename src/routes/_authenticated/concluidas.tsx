@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Search, CheckCircle2, Paperclip, Undo2 } from "lucide-react";
+import { ArrowLeft, Search, CheckCircle2, Paperclip, Undo2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
@@ -41,6 +41,26 @@ function Concluidas() {
   });
   const [search, setSearch] = useState("");
   const [pending, setPending] = useState<Item | null>(null);
+  const [deleting, setDeleting] = useState<Item | null>(null);
+
+  const remove = useMutation({
+    mutationFn: async (item: Item) => {
+      if (item.paymentId) {
+        const { error: e1 } = await supabase.from("payments").delete().eq("id", item.paymentId);
+        if (e1) throw e1;
+      }
+      if (item.reminderId) {
+        const { error: e2 } = await supabase.from("reminders").delete().eq("id", item.reminderId);
+        if (e2) throw e2;
+      }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["reminders"] });
+      qc.invalidateQueries({ queryKey: ["payments"] });
+      toast.success("Registro excluído");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   const revert = useMutation({
     mutationFn: async (item: Item) => {
@@ -196,6 +216,15 @@ function Concluidas() {
                 >
                   <Undo2 className="h-4 w-4 sm:mr-1" /> <span className="hidden sm:inline">Reverter</span>
                 </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 px-2 sm:px-3 text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 dark:border-red-900/50 dark:hover:bg-red-950/40"
+                  disabled={remove.isPending}
+                  onClick={() => setDeleting(i)}
+                >
+                  <Trash2 className="h-4 w-4 sm:mr-1" /> <span className="hidden sm:inline">Excluir</span>
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -219,6 +248,29 @@ function Concluidas() {
               }}
             >
               Confirmar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir definitivamente?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {deleting?.titulo} será removido permanentemente do histórico. Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-red-600 hover:bg-red-700 text-white"
+              onClick={() => {
+                if (deleting) remove.mutate(deleting);
+                setDeleting(null);
+              }}
+            >
+              Excluir
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
