@@ -232,6 +232,10 @@ function Concluidas() {
         ))}
       </div>
 
+      <NotesBlock />
+
+
+
       <AlertDialog open={!!pending} onOpenChange={(v) => !v && setPending(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
