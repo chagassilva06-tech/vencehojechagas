@@ -97,7 +97,6 @@ function Concluidas() {
     !search || i.titulo.toLowerCase().includes(search.toLowerCase())
   );
 
-  const total = filtered.reduce((s, i) => s + (Number(i.valor) || 0), 0);
   const totalGeral = items.reduce((s, i) => s + (Number(i.valor) || 0), 0);
 
   return (
