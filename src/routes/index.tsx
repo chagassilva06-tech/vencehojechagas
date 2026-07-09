@@ -138,9 +138,16 @@ function Landing() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-12 rounded-xl bg-[#2BC48A] hover:bg-[#25b07a] text-white font-bold text-base tracking-wide transition-all disabled:opacity-70 shadow-[0_10px_20px_-8px_rgba(43,196,138,0.55)] ring-1 ring-white/20"
+              className="w-full h-12 rounded-xl bg-[#2BC48A] hover:bg-[#25b07a] text-white font-bold text-base tracking-wide transition-all disabled:opacity-70 shadow-[0_10px_20px_-8px_rgba(43,196,138,0.55)] ring-1 ring-white/20 inline-flex items-center justify-center gap-2"
             >
-              Entrar
+              {loading ? (
+                <>
+                  <span className="h-4 w-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                  Carregando...
+                </>
+              ) : (
+                "Entrar"
+              )}
             </button>
             {/* 6. Botão secundário — menos peso */}
             <button
