@@ -209,16 +209,16 @@ function Landing() {
                 </div>
               </div>
 
-              {/* Métricas */}
+              {/* Métricas — autorelevo */}
               <div className="grid grid-cols-2 gap-3 py-5 border-b border-gray-100">
-                <div className="rounded-xl bg-gradient-to-br from-[#EAF3FF] to-[#F6FAFF] p-3 ring-1 ring-[#0077FF]/10 shadow-[0_6px_14px_-8px_rgba(0,119,255,0.35),inset_0_1px_0_rgba(255,255,255,0.9)]">
+                <div className="rounded-xl bg-gradient-to-b from-white via-[#EAF3FF] to-[#D8E9FB] p-3 ring-1 ring-[#0077FF]/15 shadow-[0_10px_20px_-10px_rgba(0,119,255,0.5),inset_0_1px_0_rgba(255,255,255,1),inset_0_-3px_6px_-2px_rgba(0,119,255,0.25)]">
                   <p className="text-[11px] font-medium text-gray-600 uppercase tracking-wide">A vencer</p>
-                  <p className="text-2xl font-extrabold text-[#0077FF] mt-1 tracking-tight">R$ 1.240</p>
+                  <p className="text-2xl font-extrabold text-[#0077FF] mt-1 tracking-tight drop-shadow-sm">R$ 1.240</p>
                   <p className="text-[10px] text-gray-500 mt-0.5">3 contas nesta semana</p>
                 </div>
-                <div className="rounded-xl bg-gradient-to-br from-[#E7F8F0] to-[#F5FCF8] p-3 ring-1 ring-[#2BC48A]/15 shadow-[0_6px_14px_-8px_rgba(43,196,138,0.35),inset_0_1px_0_rgba(255,255,255,0.9)]">
+                <div className="rounded-xl bg-gradient-to-b from-white via-[#E7F8F0] to-[#CFEEDF] p-3 ring-1 ring-[#2BC48A]/20 shadow-[0_10px_20px_-10px_rgba(43,196,138,0.5),inset_0_1px_0_rgba(255,255,255,1),inset_0_-3px_6px_-2px_rgba(43,196,138,0.25)]">
                   <p className="text-[11px] font-medium text-gray-600 uppercase tracking-wide">Pagos no mês</p>
-                  <p className="text-2xl font-extrabold text-[#2BC48A] mt-1 tracking-tight">R$ 3.980</p>
+                  <p className="text-2xl font-extrabold text-[#2BC48A] mt-1 tracking-tight drop-shadow-sm">R$ 3.980</p>
                   <p className="text-[10px] text-gray-500 mt-0.5">12 contas quitadas</p>
                 </div>
               </div>
