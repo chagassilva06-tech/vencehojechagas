@@ -30,24 +30,36 @@ function Landing() {
   const [authTab, setAuthTab] = useState<"signin" | "signup">("signup");
 
 
+  function validateEmail(v: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!validateEmail(email)) return toast.error("Digite um e-mail válido.");
+    if (!password) return toast.error("Preencha sua senha.");
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      const msg = /invalid|credentials/i.test(error.message)
+        ? "E-mail ou senha inválidos."
+        : error.message;
+      return toast.error(msg);
+    }
     toast.success("Bem-vindo de volta!");
     navigate({ to: "/dashboard" });
   }
 
   async function forgotPassword() {
-    if (!email) return toast.error("Digite seu e-mail para recuperar a senha.");
+    if (!validateEmail(email)) return toast.error("Digite um e-mail válido para recuperar a senha.");
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/`,
     });
     if (error) return toast.error(error.message);
     toast.success("Enviamos um link de recuperação para o seu e-mail.");
   }
+
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#DCEBFB] via-[#BFDBFB] to-[#8EC2F5] flex items-center justify-center p-4 md:p-10">
