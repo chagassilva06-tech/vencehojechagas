@@ -188,8 +188,8 @@ function Landing() {
 
             {/* Mockup do sistema */}
             <div className="relative w-full max-w-md rounded-2xl bg-white ring-1 ring-[#0077FF]/10 shadow-[0_24px_50px_-20px_rgba(21,101,216,0.28),0_8px_20px_-10px_rgba(15,23,42,0.12)] p-6">
-              {/* Cabeçalho */}
-              <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+              {/* Cabeçalho — com autorelevo */}
+              <div className="flex items-center justify-between p-3 -mx-2 mb-4 rounded-xl bg-gradient-to-b from-white to-[#F4F9FF] ring-1 ring-[#0077FF]/10 shadow-[0_6px_14px_-8px_rgba(21,101,216,0.3),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-2px_4px_-2px_rgba(21,101,216,0.15)]">
                 <div className="flex items-center gap-3">
                   <div className="relative h-9 w-9 rounded-full bg-gradient-to-br from-[#009DFF] to-[#0077FF] grid place-items-center text-white text-xs font-bold shadow-[0_4px_10px_-2px_rgba(0,119,255,0.5)]">
                     F
@@ -197,7 +197,9 @@ function Landing() {
                   </div>
                   <div className="leading-tight">
                     <p className="text-[13px] font-semibold text-[#0A2540]">Olá, Francisco</p>
-                    <p className="text-[11px] text-gray-500">Hoje, 08 de julho</p>
+                    <p className="text-[11px] text-gray-500 capitalize">
+                      {new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" })}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 rounded-full bg-[#F4F7FB] p-0.5 ring-1 ring-black/5">
