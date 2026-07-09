@@ -142,6 +142,9 @@ function Landing() {
               Criar conta
             </button>
           </form>
+          <p className="text-center text-[11px] text-white/80 mt-6 tracking-wide">
+            © 2026 VenceHoje — Francisco Chagas
+          </p>
         </div>
 
         {/* Right: illustration */}
@@ -163,9 +166,7 @@ function Landing() {
           </p>
         </div>
       </div>
-      <p className="relative text-center text-xs text-[#0B1E45]/70 mt-6 tracking-wide">
-        © 2026 VenceHoje — Francisco Chagas
-      </p>
+
 
 
       <AuthDialog open={authOpen} setOpen={setAuthOpen} tab={authTab} setTab={setAuthTab} />
