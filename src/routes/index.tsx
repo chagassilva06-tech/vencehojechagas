@@ -180,7 +180,7 @@ function Landing() {
           </p>
 
           {/* Mockup do sistema */}
-          <div className="relative w-full max-w-sm rounded-2xl bg-gradient-to-br from-[#F5FAFF] to-[#E3EFFC] ring-1 ring-black/5 shadow-[0_15px_40px_-20px_rgba(21,101,216,0.35)] p-4">
+          <div className="relative w-full max-w-sm rounded-2xl bg-gradient-to-br from-white via-[#F5FAFF] to-[#DCEBFB] ring-1 ring-black/5 shadow-[0_18px_40px_-18px_rgba(21,101,216,0.4),0_6px_14px_-8px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-6px_14px_-8px_rgba(21,101,216,0.25)] p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <div className="h-6 w-6 rounded-md bg-gradient-to-br from-[#009DFF] to-[#0077FF]" />
