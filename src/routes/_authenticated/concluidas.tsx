@@ -216,6 +216,15 @@ function Concluidas() {
                 >
                   <Undo2 className="h-4 w-4 sm:mr-1" /> <span className="hidden sm:inline">Reverter</span>
                 </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 px-2 sm:px-3 text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 dark:border-red-900/50 dark:hover:bg-red-950/40"
+                  disabled={remove.isPending}
+                  onClick={() => setDeleting(i)}
+                >
+                  <Trash2 className="h-4 w-4 sm:mr-1" /> <span className="hidden sm:inline">Excluir</span>
+                </Button>
               </div>
             </CardContent>
           </Card>
