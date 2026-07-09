@@ -167,7 +167,7 @@ function Landing() {
         © 2026 VenceHoje — Francisco Chagas
       </p>
 
-      </div>
+
       <AuthDialog open={authOpen} setOpen={setAuthOpen} tab={authTab} setTab={setAuthTab} />
     </div>
   );
