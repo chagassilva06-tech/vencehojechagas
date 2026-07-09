@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
-import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2 } from "lucide-react";
+import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2, StickyNote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,7 @@ const nav = [
   { to: "/historico", label: "Histórico", icon: History, color: "#F59E0B" },
   { to: "/categorias", label: "Categorias", icon: Tags, color: "#EC4899" },
   { to: "/config", label: "Configurações", icon: Settings, color: "#6B7280" },
+  { to: "/anotacoes", label: "Bloco de Anotações", icon: StickyNote, color: "#F97316" },
   { to: "/concluidas", label: "Contas Concluídas", icon: CheckCircle2, color: "#14B8A6" },
 ] as const;
 
