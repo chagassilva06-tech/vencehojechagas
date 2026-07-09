@@ -43,6 +43,7 @@ export type Database = {
       }
       notes: {
         Row: {
+          archived: boolean
           categoria: string | null
           conteudo: string
           created_at: string
@@ -54,6 +55,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          archived?: boolean
           categoria?: string | null
           conteudo?: string
           created_at?: string
@@ -65,6 +67,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          archived?: boolean
           categoria?: string | null
           conteudo?: string
           created_at?: string
