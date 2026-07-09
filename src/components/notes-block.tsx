@@ -271,11 +271,16 @@ export function NotesBlock() {
           <Card
             key={n.id}
             className={cn(
-              "group transition-all rounded-xl shadow-sm hover:shadow-md border-slate-200 dark:border-slate-800",
-              n.pinned && "ring-1 ring-blue-200 dark:ring-blue-900/50 bg-blue-50/40 dark:bg-blue-950/10",
+              "group transition-all duration-200 rounded-xl border-slate-200 dark:border-slate-800",
+              "shadow-[0_1px_2px_rgba(15,23,42,0.06),0_2px_6px_-2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]",
+              "hover:shadow-[0_6px_14px_-4px_rgba(15,23,42,0.15),0_10px_24px_-8px_rgba(37,99,235,0.18),inset_0_1px_0_rgba(255,255,255,0.85)]",
+              "hover:-translate-y-0.5 hover:border-blue-200 dark:hover:border-blue-900/60",
+              "bg-gradient-to-b from-white to-slate-50/60 dark:from-slate-900 dark:to-slate-900/60",
+              n.pinned && "ring-1 ring-blue-200 dark:ring-blue-900/50 from-blue-50/60 to-white dark:from-blue-950/20",
             )}
           >
-            <CardContent className="p-5">
+            <CardContent className="p-3.5">
+
               {editingId === n.id ? (
                 <div className="space-y-3">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -312,7 +317,7 @@ export function NotesBlock() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col h-full gap-3">
+                <div className="flex flex-col h-full gap-2">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
@@ -362,11 +367,12 @@ export function NotesBlock() {
                     </div>
                   </div>
 
-                  <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-words leading-relaxed">
+                  <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-words leading-snug line-clamp-3">
                     {n.conteudo}
                   </p>
 
-                  <div className="flex items-center justify-between pt-3 mt-auto border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between pt-2 mt-auto border-t border-slate-100 dark:border-slate-800">
+
                     <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
                       <Calendar className="h-3.5 w-3.5" />
                       {formatDate(n.updated_at)}
