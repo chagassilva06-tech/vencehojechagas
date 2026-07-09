@@ -117,7 +117,7 @@ function Historico() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <Button asChild variant="ghost" size="sm" className="-ml-2 bg-sky-100 text-sky-700 hover:bg-sky-200 hover:text-sky-800 dark:bg-sky-900/40 dark:text-sky-200 dark:hover:bg-sky-900/60">
-        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Painel</Link>
       </Button>
 
       <div>
@@ -175,7 +175,7 @@ function Historico() {
         <Card className="shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-base">
-              <Activity className="h-4 w-4 text-accent" /> Últimas ações do Dashboard
+              <Activity className="h-4 w-4 text-accent" /> Últimas ações do Painel
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">

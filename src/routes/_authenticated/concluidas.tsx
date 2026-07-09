@@ -123,7 +123,7 @@ function Concluidas() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <Button asChild variant="ghost" size="sm" className="-ml-2 bg-sky-100 text-sky-700 hover:bg-sky-200 hover:text-sky-800 dark:bg-sky-900/40 dark:text-sky-200 dark:hover:bg-sky-900/60">
-        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Dashboard</Link>
+        <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-2" />Voltar ao Painel</Link>
       </Button>
 
       <div>
@@ -240,7 +240,7 @@ function Concluidas() {
           <AlertDialogHeader>
             <AlertDialogTitle>Voltar como pendente?</AlertDialogTitle>
             <AlertDialogDescription>
-              {pending?.titulo} voltará ao Dashboard para nova validação.
+              {pending?.titulo} voltará ao Painel para nova validação.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
