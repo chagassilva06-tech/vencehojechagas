@@ -72,7 +72,7 @@ function Landing() {
       </div>
 
       {/* Card */}
-      <div className="relative w-full max-w-6xl min-h-[720px] grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_20px_50px_-24px_rgba(21,101,216,0.35),0_10px_24px_-16px_rgba(0,0,0,0.15)]">
+      <div className="relative w-full max-w-7xl min-h-[820px] grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_20px_50px_-24px_rgba(21,101,216,0.35),0_10px_24px_-16px_rgba(0,0,0,0.15)]">
         {/* Left: form */}
         <div className="bg-gradient-to-b from-[#009DFF] to-[#0077FF] px-8 py-12 md:px-14 md:py-14 flex flex-col justify-center">
           {/* 1. Logo */}
