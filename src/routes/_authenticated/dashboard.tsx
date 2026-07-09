@@ -89,7 +89,7 @@ function Dashboard() {
     <div className="space-y-6 max-w-6xl mx-auto">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <h1 className="text-2xl font-bold">Painel de Controle</h1>
           <p className="text-sm text-muted-foreground">Uma visão rápida das suas contas</p>
         </div>
       </div>
