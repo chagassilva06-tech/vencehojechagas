@@ -129,7 +129,8 @@ export function NotesBlock() {
 
   const toggleFlag = useMutation({
     mutationFn: async ({ id, field, value }: { id: string; field: "pinned" | "favorito"; value: boolean }) => {
-      const { error } = await supabase.from("notes").update({ [field]: value }).eq("id", id);
+      const patch = field === "pinned" ? { pinned: value } : { favorito: value };
+      const { error } = await supabase.from("notes").update(patch).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["notes"] }),
