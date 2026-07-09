@@ -155,9 +155,10 @@ export function NotesBlock() {
 
   const toggleFlag = useMutation({
     mutationFn: async ({ id, field, value }: { id: string; field: "pinned" | "favorito" | "archived"; value: boolean }) => {
-      const patch: Record<string, boolean> = { [field]: value };
-      // Ao arquivar, desafixar
-      if (field === "archived" && value) patch.pinned = false;
+      const patch: { pinned?: boolean; favorito?: boolean; archived?: boolean } =
+        field === "pinned" ? { pinned: value }
+        : field === "favorito" ? { favorito: value }
+        : { archived: value, ...(value ? { pinned: false } : {}) };
       const { error } = await supabase.from("notes").update(patch).eq("id", id);
       if (error) throw error;
     },
