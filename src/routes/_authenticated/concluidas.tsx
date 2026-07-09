@@ -98,6 +98,7 @@ function Concluidas() {
   );
 
   const total = filtered.reduce((s, i) => s + (Number(i.valor) || 0), 0);
+  const totalGeral = items.reduce((s, i) => s + (Number(i.valor) || 0), 0);
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
@@ -113,9 +114,24 @@ function Concluidas() {
         <p className="text-sm text-muted-foreground">Tudo que já foi finalizado / pago</p>
       </div>
 
+      <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 shadow-[0_15px_35px_-8px_rgba(16,185,129,0.5),inset_0_1px_0_rgba(255,255,255,0.25),inset_0_-3px_8px_-2px_rgba(0,0,0,0.2)] hover:shadow-[0_25px_50px_-12px_rgba(16,185,129,0.6)] hover:-translate-y-1 transition-all duration-300">
+        <div aria-hidden className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-12 -left-8 h-40 w-40 rounded-full bg-white/5 blur-3xl" />
+        <CardContent className="relative p-5 sm:p-6 flex items-center justify-between gap-4">
+          <div>
+            <div className="text-[11px] sm:text-xs uppercase tracking-widest opacity-90 drop-shadow-sm">Somatória total paga</div>
+            <div className="text-3xl sm:text-4xl font-extrabold drop-shadow mt-1 tracking-tight">{formatCurrency(totalGeral)}</div>
+            <div className="text-[11px] sm:text-xs opacity-90 mt-1">{items.length} {items.length === 1 ? "conta quitada" : "contas quitadas"} até aqui</div>
+          </div>
+          <div className="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-white/15 ring-1 ring-white/30 grid place-items-center shadow-inner shrink-0">
+            <CheckCircle2 className="h-7 w-7 sm:h-8 sm:w-8 drop-shadow" />
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
-          <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Total pago</div>
+          <div className="text-xs uppercase tracking-wide opacity-90 drop-shadow-sm">Total pago (filtro)</div>
           <div className="text-2xl font-bold drop-shadow">{formatCurrency(total)}</div>
         </CardContent></Card>
         <Card className="relative overflow-hidden border-none text-white bg-gradient-to-br from-sky-400 to-blue-600 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.25),0_6px_10px_-6px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition-all duration-300"><CardContent className="p-4">
