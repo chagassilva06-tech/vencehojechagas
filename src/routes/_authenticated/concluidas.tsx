@@ -13,6 +13,7 @@ import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { NotesBlock } from "@/components/notes-block";
 
 export const Route = createFileRoute("/_authenticated/concluidas")({
   component: Concluidas,
@@ -230,6 +231,10 @@ function Concluidas() {
           </Card>
         ))}
       </div>
+
+      <NotesBlock />
+
+
 
       <AlertDialog open={!!pending} onOpenChange={(v) => !v && setPending(null)}>
         <AlertDialogContent>
