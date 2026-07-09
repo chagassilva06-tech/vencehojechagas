@@ -171,68 +171,95 @@ function Landing() {
         </div>
 
         {/* Right: mockup / value props */}
-        <div className="bg-white flex flex-col items-center justify-center p-6 md:p-10">
-          <p className="text-center text-[#0077FF] font-semibold text-lg md:text-xl tracking-tight">
-            Nunca mais esqueça seus vencimentos.
-          </p>
-          <p className="text-center text-gray-500 text-sm mt-1 mb-5 max-w-sm">
-            Um painel simples para controlar tudo o que vence hoje, amanhã e no mês.
-          </p>
-
-          {/* Mockup do sistema */}
-          <div className="relative w-full max-w-sm rounded-2xl bg-gradient-to-br from-white via-[#F5FAFF] to-[#DCEBFB] ring-1 ring-black/5 shadow-[0_18px_40px_-18px_rgba(21,101,216,0.4),0_6px_14px_-8px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-6px_14px_-8px_rgba(21,101,216,0.25)] p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-md bg-gradient-to-br from-[#009DFF] to-[#0077FF]" />
-                <span className="text-xs font-semibold text-gray-700">Meu painel</span>
-              </div>
-              <span className="text-[10px] text-gray-500">Hoje</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 mb-3">
-              <div className="rounded-lg bg-gradient-to-b from-white to-[#F1F7FF] p-2.5 ring-1 ring-black/5 shadow-[0_4px_10px_-4px_rgba(21,101,216,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-2px_4px_-2px_rgba(21,101,216,0.15)]">
-                <p className="text-[10px] text-gray-500">A vencer</p>
-                <p className="text-base font-bold text-[#0077FF]">R$ 1.240</p>
-              </div>
-              <div className="rounded-lg bg-gradient-to-b from-white to-[#F1F7FF] p-2.5 ring-1 ring-black/5 shadow-[0_4px_10px_-4px_rgba(21,101,216,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-2px_4px_-2px_rgba(21,101,216,0.15)]">
-                <p className="text-[10px] text-gray-500">Pagos no mês</p>
-                <p className="text-base font-bold text-[#2BC48A]">R$ 3.980</p>
-              </div>
-            </div>
-
-            <ul className="space-y-2">
-              {[
-                { icon: BellRing, label: "Internet — Vence hoje", tag: "R$ 129", color: "text-[#E85D5D]" },
-                { icon: CalendarCheck2, label: "Aluguel — em 3 dias", tag: "R$ 1.100", color: "text-gray-700" },
-                { icon: Sparkles, label: "Streaming — em 7 dias", tag: "R$ 39", color: "text-gray-700" },
-              ].map((r) => (
-                <li
-                  key={r.label}
-                  className="flex items-center justify-between rounded-lg bg-gradient-to-b from-white to-[#F4F9FF] px-3 py-2 ring-1 ring-black/5 shadow-[0_4px_10px_-4px_rgba(21,101,216,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-2px_4px_-2px_rgba(21,101,216,0.15)]"
-                >
-                  <span className="flex items-center gap-2 text-[11px] text-gray-700">
-                    <r.icon className="h-3.5 w-3.5 text-[#0077FF]" />
-                    {r.label}
-                  </span>
-                  <span className={`text-[11px] font-semibold ${r.color}`}>{r.tag}</span>
-                </li>
-              ))}
-            </ul>
-
+        <div className="relative bg-gradient-to-br from-[#F6F9FC] via-[#F4F7FB] to-[#EEF3F9] flex flex-col items-center justify-center p-8 md:p-12 overflow-hidden">
+          {/* Formas decorativas discretas */}
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-[#0077FF]/5 blur-3xl" />
+            <div className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[#2BC48A]/5 blur-3xl" />
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-3 w-full max-w-sm text-center">
-            <div className="rounded-xl bg-[#F5FAFF] ring-1 ring-black/5 p-2">
-              <BellRing className="h-4 w-4 text-[#0077FF] mx-auto mb-1" />
-              <p className="text-[10px] text-gray-600 leading-tight">Lembretes automáticos</p>
+          <div className="relative z-10 w-full flex flex-col items-center">
+            <p className="text-center text-[#0A2540] font-bold text-xl md:text-2xl tracking-tight">
+              Nunca mais esqueça seus vencimentos.
+            </p>
+            <p className="text-center text-gray-600 text-[13px] md:text-sm mt-2 mb-6 max-w-sm leading-relaxed">
+              Um painel simples para controlar tudo o que vence hoje, amanhã e no mês.
+            </p>
+
+            {/* Mockup do sistema */}
+            <div className="relative w-full max-w-md rounded-2xl bg-white ring-1 ring-[#0077FF]/10 shadow-[0_24px_50px_-20px_rgba(21,101,216,0.28),0_8px_20px_-10px_rgba(15,23,42,0.12)] p-6">
+              {/* Cabeçalho */}
+              <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+                <div className="flex items-center gap-3">
+                  <div className="relative h-9 w-9 rounded-full bg-gradient-to-br from-[#009DFF] to-[#0077FF] grid place-items-center text-white text-xs font-bold shadow-[0_4px_10px_-2px_rgba(0,119,255,0.5)]">
+                    F
+                    <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-[#2BC48A] ring-2 ring-white" />
+                  </div>
+                  <div className="leading-tight">
+                    <p className="text-[13px] font-semibold text-[#0A2540]">Olá, Francisco</p>
+                    <p className="text-[11px] text-gray-500">Hoje, 08 de julho</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 rounded-full bg-[#F4F7FB] p-0.5 ring-1 ring-black/5">
+                  <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold text-[#0077FF] shadow-sm">Hoje</span>
+                  <span className="px-2 py-0.5 text-[10px] text-gray-500">Semana</span>
+                  <span className="px-2 py-0.5 text-[10px] text-gray-500">Mês</span>
+                </div>
+              </div>
+
+              {/* Métricas */}
+              <div className="grid grid-cols-2 gap-3 py-5 border-b border-gray-100">
+                <div className="rounded-xl bg-gradient-to-br from-[#EAF3FF] to-[#F6FAFF] p-3 ring-1 ring-[#0077FF]/10 shadow-[0_6px_14px_-8px_rgba(0,119,255,0.35),inset_0_1px_0_rgba(255,255,255,0.9)]">
+                  <p className="text-[11px] font-medium text-gray-600 uppercase tracking-wide">A vencer</p>
+                  <p className="text-2xl font-extrabold text-[#0077FF] mt-1 tracking-tight">R$ 1.240</p>
+                  <p className="text-[10px] text-gray-500 mt-0.5">3 contas nesta semana</p>
+                </div>
+                <div className="rounded-xl bg-gradient-to-br from-[#E7F8F0] to-[#F5FCF8] p-3 ring-1 ring-[#2BC48A]/15 shadow-[0_6px_14px_-8px_rgba(43,196,138,0.35),inset_0_1px_0_rgba(255,255,255,0.9)]">
+                  <p className="text-[11px] font-medium text-gray-600 uppercase tracking-wide">Pagos no mês</p>
+                  <p className="text-2xl font-extrabold text-[#2BC48A] mt-1 tracking-tight">R$ 3.980</p>
+                  <p className="text-[10px] text-gray-500 mt-0.5">12 contas quitadas</p>
+                </div>
+              </div>
+
+              {/* Lista */}
+              <ul className="divide-y divide-gray-100">
+                {[
+                  { icon: BellRing, label: "Internet", when: "Vence hoje", tag: "R$ 129", bar: "bg-[#E85D5D]", badge: "bg-[#FDECEC] text-[#E85D5D]", badgeText: "Hoje" },
+                  { icon: CalendarCheck2, label: "Aluguel", when: "em 3 dias", tag: "R$ 1.100", bar: "bg-[#F5B841]", badge: "bg-[#FDF5E4] text-[#B8830B]", badgeText: "Em breve" },
+                  { icon: Sparkles, label: "Streaming", when: "em 7 dias", tag: "R$ 39", bar: "bg-[#2BC48A]", badge: "bg-[#E7F8F0] text-[#1E9B6B]", badgeText: "Sob controle" },
+                ].map((r) => (
+                  <li key={r.label} className="flex items-center gap-3 py-3">
+                    <span className={`h-8 w-1 rounded-full ${r.bar}`} />
+                    <div className="h-8 w-8 rounded-lg bg-[#F4F7FB] grid place-items-center ring-1 ring-black/5">
+                      <r.icon className="h-4 w-4 text-[#0077FF]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-semibold text-[#0A2540] leading-tight">{r.label}</p>
+                      <p className="text-[11px] text-gray-500 leading-tight">{r.when}</p>
+                    </div>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="text-[13px] font-bold text-[#0A2540]">{r.tag}</span>
+                      <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${r.badge}`}>{r.badgeText}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="rounded-xl bg-[#F5FAFF] ring-1 ring-black/5 p-2">
-              <CalendarCheck2 className="h-4 w-4 text-[#0077FF] mx-auto mb-1" />
-              <p className="text-[10px] text-gray-600 leading-tight">Calendário integrado</p>
-            </div>
-            <div className="rounded-xl bg-[#F5FAFF] ring-1 ring-black/5 p-2">
-              <ShieldCheck className="h-4 w-4 text-[#0077FF] mx-auto mb-1" />
-              <p className="text-[10px] text-gray-600 leading-tight">Dados protegidos</p>
+
+            {/* Cards de benefício */}
+            <div className="mt-6 grid grid-cols-3 gap-3 w-full max-w-md text-center">
+              <div className="rounded-xl bg-white ring-1 ring-black/5 shadow-[0_4px_12px_-6px_rgba(15,23,42,0.12)] p-3">
+                <BellRing className="h-5 w-5 text-[#0077FF] mx-auto mb-1.5" />
+                <p className="text-[11px] font-medium text-gray-700 leading-tight">Lembretes automáticos</p>
+              </div>
+              <div className="rounded-xl bg-white ring-1 ring-black/5 shadow-[0_4px_12px_-6px_rgba(15,23,42,0.12)] p-3">
+                <CalendarCheck2 className="h-5 w-5 text-[#0077FF] mx-auto mb-1.5" />
+                <p className="text-[11px] font-medium text-gray-700 leading-tight">Calendário integrado</p>
+              </div>
+              <div className="rounded-xl bg-white ring-1 ring-black/5 shadow-[0_4px_12px_-6px_rgba(15,23,42,0.12)] p-3">
+                <ShieldCheck className="h-5 w-5 text-[#0077FF] mx-auto mb-1.5" />
+                <p className="text-[11px] font-medium text-gray-700 leading-tight">Dados protegidos</p>
+              </div>
             </div>
           </div>
         </div>
