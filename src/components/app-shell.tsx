@@ -60,7 +60,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </Link>
           <button className="lg:hidden text-slate-300" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
         </div>
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 px-4 py-5 space-y-2 overflow-y-auto">
           {nav.map((item) => {
             const active = location.pathname === item.to || (item.to !== "/dashboard" && location.pathname.startsWith(item.to));
             return (
@@ -69,7 +69,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "relative flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors duration-150",
+                  "relative flex items-center gap-3 px-4 h-11 rounded-md text-sm font-semibold transition-colors duration-150",
                   active
                     ? "bg-emerald-500/15 text-emerald-400"
                     : "text-slate-300 hover:bg-white/5 hover:text-white"
