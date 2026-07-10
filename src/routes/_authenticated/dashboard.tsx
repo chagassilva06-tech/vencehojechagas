@@ -140,59 +140,6 @@ function Dashboard() {
         </Card>
       </div>
 
-      <div
-        className={`rounded-xl border bg-gradient-to-r from-sky-400 to-blue-600 text-white shadow-[0_10px_25px_-8px_rgba(37,99,235,0.45)] flex items-center gap-3 animate-fade-in ${topSearchOpen ? "px-4 py-3" : "px-2 py-2 w-fit"}`}
-      >
-        {!topSearchOpen ? (
-          <button
-            type="button"
-            aria-label="Abrir busca"
-            onClick={() => setTopSearchOpen(true)}
-            className="h-10 w-10 grid place-items-center rounded-full hover:bg-white/15 transition-colors"
-          >
-            <Search className="h-5 w-5" />
-          </button>
-        ) : (
-          <form
-            onSubmit={(e) => { e.preventDefault(); setAppliedSearch(search); }}
-            className="flex items-center gap-2 w-full animate-fade-in"
-          >
-            <Search className="h-5 w-5 shrink-0" />
-            <div className="flex-1 border-b-2 border-black/80 pb-1">
-              <input
-                ref={topSearchRef}
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Busca"
-                list="dashboard-titles-top"
-                className="w-full bg-transparent outline-none text-white placeholder:text-white/70 text-base"
-              />
-              <datalist id="dashboard-titles-top">
-                {Array.from(new Set(reminders.map((r) => r.titulo))).map((t) => (
-                  <option key={t} value={t} />
-                ))}
-              </datalist>
-            </div>
-            <Button
-              type="submit"
-              size="sm"
-              variant="secondary"
-              className="bg-white text-blue-700 hover:bg-white/90 shrink-0"
-            >
-              Buscar
-            </Button>
-            <button
-              type="button"
-              aria-label="Fechar busca"
-              onClick={() => { setTopSearchOpen(false); setSearch(""); setAppliedSearch(""); }}
-              className="h-9 w-9 grid place-items-center rounded-full hover:bg-white/15 transition-colors shrink-0"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </form>
-        )}
-      </div>
 
 
       <div className="flex justify-end">
