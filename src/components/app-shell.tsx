@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
-import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2, StickyNote } from "lucide-react";
+import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2, StickyNote, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
