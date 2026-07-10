@@ -23,12 +23,31 @@ function Landing() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [remember, setRemember] = useState(() => {
+    if (typeof window === "undefined") return true;
+    const v = window.localStorage.getItem("vh_remember");
+    return v === null ? true : v === "true";
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState<"signin" | "signup">("signup");
 
+  // Persist "manter conectado" e, quando desmarcado, encerra a sessão ao fechar a aba.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.localStorage.setItem("vh_remember", String(remember));
+    if (remember) return;
+    const onUnload = () => {
+      try {
+        void supabase.auth.signOut({ scope: "local" });
+      } catch {
+        /* noop */
+      }
+    };
+    window.addEventListener("beforeunload", onUnload);
+    return () => window.removeEventListener("beforeunload", onUnload);
+  }, [remember]);
 
   function validateEmail(v: string) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -47,7 +66,10 @@ function Landing() {
         : error.message;
       return toast.error(msg);
     }
-    toast.success("Bem-vindo de volta!");
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("vh_remember", String(remember));
+    }
+    toast.success(remember ? "Bem-vindo de volta!" : "Sessão ativa apenas nesta janela.");
     navigate({ to: "/dashboard" });
   }
 
