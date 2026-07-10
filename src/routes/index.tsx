@@ -1,7 +1,7 @@
 import "@fontsource/outfit/300.css";
 import "@fontsource/outfit/700.css";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Eye, EyeOff, Lock, ShieldCheck, BellRing, CalendarCheck2, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
