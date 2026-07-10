@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchReminders, formatCurrency, daysUntil, formatDate, recurrenceLabels, type Reminder } from "@/lib/reminders";
 import { supabase } from "@/integrations/supabase/client";
