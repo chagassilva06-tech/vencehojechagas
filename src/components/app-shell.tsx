@@ -56,7 +56,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <path d="M6 22 L16 32 L36 8" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span className="text-2xl font-extrabold tracking-tight leading-none">
-              <span className="text-white">Vence</span><span className="text-sky-200">Hoje</span>
+              <span className="text-white">Vence</span><span className="text-red-500">Hoje</span>
             </span>
           </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
