@@ -141,21 +141,17 @@ function Dashboard() {
       </div>
 
       <div
-        className="rounded-xl border bg-gradient-to-r from-sky-400 to-blue-600 text-white px-4 py-3 shadow-[0_10px_25px_-8px_rgba(37,99,235,0.45)] flex items-center gap-3 animate-fade-in"
+        className={`rounded-xl border bg-gradient-to-r from-sky-400 to-blue-600 text-white shadow-[0_10px_25px_-8px_rgba(37,99,235,0.45)] flex items-center gap-3 animate-fade-in ${topSearchOpen ? "px-4 py-3" : "px-2 py-2 w-fit"}`}
       >
         {!topSearchOpen ? (
-          <>
-            <span className="text-sm sm:text-base font-semibold flex-1">Buscar em lembretes</span>
-            <Button
-              type="button"
-              size="sm"
-              variant="secondary"
-              className="bg-white text-blue-700 hover:bg-white/90"
-              onClick={() => setTopSearchOpen(true)}
-            >
-              <Search className="h-4 w-4 mr-1.5" /> Buscar
-            </Button>
-          </>
+          <button
+            type="button"
+            aria-label="Abrir busca"
+            onClick={() => setTopSearchOpen(true)}
+            className="h-10 w-10 grid place-items-center rounded-full hover:bg-white/15 transition-colors"
+          >
+            <Search className="h-5 w-5" />
+          </button>
         ) : (
           <form
             onSubmit={(e) => { e.preventDefault(); setAppliedSearch(search); }}
