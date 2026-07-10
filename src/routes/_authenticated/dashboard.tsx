@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchReminders, formatCurrency, daysUntil, formatDate, recurrenceLabels, type Reminder } from "@/lib/reminders";
 import { supabase } from "@/integrations/supabase/client";
@@ -14,19 +14,31 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
+  validateSearch: (search: Record<string, unknown>): { q?: string } => ({
+    q: typeof search.q === "string" ? search.q : undefined,
+  }),
   component: Dashboard,
 });
 
 function Dashboard() {
   const qc = useQueryClient();
+  const { q: initialQ } = Route.useSearch();
   const { data: reminders } = useSuspenseQuery({
     queryKey: ["reminders"],
     queryFn: () => fetchReminders(),
   });
   const [viewing, setViewing] = useState<Reminder | null>(null);
-  const [search, setSearch] = useState("");
-  const [appliedSearch, setAppliedSearch] = useState("");
+  const [search, setSearch] = useState(initialQ ?? "");
+  const [appliedSearch, setAppliedSearch] = useState(initialQ ?? "");
   const [deleting, setDeleting] = useState<Reminder | null>(null);
+
+  useEffect(() => {
+    if (initialQ !== undefined) {
+      setSearch(initialQ);
+      setAppliedSearch(initialQ);
+    }
+  }, [initialQ]);
+
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
