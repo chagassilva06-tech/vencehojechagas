@@ -153,7 +153,7 @@ function Dashboard() {
             type="button"
             aria-label="Abrir busca"
             onClick={() => setTopSearchOpen(true)}
-            className="h-10 w-10 grid place-items-center rounded-full text-sky-700 hover:bg-sky-100 transition-colors"
+            className="h-10 w-10 grid place-items-center rounded-full bg-sky-200 text-sky-800 shadow-[0_4px_10px_-4px_rgba(56,189,248,0.6),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-sky-300 transition-colors"
           >
             <Search className="h-5 w-5" />
           </button>
