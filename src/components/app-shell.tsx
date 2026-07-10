@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
-import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2, StickyNote, Search } from "lucide-react";
+import { LayoutDashboard, ListChecks, Calendar, History, Tags, Settings, LogOut, Menu, X, CheckCircle2, StickyNote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -20,9 +20,6 @@ const nav = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const qc = useQueryClient();
@@ -31,22 +28,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     nav.find((n) => location.pathname === n.to) ||
     nav.find((n) => n.to !== "/dashboard" && location.pathname.startsWith(n.to)) ||
     nav[0];
-
-  useEffect(() => {
-    if (searchOpen) searchInputRef.current?.focus();
-  }, [searchOpen]);
-
-  function submitSearch(e: React.FormEvent) {
-    e.preventDefault();
-    const q = searchValue.trim();
-    navigate({ to: "/dashboard", search: q ? { q } : {} });
-    setSearchOpen(false);
-  }
-
-  function closeSearch() {
-    setSearchOpen(false);
-    setSearchValue("");
-  }
 
   async function signOut() {
     await qc.cancelQueries();
@@ -162,57 +143,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             boxShadow: "0 10px 20px -6px rgba(0,0,0,0.25), 0 4px 10px rgba(37,99,235,0.35), inset 0 -1px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25)",
           }}
         >
-          {!searchOpen && (
-            <>
-              <button className="lg:hidden" onClick={() => setOpen(true)} aria-label="Abrir menu"><Menu className="h-5 w-5" /></button>
-              <div className="flex items-center gap-2 font-semibold animate-fade-in">
-                <activeItem.icon className="h-5 w-5" />
-                {activeItem.label}
-              </div>
-              <button
-                onClick={() => setSearchOpen(true)}
-                aria-label="Abrir busca"
-                className="h-9 w-9 grid place-items-center rounded-full hover:bg-white/15 transition-colors"
-              >
-                <Search className="h-5 w-5" />
-              </button>
-            </>
-          )}
-          {searchOpen && (
-            <form
-              onSubmit={submitSearch}
-              className="flex items-center gap-3 w-full animate-fade-in"
-              style={{ animationDuration: "250ms" }}
-            >
-              <Link to="/dashboard" className="flex items-center gap-2 shrink-0" onClick={() => setSearchOpen(false)}>
-                <svg viewBox="0 0 40 40" className="h-8 w-8" aria-hidden="true">
-                  <path d="M6 22 L16 32 L36 8" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="hidden sm:inline text-xl font-extrabold tracking-tight leading-none">
-                  <span className="text-white">Vence</span><span className="text-sky-200">Hoje</span>
-                </span>
-              </Link>
-              <div className="flex-1 flex items-center gap-2 border-b-2 border-black/80 pb-1 pt-1">
-                <Search className="h-5 w-5 text-white shrink-0" />
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  placeholder="Busca"
-                  className="flex-1 bg-transparent outline-none text-white placeholder:text-white/70 text-base"
-                />
-              </div>
-              <button
-                type="button"
-                onClick={closeSearch}
-                aria-label="Fechar busca"
-                className="h-9 w-9 grid place-items-center rounded-full hover:bg-white/15 transition-colors shrink-0"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </form>
-          )}
+          <button className="lg:hidden" onClick={() => setOpen(true)} aria-label="Abrir menu"><Menu className="h-5 w-5" /></button>
+          <div className="flex items-center gap-2 font-semibold">
+            <activeItem.icon className="h-5 w-5" />
+            {activeItem.label}
+          </div>
+          <div />
         </header>
         <main className="flex-1 p-3 sm:p-4 lg:p-8 overflow-x-hidden">{children}</main>
       </div>
