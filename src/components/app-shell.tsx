@@ -20,9 +20,6 @@ const nav = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const qc = useQueryClient();
@@ -31,22 +28,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     nav.find((n) => location.pathname === n.to) ||
     nav.find((n) => n.to !== "/dashboard" && location.pathname.startsWith(n.to)) ||
     nav[0];
-
-  useEffect(() => {
-    if (searchOpen) searchInputRef.current?.focus();
-  }, [searchOpen]);
-
-  function submitSearch(e: React.FormEvent) {
-    e.preventDefault();
-    const q = searchValue.trim();
-    navigate({ to: "/dashboard", search: q ? { q } : {} });
-    setSearchOpen(false);
-  }
-
-  function closeSearch() {
-    setSearchOpen(false);
-    setSearchValue("");
-  }
 
   async function signOut() {
     await qc.cancelQueries();
