@@ -45,7 +45,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           open ? "translate-x-0" : "-translate-x-full"
         )}
         style={{
-          background: `linear-gradient(180deg, #38BDF8 0%, #2563EB 100%)`,
+          background: `linear-gradient(180deg, #7DD3FC 0%, #60A5FA 100%)`,
           boxShadow: "inset -1px 0 0 rgba(37,99,235,0.35), 0 0 24px rgba(56,189,248,0.25)",
           color: "#ffffff",
         }}
@@ -139,7 +139,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <header
           className="h-16 border-b flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 text-white transition-all duration-500"
           style={{
-            background: `linear-gradient(90deg, #38BDF8 0%, #2563EB 100%)`,
+            background: `linear-gradient(90deg, #7DD3FC 0%, #60A5FA 100%)`,
             boxShadow: "0 10px 20px -6px rgba(0,0,0,0.25), 0 4px 10px rgba(37,99,235,0.35), inset 0 -1px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25)",
           }}
         >
