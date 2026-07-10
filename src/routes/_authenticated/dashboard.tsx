@@ -22,14 +22,23 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 
 function Dashboard() {
   const qc = useQueryClient();
+  const { q: initialQ } = Route.useSearch();
   const { data: reminders } = useSuspenseQuery({
     queryKey: ["reminders"],
     queryFn: () => fetchReminders(),
   });
   const [viewing, setViewing] = useState<Reminder | null>(null);
-  const [search, setSearch] = useState("");
-  const [appliedSearch, setAppliedSearch] = useState("");
+  const [search, setSearch] = useState(initialQ ?? "");
+  const [appliedSearch, setAppliedSearch] = useState(initialQ ?? "");
   const [deleting, setDeleting] = useState<Reminder | null>(null);
+
+  useEffect(() => {
+    if (initialQ !== undefined) {
+      setSearch(initialQ);
+      setAppliedSearch(initialQ);
+    }
+  }, [initialQ]);
+
 
   const pending = reminders.filter((r) => r.status === "pending");
   const overdue = pending.filter((r) => daysUntil(r.data_vencimento) < 0);
