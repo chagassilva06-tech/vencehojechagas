@@ -41,27 +41,26 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 flex flex-col transition-all duration-500 lg:translate-x-0 lg:static text-white",
+          "fixed inset-y-0 left-0 z-50 w-64 flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static text-slate-200",
           open ? "translate-x-0" : "-translate-x-full"
         )}
         style={{
-          background: `linear-gradient(180deg, #7DD3FC 0%, #60A5FA 100%)`,
-          boxShadow: "inset -1px 0 0 rgba(37,99,235,0.35), 0 0 24px rgba(56,189,248,0.25)",
-          color: "#ffffff",
+          background: "#0F172A",
+          borderRight: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        <div className="h-16 flex items-center justify-between px-4 border-b border-white/20 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.25),inset_0_-1px_0_rgba(255,255,255,0.25)]">
+        <div className="h-16 flex items-center justify-between px-5 border-b border-white/10">
           <Link to="/dashboard" className="flex items-center gap-2">
-            <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0" aria-hidden="true">
-              <path d="M6 22 L16 32 L36 8" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            <svg viewBox="0 0 40 40" className="h-7 w-7 shrink-0" aria-hidden="true">
+              <path d="M6 22 L16 32 L36 8" fill="none" stroke="#22C55E" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="text-2xl font-extrabold tracking-tight leading-none">
+            <span className="text-xl font-semibold tracking-tight leading-none">
               <span className="text-white">Vence</span><span className="text-red-500">Hoje</span>
             </span>
           </Link>
-          <button className="lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
+          <button className="lg:hidden text-slate-300" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
         </div>
-        <nav className="flex-1 p-3 pb-8 space-y-2.5">
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {nav.map((item) => {
             const active = location.pathname === item.to || (item.to !== "/dashboard" && location.pathname.startsWith(item.to));
             return (
@@ -70,62 +69,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "relative flex items-center gap-3 px-4 py-2.5 text-base transition-all duration-300 ease-out",
+                  "relative flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors duration-150",
                   active
-                    ? "bg-background font-semibold rounded-l-2xl rounded-r-none -mr-3 pl-5"
-                    : "rounded-lg text-white/90 hover:bg-white/15 hover:translate-x-0.5"
+                    ? "bg-emerald-500/15 text-emerald-400"
+                    : "text-slate-300 hover:bg-white/5 hover:text-white"
                 )}
-                style={
-                  active
-                    ? { color: item.color }
-                    : {
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 50%, rgba(0,0,0,0.10) 100%)",
-                        boxShadow: "0 2px 6px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.18)",
-                      }
-                }
               >
                 {active && (
-                  <>
-                    {/* left color bar indicator */}
-                    <span
-                      aria-hidden
-                      className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full animate-fade-in"
-                      style={{ background: item.color }}
-                    />
-                    {/* top concave scoop */}
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute right-0 -top-6 h-6 w-6 rounded-br-[24px]"
-                      style={{ boxShadow: "0 24px 0 0 var(--background)" }}
-                    />
-                    {/* bottom concave scoop */}
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute right-0 -bottom-6 h-6 w-6 rounded-tr-[24px]"
-                      style={{ boxShadow: "0 -24px 0 0 var(--background)" }}
-                    />
-                  </>
+                  <span
+                    aria-hidden
+                    className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[3px] rounded-r-full bg-emerald-400"
+                  />
                 )}
-                <item.icon className="h-5 w-5" />
+                <item.icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
                 {item.label}
               </Link>
             );
           })}
         </nav>
-        <div
-          className="p-3 border-t border-white/20"
-          style={{
-            background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.20) 100%)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 -4px 12px rgba(0,0,0,0.15)",
-          }}
-        >
+        <div className="p-3 border-t border-white/10">
           <Button
             variant="ghost"
-            className="w-full justify-start text-white hover:text-white"
-            style={{
-              background: "linear-gradient(180deg, #1E40AF 0%, #0B1E45 100%)",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.3)",
-            }}
+            className="w-full justify-start text-slate-300 hover:text-white hover:bg-white/5"
             onClick={signOut}
           >
             <LogOut className="h-4 w-4 mr-2" /> Sair
