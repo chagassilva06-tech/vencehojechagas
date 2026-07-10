@@ -141,6 +141,64 @@ function Dashboard() {
         </Card>
       </div>
 
+      <div
+        className={`rounded-2xl bg-gradient-to-b from-white to-sky-50 border border-sky-200/70 text-slate-800 flex items-center gap-3 animate-fade-in transition-all duration-300 ${topSearchOpen ? "px-4 py-3" : "px-2 py-2 w-fit"}`}
+        style={{
+          boxShadow:
+            "0 10px 25px -10px rgba(56,189,248,0.45), 0 4px 10px -6px rgba(59,130,246,0.25), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(56,189,248,0.15)",
+        }}
+      >
+        {!topSearchOpen ? (
+          <button
+            type="button"
+            aria-label="Abrir busca"
+            onClick={() => setTopSearchOpen(true)}
+            className="h-10 w-10 grid place-items-center rounded-full text-sky-700 hover:bg-sky-100 transition-colors"
+          >
+            <Search className="h-5 w-5" />
+          </button>
+        ) : (
+          <form
+            onSubmit={(e) => { e.preventDefault(); setAppliedSearch(search); }}
+            className="flex items-center gap-3 w-full animate-fade-in"
+            style={{ animationDuration: "250ms" }}
+          >
+            <Link to="/dashboard" className="flex items-center gap-2 shrink-0">
+              <svg viewBox="0 0 40 40" className="h-8 w-8" aria-hidden="true">
+                <path d="M6 22 L16 32 L36 8" fill="none" stroke="#0284C7" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="hidden sm:inline text-xl font-extrabold tracking-tight leading-none">
+                <span className="text-sky-700">Vence</span><span className="text-red-600">Hoje</span>
+              </span>
+            </Link>
+            <div className="flex-1 flex items-center gap-2 border-b-2 border-black/80 pb-1">
+              <Search className="h-5 w-5 text-sky-700 shrink-0" />
+              <input
+                ref={topSearchRef}
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Busca"
+                list="dashboard-titles-top"
+                className="w-full bg-transparent outline-none text-slate-800 placeholder:text-slate-400 text-base"
+              />
+              <datalist id="dashboard-titles-top">
+                {Array.from(new Set(reminders.map((r) => r.titulo))).map((t) => (
+                  <option key={t} value={t} />
+                ))}
+              </datalist>
+            </div>
+            <button
+              type="button"
+              aria-label="Fechar busca"
+              onClick={() => { setTopSearchOpen(false); setSearch(""); setAppliedSearch(""); }}
+              className="h-9 w-9 grid place-items-center rounded-full text-slate-600 hover:bg-slate-100 transition-colors shrink-0"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </form>
+        )}
+      </div>
 
 
       <div className="flex justify-end">
