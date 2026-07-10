@@ -31,6 +31,12 @@ function Dashboard() {
   const [search, setSearch] = useState(initialQ ?? "");
   const [appliedSearch, setAppliedSearch] = useState(initialQ ?? "");
   const [deleting, setDeleting] = useState<Reminder | null>(null);
+  const [topSearchOpen, setTopSearchOpen] = useState(false);
+  const topSearchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (topSearchOpen) topSearchRef.current?.focus();
+  }, [topSearchOpen]);
 
   useEffect(() => {
     if (initialQ !== undefined) {
