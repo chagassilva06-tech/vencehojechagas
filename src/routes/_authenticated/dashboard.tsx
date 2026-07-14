@@ -314,7 +314,7 @@ function Dashboard() {
 
 
       {overdue.length > 0 && (
-        <Card className="border-destructive/40">
+        <Card id="secao-atrasados" className="border-destructive/40">
           <CardHeader><CardTitle className="text-destructive flex items-center gap-2"><AlertTriangle className="h-5 w-5" /> Atrasados</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             {overdue.map((r) => (
