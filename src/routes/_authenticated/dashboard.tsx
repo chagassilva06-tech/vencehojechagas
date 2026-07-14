@@ -216,7 +216,7 @@ function Dashboard() {
         </Link>
       </div>
 
-      <Card>
+      <Card id="secao-proximos">
         <CardHeader>
           <CardTitle className="flex items-center justify-between flex-wrap gap-3">
             <span>Próximos vencimentos</span>
