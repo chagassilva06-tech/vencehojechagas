@@ -188,6 +188,13 @@ function Dashboard() {
                 ))}
               </datalist>
             </div>
+            <Button
+              type="submit"
+              size="sm"
+              className="h-9 bg-sky-600 text-white hover:bg-sky-700 shadow-[0_4px_10px_-4px_rgba(56,189,248,0.6)] shrink-0"
+            >
+              <Search className="h-4 w-4 mr-1" /> Buscar
+            </Button>
             <button
               type="button"
               aria-label="Fechar busca"
