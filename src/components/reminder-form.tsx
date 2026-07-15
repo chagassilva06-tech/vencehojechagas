@@ -141,7 +141,13 @@ export function ReminderForm({ open, onOpenChange, categories, reminder }: Props
               )}
             </div>
           </div>
-          <div><Label>Valor (opcional)</Label><Input type="number" step="0.01" value={valor} onChange={(e) => setValor(e.target.value)} placeholder="0,00" /></div>
+          <div>
+            <Label>Valor (opcional)</Label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">R$</span>
+              <Input type="number" step="0.01" min="0" inputMode="decimal" value={valor} onChange={(e) => setValor(e.target.value)} placeholder="0,00" className="pl-9" />
+            </div>
+          </div>
           <div>
             <Label>Recorrência</Label>
             <Select value={recorrencia} onValueChange={(v) => setRecorrencia(v as Recurrence)}>
