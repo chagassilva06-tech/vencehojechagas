@@ -101,7 +101,11 @@ function Dashboard() {
       return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
     })
     .filter((r) => !appliedSearch || r.titulo.toLowerCase().includes(appliedSearch.toLowerCase()))
-    .sort((a, b) => a.data_vencimento.localeCompare(b.data_vencimento));
+    .sort((a, b) => {
+      const byDue = a.data_vencimento.localeCompare(b.data_vencimento);
+      if (byDue !== 0) return byDue;
+      return (b.created_at ?? "").localeCompare(a.created_at ?? "");
+    });
 
 
   return (
