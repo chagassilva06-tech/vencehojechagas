@@ -107,6 +107,10 @@ function Dashboard() {
       return (b.created_at ?? "").localeCompare(a.created_at ?? "");
     });
 
+  const recentlyAdded = [...reminders]
+    .sort((a, b) => (b.created_at ?? "").localeCompare(a.created_at ?? ""))
+    .slice(0, 5);
+
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
