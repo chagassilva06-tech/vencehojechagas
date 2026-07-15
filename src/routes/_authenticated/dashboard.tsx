@@ -107,6 +107,10 @@ function Dashboard() {
       return (b.created_at ?? "").localeCompare(a.created_at ?? "");
     });
 
+  const recentlyAdded = [...reminders]
+    .sort((a, b) => (b.created_at ?? "").localeCompare(a.created_at ?? ""))
+    .slice(0, 5);
+
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
@@ -210,6 +214,43 @@ function Dashboard() {
           </form>
         )}
       </div>
+
+      {recentlyAdded.length > 0 && (
+        <Card className="border-yellow-200/70 bg-gradient-to-br from-yellow-50 to-amber-50/50 shadow-[0_8px_20px_-12px_rgba(234,179,8,0.35)]">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <span className="relative inline-flex h-3 w-3">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75 animate-ping" />
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />
+              </span>
+              <span>Adicionado recentemente</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {recentlyAdded.map((r) => (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => setViewing(r)}
+                className="w-full text-left flex items-center gap-3 p-2 sm:p-3 rounded-lg border border-yellow-100 bg-white/60 hover:bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+              >
+                <div className="h-9 w-9 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
+                  <span className="text-xs font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-medium truncate text-sm sm:text-base">{r.titulo}</div>
+                  <div className="text-[11px] sm:text-xs text-muted-foreground truncate">
+                    {r.categories?.nome} • vence {formatDate(r.data_vencimento)}
+                  </div>
+                </div>
+                <span className="font-semibold text-sm shrink-0">{formatCurrency(r.valor)}</span>
+              </button>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+
 
 
       <div className="flex justify-end">
