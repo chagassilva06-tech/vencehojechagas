@@ -32,6 +32,7 @@ function Dashboard() {
   const [appliedSearch, setAppliedSearch] = useState(initialQ ?? "");
   const [deleting, setDeleting] = useState<Reminder | null>(null);
   const [topSearchOpen, setTopSearchOpen] = useState(false);
+  const [showRecent, setShowRecent] = useState(false);
   const topSearchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -218,35 +219,62 @@ function Dashboard() {
       {recentlyAdded.length > 0 && (
         <Card className="border-yellow-200/70 bg-gradient-to-br from-yellow-50 to-amber-50/50 shadow-[0_8px_20px_-12px_rgba(234,179,8,0.35)]">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <span className="relative inline-flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75 animate-ping" />
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />
-              </span>
-              <span>Adicionado recentemente</span>
+            <CardTitle className="flex items-center justify-between gap-2 text-base">
+              <div className="flex items-center gap-2">
+                <span className="relative inline-flex h-3 w-3">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75 animate-ping" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />
+                </span>
+                <span>Adicionado recentemente</span>
+              </div>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="h-8 border-yellow-300 text-yellow-800 hover:bg-yellow-100"
+                onClick={() => setShowRecent((v) => !v)}
+              >
+                <Eye className="h-4 w-4 mr-1" />
+                {showRecent ? "Ocultar" : "Ver detalhes"}
+              </Button>
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            {recentlyAdded.map((r) => (
-              <button
-                key={r.id}
-                type="button"
-                onClick={() => setViewing(r)}
-                className="w-full text-left flex items-center gap-3 p-2 sm:p-3 rounded-lg border border-yellow-100 bg-white/60 hover:bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-              >
-                <div className="h-9 w-9 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
-                  <span className="text-xs font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
+          {showRecent && (
+            <CardContent className="space-y-2">
+              {recentlyAdded.map((r) => (
+                <div
+                  key={r.id}
+                  className="w-full flex items-center gap-3 p-2 sm:p-3 rounded-lg border border-yellow-100 bg-white/60 hover:bg-white hover:shadow-md transition-all duration-200"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setViewing(r)}
+                    className="flex items-center gap-3 min-w-0 flex-1 text-left"
+                  >
+                    <div className="h-9 w-9 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
+                      <span className="text-xs font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-medium truncate text-sm sm:text-base">{r.titulo}</div>
+                      <div className="text-[11px] sm:text-xs text-muted-foreground truncate">
+                        {r.categories?.nome} • vence {formatDate(r.data_vencimento)}
+                      </div>
+                    </div>
+                    <span className="font-semibold text-sm shrink-0">{formatCurrency(r.valor)}</span>
+                  </button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50 shrink-0"
+                    onClick={() => setDeleting(r)}
+                    title="Excluir"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
-                <div className="min-w-0 flex-1">
-                  <div className="font-medium truncate text-sm sm:text-base">{r.titulo}</div>
-                  <div className="text-[11px] sm:text-xs text-muted-foreground truncate">
-                    {r.categories?.nome} • vence {formatDate(r.data_vencimento)}
-                  </div>
-                </div>
-                <span className="font-semibold text-sm shrink-0">{formatCurrency(r.valor)}</span>
-              </button>
-            ))}
-          </CardContent>
+              ))}
+            </CardContent>
+          )}
         </Card>
       )}
 
