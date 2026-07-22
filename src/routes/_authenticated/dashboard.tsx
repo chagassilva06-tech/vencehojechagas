@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AttachmentPreview } from "@/components/attachment-preview";
-import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip, Search, Trophy, Trash2, X } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock, Plus, TrendingUp, Eye, Paperclip, Search, Trophy, Trash2, X, List, GitCommitHorizontal } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 
@@ -33,6 +33,7 @@ function Dashboard() {
   const [deleting, setDeleting] = useState<Reminder | null>(null);
   const [topSearchOpen, setTopSearchOpen] = useState(false);
   const [showRecent, setShowRecent] = useState(false);
+  const [viewMode, setViewMode] = useState<"list" | "timeline">("list");
   const topSearchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -292,7 +293,31 @@ function Dashboard() {
       <Card id="secao-proximos">
         <CardHeader>
           <CardTitle className="flex items-center justify-between flex-wrap gap-3">
-            <span>Próximos vencimentos</span>
+            <div className="flex items-center gap-3">
+              <span>Próximos vencimentos</span>
+              <div className="inline-flex rounded-lg border border-sky-200 bg-sky-50/60 p-0.5 shadow-inner">
+                <button
+                  type="button"
+                  onClick={() => setViewMode("list")}
+                  title="Visualizar em lista"
+                  aria-label="Visualizar em lista"
+                  aria-pressed={viewMode === "list"}
+                  className={`h-8 w-8 grid place-items-center rounded-md transition-all ${viewMode === "list" ? "bg-white text-sky-700 shadow-sm ring-1 ring-sky-200" : "text-slate-500 hover:text-sky-700"}`}
+                >
+                  <List className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("timeline")}
+                  title="Visualizar em linha do tempo"
+                  aria-label="Visualizar em linha do tempo"
+                  aria-pressed={viewMode === "timeline"}
+                  className={`h-8 w-8 grid place-items-center rounded-md transition-all ${viewMode === "timeline" ? "bg-white text-sky-700 shadow-sm ring-1 ring-sky-200" : "text-slate-500 hover:text-sky-700"}`}
+                >
+                  <GitCommitHorizontal className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
             <form
               onSubmit={(e) => { e.preventDefault(); setAppliedSearch(search); }}
               className="flex items-center gap-2 w-full sm:w-auto"
@@ -322,7 +347,57 @@ function Dashboard() {
         </CardHeader>
         <CardContent className="space-y-2">
           {upcoming.length === 0 && <p className="text-sm text-muted-foreground py-8 text-center">Nenhum lembrete pendente. 🎉</p>}
-          {upcoming.map((r) => {
+          {viewMode === "timeline" && upcoming.length > 0 && (
+            <ol className="relative border-l-2 border-sky-200 ml-3 pl-6 space-y-4 py-2">
+              {upcoming.map((r) => {
+                const d = daysUntil(r.data_vencimento);
+                const dot = d === 0 ? "bg-destructive" : d === 1 ? "bg-orange-500" : d <= 3 ? "bg-yellow-500" : "bg-primary/60";
+                return (
+                  <li key={r.id} className="relative">
+                    <span className={`absolute -left-[31px] top-2 h-3 w-3 rounded-full ring-4 ring-white ${dot} shadow`}></span>
+                    <div className="rounded-lg border bg-white p-3 shadow-sm hover:shadow-md transition-all">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <div className="min-w-0">
+                          <div className="text-[11px] uppercase tracking-wide text-muted-foreground">{formatDate(r.data_vencimento)}</div>
+                          <div className="font-medium truncate">{r.titulo}</div>
+                          <div className="text-xs text-muted-foreground truncate">{r.categories?.nome ?? "—"}</div>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="font-semibold">{formatCurrency(r.valor)}</span>
+                          <Badge variant={d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"} className="text-[10px] px-1.5">
+                            {d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
+                          </Badge>
+                          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setViewing(r)} title="Ver detalhes">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-8 px-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                            disabled={markPaid.isPending}
+                            onClick={() => markPaid.mutate(r)}
+                            title="Marcar como pago"
+                          >
+                            <CheckCircle2 className="h-3.5 w-3.5" />
+                          </Button>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                            onClick={() => setDeleting(r)}
+                            title="Excluir lembrete"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+          {viewMode === "list" && upcoming.map((r) => {
             const d = daysUntil(r.data_vencimento);
             const bc = d === 0 ? "border-l-4 border-l-destructive" : d === 1 ? "border-l-4 border-l-orange-500" : d <= 3 ? "border-l-4 border-l-yellow-500" : "border-l-4 border-l-primary/60";
             return (
