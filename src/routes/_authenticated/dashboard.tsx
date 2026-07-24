@@ -33,7 +33,7 @@ function Dashboard() {
   const [deleting, setDeleting] = useState<Reminder | null>(null);
   const [topSearchOpen, setTopSearchOpen] = useState(false);
   const [showRecent, setShowRecent] = useState(false);
-  const [viewMode, setViewMode] = useState<"list" | "timeline">("list");
+  const [viewMode, setViewMode] = useState<"list" | "timeline">("timeline");
   const topSearchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
