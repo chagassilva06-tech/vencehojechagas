@@ -61,7 +61,7 @@ export default function AuthDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md rounded-[32px] shadow-[0_30px_80px_rgba(0,0,0,0.08)] border-none">
+      <DialogContent className="sm:max-w-md rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.12)] border-none p-8">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold tracking-tight text-[#0A2540]">VenceHoje</DialogTitle>
           <DialogDescription className="text-sm text-gray-500">Entre na sua conta ou crie uma gratuita.</DialogDescription>
