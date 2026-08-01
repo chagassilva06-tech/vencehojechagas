@@ -252,104 +252,120 @@ function Landing() {
           </div>
         </div>
 
-        {/* Right: mockup — 4 cols, mais compacto */}
-        <div className="md:col-span-4 relative bg-gradient-to-br from-white via-[#F6F9FC] to-[#EEF3F9] flex flex-col items-center justify-center p-8 md:p-10 overflow-hidden">
-          {/* Transição suave de azul para branco acontece via o gradiente da div pai + esse overlay */}
-          <div aria-hidden className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0057D8]/5 to-transparent pointer-events-none" />
+        {/* Right: mockup — 4 cols, expanded focus */}
+        <div className="md:col-span-4 relative bg-gradient-to-br from-white via-[#F8FBFF] to-[#F1F6FC] flex flex-col items-center justify-center p-8 md:p-12 overflow-hidden">
+          {/* Enhanced Elegant Transition */}
+          <div aria-hidden className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black/5 via-black/[0.02] to-transparent pointer-events-none z-20" />
+          <div aria-hidden className="absolute inset-y-0 left-0 w-1 bg-white/20 z-30" />
           
+          {/* Right side depth elements */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-[#0077FF]/5 blur-3xl animate-pulse" />
-            <div className="absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#22B378]/5 blur-3xl animate-pulse" />
+            <div className="absolute top-1/4 right-0 w-80 h-80 rounded-full bg-[#0077FF]/5 blur-[100px] animate-pulse" />
+            <div className="absolute bottom-1/4 -left-20 w-80 h-80 rounded-full bg-[#22B378]/5 blur-[100px] animate-pulse" />
+            <div className="absolute inset-0 opacity-[0.4] [background-image:radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px]" />
           </div>
 
-          <div className="relative z-10 w-full flex flex-col items-center">
-            <p className="text-center text-[#0A2540] font-bold text-xl md:text-2xl tracking-tight mb-2">
-              Nunca mais perca um pagamento.
-            </p>
-            <p className="text-center text-gray-500 text-xs md:text-sm mb-8 max-w-xs leading-relaxed">
-              Um painel inteligente para tudo que vence hoje, amanhã e no mês.
-            </p>
-
-            {/* Mockup — animado */}
-            <div className="relative w-full max-w-sm rounded-2xl bg-white ring-1 ring-black/5 shadow-[0_30px_80px_rgba(0,0,0,0.08)] p-6 transition-transform duration-500 hover:scale-[1.02]">
-              {/* Shine effect animation */}
-              <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
-                <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] animate-[shimmer_3s_infinite]" />
-              </div>
-
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
-                <div className="flex items-center gap-3">
-                  <div className="relative h-10 w-10 rounded-full bg-[#0077FF] grid place-items-center text-white text-sm font-bold shadow-lg">
-                    F
-                    <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-[#22B378] ring-2 ring-white animate-pulse" />
-                  </div>
-                  <div className="leading-tight">
-                    <p className="text-sm font-bold text-[#0A2540]">Olá, Francisco</p>
-                    <p className="text-[11px] text-gray-400 capitalize">
-                      {new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "short" })}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="rounded-full bg-[#EAF3FF] px-2.5 py-1 text-[10px] font-bold text-[#0077FF] animate-bounce">Hoje</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 pb-5 border-b border-gray-100">
-                <div className="rounded-xl bg-[#F4F9FF] p-3 ring-1 ring-[#0077FF]/10 shadow-[0_6px_18px_rgba(0,0,0,0.05)]">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">A vencer</p>
-                  <p className="text-xl font-extrabold text-[#0077FF] mt-1">R$ 1.240</p>
-                </div>
-                <div className="rounded-xl bg-[#F0FBF6] p-3 ring-1 ring-[#22B378]/15 shadow-[0_6px_18px_rgba(0,0,0,0.05)]">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pagos</p>
-                  <div className="flex items-baseline gap-1">
-                    <p className="text-xl font-extrabold text-[#22B378] mt-1">R$ 3.980</p>
-                    <Sparkles className="h-3 w-3 text-[#22B378] animate-pulse" />
-                  </div>
-                </div>
-              </div>
-
-              <ul className="space-y-3 mt-4">
-                {[
-                  { icon: BellRing, label: "Internet", when: "Vence hoje", tag: "R$ 129", bar: "bg-[#E85D5D]", delay: "0ms" },
-                  { icon: CalendarCheck2, label: "Aluguel", when: "em 3 dias", tag: "R$ 1.100", bar: "bg-[#F5B841]", delay: "100ms" },
-                  { icon: Sparkles, label: "Streaming", when: "em 7 dias", tag: "R$ 39", bar: "bg-[#22B378]", delay: "200ms" },
-                ].map((r) => (
-                  <li key={r.label} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group cursor-default shadow-[0_4px_12px_rgba(0,0,0,0.03)]" style={{ animationDelay: r.delay }}>
-                    <div className="relative">
-                       <span className={`h-8 w-1.5 rounded-full ${r.bar} block`} />
-                       {r.label === "Internet" && <div className="absolute -left-1 top-0 h-8 w-3 bg-red-400/20 blur-sm rounded-full animate-pulse" />}
-                    </div>
-                    <div className="h-9 w-9 rounded-xl bg-[#F4F7FB] grid place-items-center group-hover:bg-white group-hover:shadow-sm transition-all duration-300">
-                      <r.icon className="h-4 w-4 text-[#0077FF]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[13px] font-bold text-[#0A2540] leading-tight">{r.label}</p>
-                      <p className="text-[11px] text-gray-400 leading-tight">{r.when}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[13px] font-bold text-[#0A2540]">{r.tag}</span>
-                      {r.label === "Streaming" && <div className="h-4 w-4 rounded-full bg-[#22B378] text-white flex items-center justify-center text-[10px] animate-in zoom-in duration-500 delay-700">✓</div>}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+          <div className="relative z-10 w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000">
+            <div className="mb-10 text-center">
+              <h2 className="text-[#0A2540] font-bold text-2xl md:text-3xl tracking-tight mb-3">
+                Nunca esqueça um vencimento.
+              </h2>
+              <p className="text-gray-500 text-sm max-w-xs mx-auto leading-relaxed">
+                Um painel inteligente para tudo que vence hoje, amanhã e no mês.
+              </p>
             </div>
 
-            {/* Benefícios e Credibilidade */}
-            <div className="mt-10 grid grid-cols-2 gap-x-8 gap-y-3 w-full max-w-sm px-2">
-               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
-                 <span className="text-[#22B378]">✓</span> Lembretes automáticos
-               </div>
-               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
-                 <span className="text-[#22B378]">✓</span> WhatsApp
-               </div>
-               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
-                 <span className="text-[#22B378]">✓</span> E-mail
-               </div>
-               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
-                 <span className="text-[#22B378]">✓</span> Agenda integrada
-               </div>
+            {/* Mockup — HTML/CSS real component with tilt and float */}
+            <div className="relative w-full max-w-md transform perspective-1000 rotate-y-[-5deg] rotate-x-[2deg] hover:rotate-0 transition-all duration-700 ease-out group/mockup">
+              {/* Floating shadow */}
+              <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[90%] h-8 bg-black/10 blur-2xl rounded-full opacity-60 group-hover/mockup:opacity-40 transition-opacity" />
+              
+              <div className="relative rounded-2xl bg-white ring-1 ring-black/[0.03] shadow-[0_18px_45px_rgba(0,0,0,0.06)] p-6 overflow-hidden border border-white/50 animate-float">
+                {/* Shine effect animation */}
+                <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                  <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg] animate-[shimmer_4s_infinite]" />
+                </div>
+
+                <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-50">
+                  <div className="flex items-center gap-3">
+                    <div className="relative h-11 w-11 rounded-full bg-gradient-to-br from-[#0077FF] to-[#0052B4] grid place-items-center text-white text-base font-bold shadow-lg shadow-[#0077FF]/20">
+                      F
+                      <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#22B378] ring-2 ring-white animate-pulse" />
+                    </div>
+                    <div className="leading-tight">
+                      <p className="text-sm font-bold text-[#0A2540]">Olá, Francisco</p>
+                      <p className="text-[11px] text-gray-400 font-medium">Hoje, {new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "long" })}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="rounded-full bg-[#EAF3FF] px-3 py-1 text-[10px] font-bold text-[#0077FF] shadow-sm">ATIVO</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 pb-6 border-b border-gray-50">
+                  <div className="rounded-xl bg-[#F8FBFF] p-4 border border-[#0077FF]/10 shadow-sm transition-transform hover:scale-[1.02]">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">A vencer</p>
+                    <p className="text-2xl font-black text-[#0077FF] mt-1 tracking-tight">R$ 1.240</p>
+                    <div className="mt-2 w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-[#0077FF] w-3/4 animate-in slide-in-from-left duration-1000" />
+                    </div>
+                  </div>
+                  <div className="rounded-xl bg-[#F0FBF6] p-4 border border-[#22B378]/15 shadow-sm transition-transform hover:scale-[1.02]">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pagos</p>
+                    <div className="flex items-baseline gap-1">
+                      <p className="text-2xl font-black text-[#22B378] mt-1 tracking-tight">R$ 3.980</p>
+                    </div>
+                    <div className="mt-2 w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-[#22B378] w-full animate-in slide-in-from-left duration-1000" />
+                    </div>
+                  </div>
+                </div>
+
+                <ul className="space-y-3.5 mt-5">
+                  {[
+                    { icon: BellRing, label: "Internet Fibra", when: "Vence hoje", tag: "R$ 129", bar: "bg-[#E85D5D]", delay: "0ms" },
+                    { icon: CalendarCheck2, label: "Aluguel", when: "em 3 dias", tag: "R$ 1.100", bar: "bg-[#F5B841]", delay: "100ms" },
+                    { icon: Sparkles, label: "Serviços Cloud", when: "em 7 dias", tag: "R$ 89", bar: "bg-[#22B378]", delay: "200ms" },
+                  ].map((r) => (
+                    <li key={r.label} className="flex items-center gap-4 p-2.5 rounded-xl hover:bg-gray-50/80 transition-all group cursor-default shadow-sm border border-transparent hover:border-gray-100" style={{ animationDelay: r.delay }}>
+                      <div className="relative">
+                         <span className={`h-9 w-1.5 rounded-full ${r.bar} block`} />
+                         {r.label.includes("Internet") && <div className="absolute -left-1 top-0 h-9 w-3 bg-red-400/20 blur-sm rounded-full animate-pulse" />}
+                      </div>
+                      <div className="h-10 w-10 rounded-xl bg-[#F4F7FB] grid place-items-center group-hover:bg-white group-hover:shadow-md transition-all duration-300 ring-1 ring-black/[0.02]">
+                        <r.icon className="h-4.5 w-4.5 text-[#0077FF]" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-[#0A2540] tracking-tight">{r.label}</p>
+                        <p className="text-[11px] text-gray-400 font-medium">{r.when}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-black text-[#0A2540]">{r.tag}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Social Proof / Trust Badges */}
+            <div className="mt-14 w-full max-w-md flex items-center justify-around px-4 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+              <div className="flex flex-col items-center gap-1.5">
+                <span className="text-lg font-bold text-[#0A2540]">2.000+</span>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Contas<br/>Organizadas</span>
+              </div>
+              <div className="h-8 w-px bg-gray-200" />
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="flex text-[#22B378] text-xs">★★★★★</div>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Avaliação<br/>Usuários</span>
+              </div>
+              <div className="h-8 w-px bg-gray-200" />
+              <div className="flex flex-col items-center gap-1.5 text-center">
+                <div className="h-5 w-5 rounded-full bg-[#0077FF]/10 flex items-center justify-center">
+                   <ShieldCheck className="h-3 w-3 text-[#0077FF]" />
+                </div>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Segurança<br/>Bancária</span>
+              </div>
             </div>
           </div>
         </div>
