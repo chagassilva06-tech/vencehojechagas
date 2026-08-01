@@ -144,13 +144,14 @@ function PasswordInput({
         minLength={minLength}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pr-10"
+        className="h-[48px] rounded-lg border-gray-200 pl-11 pr-10 focus:ring-1 focus:ring-[#0077FF]"
+        placeholder="••••••••"
       />
       <button
         type="button"
         onClick={toggle}
         aria-label={show ? "Ocultar senha" : "Mostrar senha"}
-        className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
+        className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600"
       >
         {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
       </button>
