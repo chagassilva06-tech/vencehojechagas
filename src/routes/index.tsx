@@ -304,7 +304,7 @@ function Landing() {
         </div>
       </div>
 
-      <AuthDialog open={authOpen} setOpen={setOpen} tab={authTab} setTab={setAuthTab} />
+      <AuthDialog open={authOpen} setOpen={setAuthOpen} tab={authTab} setTab={setAuthTab} />
     </div>
   );
 }
