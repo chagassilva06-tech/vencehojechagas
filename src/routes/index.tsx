@@ -157,7 +157,7 @@ function Landing() {
                   onChange={(e) => setRemember(e.target.checked)}
                   className="h-4 w-4 rounded-[4px] accent-[#22B378]"
                 />
-                <span className="font-medium">Manter conectado</span>
+                <span className="font-[500] text-sm">Manter conectado</span>
               </label>
               <button type="button" onClick={forgotPassword} className="hover:underline hover:text-white/90 transition-all text-white/70 font-medium">
                 Esqueceu Senha?
