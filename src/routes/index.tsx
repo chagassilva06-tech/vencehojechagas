@@ -202,74 +202,109 @@ function Landing() {
         </div>
 
         {/* Right: mockup — 4 cols, mais compacto */}
-        <div className="md:col-span-4 relative bg-gradient-to-br from-[#F6F9FC] to-[#EEF3F9] flex flex-col items-center justify-center p-8 md:p-10 overflow-hidden">
+        <div className="md:col-span-4 relative bg-gradient-to-br from-white via-[#F6F9FC] to-[#EEF3F9] flex flex-col items-center justify-center p-8 md:p-10 overflow-hidden">
+          {/* Transição suave de azul para branco acontece via o gradiente da div pai + esse overlay */}
+          <div aria-hidden className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0057D8]/5 to-transparent pointer-events-none" />
+          
           <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-[#0077FF]/5 blur-3xl" />
-            <div className="absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#22B378]/5 blur-3xl" />
+            <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-[#0077FF]/5 blur-3xl animate-pulse" />
+            <div className="absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#22B378]/5 blur-3xl animate-pulse" />
           </div>
 
           <div className="relative z-10 w-full flex flex-col items-center">
-            <p className="text-center text-[#0A2540] font-bold text-lg md:text-xl tracking-tight">
-              Nunca esqueça um vencimento.
+            <p className="text-center text-[#0A2540] font-bold text-xl md:text-2xl tracking-tight mb-2">
+              Nunca mais perca um pagamento.
             </p>
-            <p className="text-center text-gray-600 text-xs md:text-sm mt-2 mb-5 max-w-xs leading-relaxed">
-              Um painel simples para tudo que vence hoje, amanhã e no mês.
+            <p className="text-center text-gray-500 text-xs md:text-sm mb-8 max-w-xs leading-relaxed">
+              Um painel inteligente para tudo que vence hoje, amanhã e no mês.
             </p>
 
-            {/* Mockup — mais leve */}
-            <div className="relative w-full max-w-sm rounded-2xl bg-white ring-1 ring-black/5 shadow-[0_10px_28px_-16px_rgba(21,101,216,0.20)] p-5">
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
-                <div className="flex items-center gap-2.5">
-                  <div className="relative h-8 w-8 rounded-full bg-[#0077FF] grid place-items-center text-white text-xs font-bold">
+            {/* Mockup — animado */}
+            <div className="relative w-full max-w-sm rounded-2xl bg-white ring-1 ring-black/5 shadow-[0_30px_80px_rgba(0,0,0,0.08)] p-6 transition-transform duration-500 hover:scale-[1.02]">
+              {/* Shine effect animation */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] animate-[shimmer_3s_infinite]" />
+              </div>
+
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+                <div className="flex items-center gap-3">
+                  <div className="relative h-10 w-10 rounded-full bg-[#0077FF] grid place-items-center text-white text-sm font-bold shadow-lg">
                     F
-                    <span className="absolute -bottom-0.5 -right-0.5 h-2 w-2 rounded-full bg-[#22B378] ring-2 ring-white" />
+                    <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-[#22B378] ring-2 ring-white animate-pulse" />
                   </div>
                   <div className="leading-tight">
-                    <p className="text-[12px] font-semibold text-[#0A2540]">Olá, Francisco</p>
-                    <p className="text-[10px] text-gray-500 capitalize">
+                    <p className="text-sm font-bold text-[#0A2540]">Olá, Francisco</p>
+                    <p className="text-[11px] text-gray-400 capitalize">
                       {new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "short" })}
                     </p>
                   </div>
                 </div>
-                <span className="rounded-full bg-[#EAF3FF] px-2 py-0.5 text-[10px] font-semibold text-[#0077FF]">Hoje</span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2.5 pb-4 border-b border-gray-100">
-                <div className="rounded-xl bg-[#F4F9FF] p-2.5 ring-1 ring-[#0077FF]/10">
-                  <p className="text-[10px] font-medium text-gray-600 uppercase tracking-wide">A vencer</p>
-                  <p className="text-lg font-extrabold text-[#0077FF] mt-0.5">R$ 1.240</p>
-                </div>
-                <div className="rounded-xl bg-[#F0FBF6] p-2.5 ring-1 ring-[#22B378]/15">
-                  <p className="text-[10px] font-medium text-gray-600 uppercase tracking-wide">Pagos</p>
-                  <p className="text-lg font-extrabold text-[#22B378] mt-0.5">R$ 3.980</p>
+                <div className="flex flex-col items-end">
+                  <span className="rounded-full bg-[#EAF3FF] px-2.5 py-1 text-[10px] font-bold text-[#0077FF] animate-bounce">Hoje</span>
                 </div>
               </div>
 
-              <ul className="divide-y divide-gray-100">
+              <div className="grid grid-cols-2 gap-3 pb-5 border-b border-gray-100">
+                <div className="rounded-xl bg-[#F4F9FF] p-3 ring-1 ring-[#0077FF]/10 shadow-[0_6px_18px_rgba(0,0,0,0.05)]">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">A vencer</p>
+                  <p className="text-xl font-extrabold text-[#0077FF] mt-1">R$ 1.240</p>
+                </div>
+                <div className="rounded-xl bg-[#F0FBF6] p-3 ring-1 ring-[#22B378]/15 shadow-[0_6px_18px_rgba(0,0,0,0.05)]">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pagos</p>
+                  <div className="flex items-baseline gap-1">
+                    <p className="text-xl font-extrabold text-[#22B378] mt-1">R$ 3.980</p>
+                    <Sparkles className="h-3 w-3 text-[#22B378] animate-pulse" />
+                  </div>
+                </div>
+              </div>
+
+              <ul className="space-y-3 mt-4">
                 {[
-                  { icon: BellRing, label: "Internet", when: "Vence hoje", tag: "R$ 129", bar: "bg-[#E85D5D]" },
-                  { icon: CalendarCheck2, label: "Aluguel", when: "em 3 dias", tag: "R$ 1.100", bar: "bg-[#F5B841]" },
-                  { icon: Sparkles, label: "Streaming", when: "em 7 dias", tag: "R$ 39", bar: "bg-[#22B378]" },
+                  { icon: BellRing, label: "Internet", when: "Vence hoje", tag: "R$ 129", bar: "bg-[#E85D5D]", delay: "0ms" },
+                  { icon: CalendarCheck2, label: "Aluguel", when: "em 3 dias", tag: "R$ 1.100", bar: "bg-[#F5B841]", delay: "100ms" },
+                  { icon: Sparkles, label: "Streaming", when: "em 7 dias", tag: "R$ 39", bar: "bg-[#22B378]", delay: "200ms" },
                 ].map((r) => (
-                  <li key={r.label} className="flex items-center gap-2.5 py-2.5">
-                    <span className={`h-7 w-1 rounded-full ${r.bar}`} />
-                    <div className="h-7 w-7 rounded-lg bg-[#F4F7FB] grid place-items-center">
-                      <r.icon className="h-3.5 w-3.5 text-[#0077FF]" />
+                  <li key={r.label} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group cursor-default shadow-[0_4px_12px_rgba(0,0,0,0.03)]" style={{ animationDelay: r.delay }}>
+                    <div className="relative">
+                       <span className={`h-8 w-1.5 rounded-full ${r.bar} block`} />
+                       {r.label === "Internet" && <div className="absolute -left-1 top-0 h-8 w-3 bg-red-400/20 blur-sm rounded-full animate-pulse" />}
+                    </div>
+                    <div className="h-9 w-9 rounded-xl bg-[#F4F7FB] grid place-items-center group-hover:bg-white group-hover:shadow-sm transition-all duration-300">
+                      <r.icon className="h-4 w-4 text-[#0077FF]" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[12px] font-semibold text-[#0A2540] leading-tight">{r.label}</p>
-                      <p className="text-[10px] text-gray-500 leading-tight">{r.when}</p>
+                      <p className="text-[13px] font-bold text-[#0A2540] leading-tight">{r.label}</p>
+                      <p className="text-[11px] text-gray-400 leading-tight">{r.when}</p>
                     </div>
-                    <span className="text-[12px] font-bold text-[#0A2540]">{r.tag}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-bold text-[#0A2540]">{r.tag}</span>
+                      {r.label === "Streaming" && <div className="h-4 w-4 rounded-full bg-[#22B378] text-white flex items-center justify-center text-[10px] animate-in zoom-in duration-500 delay-700">✓</div>}
+                    </div>
                   </li>
                 ))}
               </ul>
+            </div>
+
+            {/* Benefícios e Credibilidade */}
+            <div className="mt-10 grid grid-cols-2 gap-x-8 gap-y-3 w-full max-w-sm px-2">
+               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
+                 <span className="text-[#22B378]">✓</span> Lembretes automáticos
+               </div>
+               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
+                 <span className="text-[#22B378]">✓</span> WhatsApp
+               </div>
+               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
+                 <span className="text-[#22B378]">✓</span> E-mail
+               </div>
+               <div className="flex items-center gap-2 text-[13px] text-gray-600 font-medium">
+                 <span className="text-[#22B378]">✓</span> Agenda integrada
+               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <AuthDialog open={authOpen} setOpen={setAuthOpen} tab={authTab} setTab={setAuthTab} />
+      <AuthDialog open={authOpen} setOpen={setOpen} tab={authTab} setTab={setAuthTab} />
     </div>
   );
 }
