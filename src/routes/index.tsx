@@ -94,50 +94,54 @@ function Landing() {
       {/* Card — form gets more weight (5/9 vs 4/9) */}
       <div className="relative w-full max-w-6xl min-h-[720px] grid grid-cols-1 md:grid-cols-9 rounded-2xl overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_14px_36px_-20px_rgba(21,101,216,0.28),0_6px_16px_-12px_rgba(0,0,0,0.10)]">
         {/* Left: form — 5 cols */}
-        <div className="md:col-span-5 bg-gradient-to-b from-[#0A84E0] to-[#0066DD] px-8 py-10 md:px-16 md:py-12 flex flex-col justify-center">
+        <div className="md:col-span-5 bg-gradient-to-br from-[#0D73F6] to-[#0057D8] px-8 py-10 md:px-16 md:py-12 flex flex-col justify-center">
           {/* 1. Logo */}
           <h1
             style={{ fontFamily: "'Outfit', sans-serif" }}
-            className="select-none text-white text-4xl md:text-5xl tracking-tighter flex items-baseline justify-center"
+            className="select-none text-white text-5xl md:text-[56px] tracking-tighter flex items-baseline justify-center mb-1"
           >
             <span className="font-light opacity-90">Vence</span>
             <span className="font-bold">Hoje</span>
             <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
           </h1>
           {/* 2. Frase de apoio */}
-          <p className="text-center text-white text-[15px] md:text-base mt-3 mb-8 max-w-sm mx-auto leading-relaxed font-medium">
-            Lembretes simples para tudo que vence.
+          <p className="text-center text-white/85 text-sm md:text-base mt-0 mb-10 max-w-sm mx-auto leading-relaxed font-medium">
+            Lembretes inteligentes para tudo que vence.
           </p>
 
           <form onSubmit={onSubmit} className="space-y-4 max-w-sm w-full mx-auto">
             {/* 3. Campos com labels */}
             <div className="space-y-1.5">
               <label className="block text-white text-xs font-semibold tracking-wide pl-1">E-mail</label>
-              <input
-                type="email"
-                required
-                placeholder="seu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-12 rounded-xl bg-white px-5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white/70 shadow-sm"
-              />
+              <div className="relative">
+                <span className="absolute left-4 top-3 text-white/50">📧</span>
+                <input
+                  type="email"
+                  required
+                  placeholder="seu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full h-[48px] rounded-lg bg-white/10 border border-white/20 px-12 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/50 shadow-sm"
+                />
+              </div>
             </div>
             <div className="space-y-1.5">
               <label className="block text-white text-xs font-semibold tracking-wide pl-1">Senha</label>
               <div className="relative">
+                <span className="absolute left-4 top-3 text-white/50">🔒</span>
                 <input
                   type={showPassword ? "text" : "password"}
                   required
                   placeholder="Digite sua senha"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-12 rounded-xl bg-white px-5 pr-12 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white/70 shadow-sm"
+                  className="w-full h-[48px] rounded-lg bg-white/10 border border-white/20 px-12 pr-12 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/50 shadow-sm"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((s) => !s)}
                   aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                  className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700"
+                  className="absolute inset-y-0 right-4 flex items-center text-white/60 hover:text-white"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -151,12 +155,12 @@ function Landing() {
                   type="checkbox"
                   checked={remember}
                   onChange={(e) => setRemember(e.target.checked)}
-                  className="h-3.5 w-3.5 rounded-sm accent-white"
+                  className="h-4 w-4 rounded-[4px] accent-[#22B378]"
                 />
                 <span className="font-medium">Manter conectado</span>
               </label>
-              <button type="button" onClick={forgotPassword} className="hover:underline font-medium">
-                Esqueceu a senha?
+              <button type="button" onClick={forgotPassword} className="hover:underline hover:text-white/90 transition-all text-white/70 font-medium">
+                Esqueceu Senha?
               </button>
             </div>
 
@@ -164,7 +168,7 @@ function Landing() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-[50px] rounded-xl bg-[#22B378] hover:bg-[#1E9F6A] active:bg-[#1a8a5c] text-white font-bold text-[15px] tracking-wide transition-colors disabled:opacity-70 shadow-[0_6px_14px_-6px_rgba(34,179,120,0.55)] inline-flex items-center justify-center gap-2 mt-2"
+              className="w-full h-[48px] rounded-lg bg-[#22B378] hover:bg-[#1E9F6A] text-white font-bold text-[15px] transition-all duration-300 disabled:opacity-70 shadow-[0_10px_30px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 mt-2"
             >
               {loading ? (
                 <>
@@ -172,28 +176,29 @@ function Landing() {
                   Carregando...
                 </>
               ) : (
-                "Entrar"
+                "ENTRAR"
               )}
             </button>
             {/* 6. Botão secundário */}
             <button
               type="button"
               onClick={() => { setAuthTab("signup"); setAuthOpen(true); }}
-              className="w-full h-[46px] rounded-xl bg-transparent hover:bg-white/10 border border-white/50 text-white font-semibold text-sm transition-colors"
+              className="w-full h-[48px] rounded-lg bg-transparent hover:bg-white/10 border border-white/30 text-white font-medium text-sm transition-colors"
             >
-              Criar minha conta
+              Criar Conta
             </button>
           </form>
 
-          {/* Selo de confiança simplificado */}
-          <div className="mt-8 flex items-center justify-center gap-2 text-xs text-white/90">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            <span className="font-medium">Acesso seguro e dados protegidos</span>
+          {/* Rodapé — Bloco separado */}
+          <div className="mt-12 pt-6 border-t border-white/10 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 text-xs text-white/60">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              <span>🛡 Dados protegidos</span>
+            </div>
+            <p className="text-[11px] text-white/50 tracking-wide">
+              © 2026 VenceHoje — By Francisco Chagas
+            </p>
           </div>
-
-          <p className="text-center text-[11px] text-white/70 mt-4 tracking-wide">
-            © 2026 VenceHoje — Francisco Chagas
-          </p>
         </div>
 
         {/* Right: mockup — 4 cols, mais compacto */}
