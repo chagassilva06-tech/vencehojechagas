@@ -291,89 +291,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
 
-          {/* Footer: user + sync + collapse */}
-          <div className="border-t border-white/10 p-3 space-y-2">
-            {!collapsed ? (
-              <>
-                <div className="flex items-center gap-2.5 px-1.5">
-                  <div
-                    className="h-9 w-9 shrink-0 rounded-full grid place-items-center text-white text-sm font-semibold"
-                    style={{
-                      background: "linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)",
-                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)",
-                    }}
-                  >
-                    {initials(counts?.name || "U")}
-                  </div>
-                  <div className="min-w-0 leading-tight">
-                    <div className="text-[13px] font-semibold text-white truncate">{counts?.name || "Usuário"}</div>
-                    <div className="text-[10.5px] text-slate-400 truncate flex items-center gap-1">
-                      <Cloud className="h-3 w-3 text-emerald-400" />
-                      Sincronizado · {syncedLabel()}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="flex-1 justify-start text-slate-300 hover:text-white hover:bg-white/5 h-9"
-                    onClick={signOut}
-                  >
-                    <LogOut className="h-4 w-4 mr-2" /> Sair
-                  </Button>
-                  <button
-                    onClick={() => setCollapsed((c) => !c)}
-                    className="hidden lg:grid place-items-center h-9 w-9 rounded-md text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
-                    aria-label="Recolher menu"
-                    title="Recolher menu"
-                  >
-                    <ChevronsLeft className="h-4 w-4" />
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="flex flex-col items-center gap-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div
-                      className="h-9 w-9 rounded-full grid place-items-center text-white text-sm font-semibold"
-                      style={{ background: "linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)" }}
-                    >
-                      {counts?.name ? initials(counts.name) : <UserIcon className="h-4 w-4" />}
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <div className="font-medium">{counts?.name || "Usuário"}</div>
-                    <div className="text-xs text-slate-400">Sincronizado · {syncedLabel()}</div>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={signOut}
-                      className="grid place-items-center h-9 w-9 rounded-md text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
-                      aria-label="Sair"
-                    >
-                      <LogOut className="h-4 w-4" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">Sair</TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => setCollapsed(false)}
-                      className="hidden lg:grid place-items-center h-9 w-9 rounded-md text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
-                      aria-label="Expandir menu"
-                    >
-                      <ChevronsRight className="h-4 w-4" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">Expandir menu</TooltipContent>
-                </Tooltip>
-              </div>
-            )}
+          {/* Sidebar Footer: collapse toggle */}
+          <div className="border-t border-white/10 p-3">
+            <button
+              onClick={() => setCollapsed((c) => !c)}
+              className="hidden lg:flex items-center justify-center w-full h-9 rounded-md text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+              aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
+              title={collapsed ? "Expandir menu" : "Recolher menu"}
+            >
+              {collapsed ? <ChevronsRight className="h-4 w-4" /> : <ChevronsLeft className="h-4 w-4" />}
+            </button>
           </div>
         </aside>
 
@@ -387,14 +314,35 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               borderBottom: "1px solid rgba(255,255,255,0.06)",
             }}
           >
-            <button className="lg:hidden" onClick={() => setOpen(true)} aria-label="Abrir menu">
-              <Menu className="h-5 w-5" />
-            </button>
-            <div className="flex items-center gap-2 font-semibold">
-              <activeItem.icon className="h-5 w-5" style={{ color: activeItem.color }} />
-              {activeItem.label}
+            <div className="flex items-center gap-4">
+              <button className="lg:hidden" onClick={() => setOpen(true)} aria-label="Abrir menu">
+                <Menu className="h-5 w-5" />
+              </button>
+              <div className="flex items-center gap-2 font-semibold">
+                <activeItem.icon className="h-5 w-5" style={{ color: activeItem.color }} />
+                {activeItem.label}
+              </div>
             </div>
-            <div />
+
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:flex flex-col items-end leading-none text-right">
+                <div className="text-[12px] font-semibold text-white">{counts?.name || "Usuário"}</div>
+                <div className="text-[10px] text-slate-400 flex items-center gap-1 mt-1">
+                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Sincronizado · {syncedLabel()}
+                </div>
+              </div>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-9 border-2 border-yellow-500 bg-transparent text-yellow-500 hover:bg-yellow-500 hover:text-white font-bold transition-all px-4"
+                onClick={signOut}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sair
+              </Button>
+            </div>
           </header>
           <main className="flex-1 p-3 sm:p-4 lg:p-8 overflow-x-hidden">{children}</main>
         </div>
