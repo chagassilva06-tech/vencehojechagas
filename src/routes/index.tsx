@@ -92,112 +92,163 @@ function Landing() {
       </div>
 
       {/* Card — form gets more weight (5/9 vs 4/9) */}
-      <div className="relative w-full max-w-7xl min-h-[820px] grid grid-cols-1 md:grid-cols-9 rounded-[32px] overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_30px_80px_rgba(0,0,0,0.08)]">
+      <div className="relative w-full max-w-7xl min-h-[820px] grid grid-cols-1 md:grid-cols-9 rounded-[32px] overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_18px_45px_rgba(0,0,0,0.06)] group transition-all duration-700">
+        
         {/* Left: form — 5 cols */}
-        <div className="md:col-span-5 bg-gradient-to-br from-[#0D73F6] to-[#0057D8] px-8 py-10 md:px-16 md:py-12 flex flex-col justify-center">
-          {/* 1. Logo */}
-          <h1
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-            className="select-none text-white text-5xl md:text-[56px] tracking-tighter flex items-baseline justify-center mb-1"
-          >
-            <span className="font-light opacity-90">Vence</span>
-            <span className="font-bold">Hoje</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
-          </h1>
-          {/* 2. Frase de apoio */}
-          <p className="text-center text-white/85 text-sm md:text-base mt-0 mb-10 max-w-sm mx-auto leading-relaxed font-medium">
-            Lembretes inteligentes para tudo que vence.
-          </p>
+        <div className="md:col-span-5 bg-gradient-to-br from-[#0D73F6] via-[#0057D8] to-[#0047B8] px-8 py-10 md:px-16 md:py-12 flex flex-col justify-center relative overflow-hidden">
+          {/* Depth elements for blue side */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white/5 blur-3xl" />
+            <div className="absolute top-1/2 -right-12 w-32 h-32 rounded-full bg-black/5 blur-2xl" />
+            <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
+          </div>
 
-          <form onSubmit={onSubmit} className="space-y-4 max-w-sm w-full mx-auto">
-            {/* 3. Campos com labels */}
-            <div className="space-y-1.5">
-              <label className="block text-white text-xs font-semibold tracking-wide pl-1">E-mail</label>
-              <div className="relative">
-                <span className="absolute left-4 top-3 text-white/50">📧</span>
-                <input
-                  type="email"
-                  required
-                  placeholder="seu@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-[48px] rounded-lg bg-white/10 border border-white/20 px-12 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/50 shadow-sm"
-                />
+          <div className="relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* 1. Logo */}
+            <h1
+              style={{ fontFamily: "'Outfit', sans-serif" }}
+              className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center mb-0.5"
+            >
+              <span className="font-light opacity-90">Vence</span>
+              <span className="font-bold">Hoje</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
+            </h1>
+            {/* 2. Frase de apoio */}
+            <p className="text-center text-white/80 text-sm md:text-sm mt-0 mb-8 max-w-sm mx-auto leading-relaxed font-normal italic">
+              Organize suas contas, evite atrasos e tenha tranquilidade todos os meses.
+            </p>
+
+            <form onSubmit={onSubmit} className="space-y-5 max-w-sm w-full mx-auto">
+              {/* 3. Campos com labels */}
+              <div className="space-y-1.5 group/input">
+                <label className="block text-white/70 text-[11px] font-semibold tracking-wider uppercase pl-1">E-mail</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3.5 text-white/50 text-sm transition-transform group-focus-within/input:scale-110">📧</span>
+                  <input
+                    type="email"
+                    required
+                    placeholder="seu@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full h-[48px] rounded-xl bg-white/10 border border-white/20 px-12 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/40 focus:bg-white/15 transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="space-y-1.5">
-              <label className="block text-white text-xs font-semibold tracking-wide pl-1">Senha</label>
-              <div className="relative">
-                <span className="absolute left-4 top-3 text-white/50">🔒</span>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required
-                  placeholder="Digite sua senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-[48px] rounded-lg bg-white/10 border border-white/20 px-12 pr-12 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/50 shadow-sm"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((s) => !s)}
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                  className="absolute inset-y-0 right-4 flex items-center text-white/60 hover:text-white"
+              <div className="space-y-1.5 group/input">
+                <label className="block text-white/70 text-[11px] font-semibold tracking-wider uppercase pl-1">Senha</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3.5 text-white/50 text-sm transition-transform group-focus-within/input:scale-110">🔒</span>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    required
+                    placeholder="Digite sua senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full h-[48px] rounded-xl bg-white/10 border border-white/20 px-12 pr-12 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/40 focus:bg-white/15 transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((s) => !s)}
+                    aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                    className="absolute inset-y-0 right-4 flex items-center text-white/40 hover:text-white transition-colors"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4.5 w-4.5 animate-in fade-in zoom-in duration-200" />
+                    ) : (
+                      <Eye className="h-4.5 w-4.5 animate-in fade-in zoom-in duration-200" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* 4. Opções auxiliares */}
+              <div className="flex items-center justify-between px-1 pt-1">
+                <label className="flex items-center gap-2.5 cursor-pointer group/check">
+                  <div className="relative flex items-center justify-center">
+                    <input
+                      type="checkbox"
+                      checked={remember}
+                      onChange={(e) => setRemember(e.target.checked)}
+                      className="peer sr-only"
+                    />
+                    <div className="h-5 w-5 rounded-md border-2 border-white/30 bg-white/5 transition-all peer-checked:bg-[#22B378] peer-checked:border-[#22B378] group-hover/check:border-white/50 shadow-sm" />
+                    <svg
+                      className="absolute h-3.5 w-3.5 text-white opacity-0 transition-opacity peer-checked:opacity-100"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-white/80 text-sm font-medium select-none">Manter conectado</span>
+                </label>
+                <button 
+                  type="button" 
+                  onClick={forgotPassword} 
+                  className="text-[#93C5FD] hover:text-white text-sm font-medium transition-all hover:underline underline-offset-4 decoration-white/30"
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  Esqueceu Senha?
                 </button>
               </div>
-            </div>
 
-            {/* 4. Opções auxiliares */}
-            <div className="flex items-center justify-between text-xs text-white px-1 pt-1">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                  className="h-4 w-4 rounded-[4px] accent-[#22B378]"
-                />
-                <span className="font-[500] text-sm">Manter conectado</span>
-              </label>
-              <button type="button" onClick={forgotPassword} className="hover:underline hover:text-white/90 transition-all text-white/70 font-medium">
-                Esqueceu Senha?
-              </button>
-            </div>
+              {/* 5. Botões */}
+              <div className="space-y-4 pt-2">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full h-[52px] rounded-xl bg-[#22B378] hover:bg-[#1E9F6A] text-white font-bold text-base transition-all duration-300 disabled:opacity-70 shadow-[0_8px_20px_rgba(34,179,120,0.25)] hover:shadow-[0_12px_28px_rgba(34,179,120,0.35)] active:scale-[0.98] active:translate-y-0 hover:-translate-y-1 inline-flex items-center justify-center gap-2 group/btn"
+                >
+                  {loading ? (
+                    <>
+                      <span className="h-5 w-5 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                      <span>Carregando...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>ENTRAR</span>
+                      <Sparkles className="h-4 w-4 opacity-0 group-hover/btn:opacity-100 transition-opacity animate-pulse" />
+                    </>
+                  )}
+                </button>
+                
+                <div className="text-center">
+                  <span className="text-white/50 text-xs">Ainda não possui conta?</span>
+                  <button
+                    type="button"
+                    onClick={() => { setAuthTab("signup"); setAuthOpen(true); }}
+                    className="ml-2 text-white font-semibold text-xs hover:underline decoration-white/40 underline-offset-4 transition-all"
+                  >
+                    Criar conta agora
+                  </button>
+                </div>
+              </div>
+            </form>
 
-            {/* 5. Botão principal */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full h-[48px] rounded-lg bg-[#22B378] hover:bg-[#1E9F6A] text-white font-bold text-[15px] transition-all duration-300 disabled:opacity-70 shadow-[0_10px_30px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 mt-2"
-            >
-              {loading ? (
-                <>
-                  <span className="h-4 w-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
-                  Carregando...
-                </>
-              ) : (
-                "ENTRAR"
-              )}
-            </button>
-            {/* 6. Botão secundário */}
-            <button
-              type="button"
-              onClick={() => { setAuthTab("signup"); setAuthOpen(true); }}
-              className="w-full h-[48px] rounded-lg bg-transparent hover:bg-white/10 border border-white/30 text-white font-medium text-sm transition-colors"
-            >
-              Criar Conta
-            </button>
-          </form>
-
-          {/* Rodapé — Bloco separado */}
-          <div className="mt-12 pt-6 border-t border-white/10 flex flex-col items-center gap-4">
-            <div className="flex items-center gap-2 text-xs text-white/60">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              <span>🛡 Dados protegidos</span>
+            {/* Rodapé Credibilidade */}
+            <div className="mt-14 pt-8 border-t border-white/10 flex flex-col items-center gap-5">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-1.5 text-[10px] text-white/50 font-medium uppercase tracking-widest">
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#22B378]" />
+                  <span>Dados Criptografados</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px] text-white/50 font-medium uppercase tracking-widest">
+                  <div className="h-1.5 w-1.5 rounded-full bg-[#22B378] animate-pulse" />
+                  <span>Sistemas Ativos</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-4 text-[10px] text-white/30 font-medium tracking-wide">
+                <span>© 2026 VenceHoje</span>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <button className="hover:text-white/60 transition-colors">Política</button>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <button className="hover:text-white/60 transition-colors">Termos</button>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <span className="text-white/40">By Francisco Chagas</span>
+              </div>
             </div>
-            <p className="text-[11px] text-white/50 tracking-wide">
-              © 2026 VenceHoje — By Francisco Chagas
-            </p>
           </div>
         </div>
 
