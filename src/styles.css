@@ -127,6 +127,12 @@
   body { @apply bg-background text-foreground; font-family: 'Inter', system-ui, sans-serif; }
 }
 
+@keyframes shimmer {
+  from { left: -100%; }
+  to { left: 200%; }
+}
+
+
 a[href*="lovable.dev"],
 iframe[src*="lovable.dev"],
 div[style*="Edit with Lovable"],
