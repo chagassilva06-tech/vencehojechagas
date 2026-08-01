@@ -162,25 +162,30 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         >
           {/* Logo */}
           <div className={cn("h-16 flex items-center border-b border-white/10", collapsed ? "justify-center px-2" : "justify-between px-4")}>
-            <Link to="/dashboard" className="flex items-center gap-2.5 min-w-0">
-              <span
-                className="h-9 w-9 shrink-0 grid place-items-center rounded-xl"
-                style={{
-                  background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
-                  boxShadow: "0 6px 16px -6px rgba(16,185,129,0.55), inset 0 1px 0 rgba(255,255,255,0.25)",
-                }}
-              >
-                <svg viewBox="0 0 40 40" className="h-5 w-5" aria-hidden="true">
-                  <path d="M6 22 L16 32 L36 8" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
+            <Link to="/dashboard" className="flex items-center gap-3 min-w-0 group/logo">
+              <div className="relative shrink-0">
+                <span
+                  className="h-10 w-10 grid place-items-center rounded-xl transition-all duration-300 group-hover/logo:scale-110 group-hover/logo:rotate-3"
+                  style={{
+                    background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+                    boxShadow: "0 6px 16px -6px rgba(16,185,129,0.55), inset 0 1px 0 rgba(255,255,255,0.25)",
+                  }}
+                >
+                  <svg viewBox="0 0 40 40" className="h-6 w-6" aria-hidden="true">
+                    <path d="M6 22 L16 32 L36 8" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <div className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full border-2 border-[#0B1220] animate-pulse" />
+              </div>
               {!collapsed && (
-                <div className="min-w-0 leading-tight">
-                  <div className="text-[17px] font-bold tracking-tight truncate">
-                    <span className="text-white">Vence</span>
-                    <span className="text-red-500">Hoje</span>
+                <div className="min-w-0 flex flex-col">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[19px] font-extrabold tracking-tight text-white leading-none">Vence</span>
+                    <span className="text-[19px] font-extrabold tracking-tight text-red-500 leading-none">Hoje</span>
                   </div>
-                  <div className="text-[11px] text-slate-400 truncate">Organize seu dia</div>
+                  <div className="text-[11px] font-medium text-slate-400/80 tracking-wide mt-1.5 uppercase leading-none">
+                    Organize seu dia
+                  </div>
                 </div>
               )}
             </Link>
