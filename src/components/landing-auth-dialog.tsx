@@ -61,45 +61,70 @@ export default function AuthDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md rounded-[32px] shadow-[0_30px_80px_rgba(0,0,0,0.08)] border-none">
         <DialogHeader>
-          <DialogTitle>Bem-vindo ao VenceHoje</DialogTitle>
-          <DialogDescription>Entre na sua conta ou crie uma gratuita.</DialogDescription>
+          <DialogTitle className="text-2xl font-bold tracking-tight text-[#0A2540]">VenceHoje</DialogTitle>
+          <DialogDescription className="text-sm text-gray-500">Entre na sua conta ou crie uma gratuita.</DialogDescription>
         </DialogHeader>
         <Tabs value={tab} onValueChange={(v) => setTab(v as "signin" | "signup")}>
-          <TabsList className="grid grid-cols-2 w-full">
-            <TabsTrigger value="signin">Entrar</TabsTrigger>
-            <TabsTrigger value="signup">Criar conta</TabsTrigger>
+          <TabsList className="grid grid-cols-2 w-full bg-gray-100 p-1 rounded-xl">
+            <TabsTrigger value="signin" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">Entrar</TabsTrigger>
+            <TabsTrigger value="signup" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">Criar conta</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="signin" className="space-y-4 mt-4">
-            <form onSubmit={signIn} className="space-y-3">
-              <div>
-                <Label>E-mail</Label>
-                <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+          <TabsContent value="signin" className="space-y-4 mt-6">
+            <form onSubmit={signIn} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-gray-500 ml-1">E-mail</Label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-gray-400">📧</span>
+                  <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="h-[48px] rounded-lg border-gray-200 pl-11 focus:ring-1 focus:ring-[#0077FF]" placeholder="seu@email.com" />
+                </div>
               </div>
-              <div>
+              <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <Label>Senha</Label>
-                  <button type="button" onClick={forgotPassword} className="text-xs text-accent hover:underline" disabled={loading}>
-                    Esqueceu a senha?
+                  <Label className="text-xs font-semibold text-gray-500 ml-1">Senha</Label>
+                  <button type="button" onClick={forgotPassword} className="text-xs text-[#0077FF] hover:underline" disabled={loading}>
+                    Esqueceu Senha?
                   </button>
                 </div>
-                <PasswordInput value={password} onChange={setPassword} show={showSignIn} toggle={() => setShowSignIn((s) => !s)} />
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-gray-400">🔒</span>
+                  <PasswordInput value={password} onChange={setPassword} show={showSignIn} toggle={() => setShowSignIn((s) => !s)} />
+                </div>
               </div>
-              <Button type="submit" className="w-full" disabled={loading}>Entrar</Button>
+              <Button type="submit" className="w-full h-[48px] rounded-lg bg-[#22B378] hover:bg-[#1E9F6A] text-white font-bold transition-all shadow-[0_10px_30px_rgba(0,0,0,0.10)] hover:-translate-y-0.5" disabled={loading}>
+                {loading ? "Carregando..." : "ENTRAR"}
+              </Button>
             </form>
           </TabsContent>
 
-          <TabsContent value="signup" className="space-y-4 mt-4">
-            <form onSubmit={signUp} className="space-y-3">
-              <div><Label>Nome</Label><Input required value={name} onChange={(e) => setName(e.target.value)} /></div>
-              <div><Label>E-mail</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-              <div>
-                <Label>Senha</Label>
-                <PasswordInput value={password} onChange={setPassword} show={showSignUp} toggle={() => setShowSignUp((s) => !s)} minLength={6} />
+          <TabsContent value="signup" className="space-y-4 mt-6">
+            <form onSubmit={signUp} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-gray-500 ml-1">Nome</Label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-gray-400">👤</span>
+                  <Input required value={name} onChange={(e) => setName(e.target.value)} className="h-[48px] rounded-lg border-gray-200 pl-11 focus:ring-1 focus:ring-[#0077FF]" placeholder="Seu nome" />
+                </div>
               </div>
-              <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={loading}>Criar conta grátis</Button>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-gray-500 ml-1">E-mail</Label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-gray-400">📧</span>
+                  <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="h-[48px] rounded-lg border-gray-200 pl-11 focus:ring-1 focus:ring-[#0077FF]" placeholder="seu@email.com" />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-gray-500 ml-1">Senha</Label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-gray-400">🔒</span>
+                  <PasswordInput value={password} onChange={setPassword} show={showSignUp} toggle={() => setShowSignUp((s) => !s)} minLength={6} />
+                </div>
+              </div>
+              <Button type="submit" className="w-full h-[48px] rounded-lg bg-[#0077FF] hover:bg-[#0066DD] text-white font-bold transition-all shadow-[0_10px_30px_rgba(0,0,0,0.10)] hover:-translate-y-0.5" disabled={loading}>
+                {loading ? "Criando conta..." : "CRIAR CONTA"}
+              </Button>
             </form>
           </TabsContent>
         </Tabs>
