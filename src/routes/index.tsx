@@ -92,7 +92,7 @@ function Landing() {
       </div>
 
       {/* Card — form gets more weight (5/9 vs 4/9) */}
-      <div className="relative w-full max-w-6xl min-h-[720px] grid grid-cols-1 md:grid-cols-9 rounded-2xl overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_14px_36px_-20px_rgba(21,101,216,0.28),0_6px_16px_-12px_rgba(0,0,0,0.10)]">
+      <div className="relative w-full max-w-7xl min-h-[820px] grid grid-cols-1 md:grid-cols-9 rounded-[32px] overflow-hidden bg-white ring-1 ring-black/5 shadow-[0_30px_80px_rgba(0,0,0,0.08)]">
         {/* Left: form — 5 cols */}
         <div className="md:col-span-5 bg-gradient-to-br from-[#0D73F6] to-[#0057D8] px-8 py-10 md:px-16 md:py-12 flex flex-col justify-center">
           {/* 1. Logo */}
