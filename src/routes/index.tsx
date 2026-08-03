@@ -273,7 +273,7 @@ function Landing() {
               <h2 className="text-[#0A2540] font-bold text-4xl md:text-5xl tracking-tight mb-4">
                 Controle de Gastos
               </h2>
-              <p className="text-gray-500 text-sm max-w-sm mx-auto leading-relaxed font-medium">
+              <p className="text-gray-500 text-base max-w-sm mx-auto leading-relaxed font-semibold">
                 Um painel inteligente para tudo que vence hoje, amanhã e no mês.
               </p>
             </div>
