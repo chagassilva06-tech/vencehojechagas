@@ -351,23 +351,34 @@ function Landing() {
               </div>
             </div>
 
-            {/* Social Proof / Trust Badges */}
-            <div className="mt-14 w-full max-w-md flex items-center justify-around px-4 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-              <div className="flex flex-col items-center gap-1.5">
-                <span className="text-lg font-bold text-[#0A2540]">2.000+</span>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Contas<br/>Organizadas</span>
-              </div>
-              <div className="h-8 w-px bg-gray-200" />
-              <div className="flex flex-col items-center gap-1.5">
-                <div className="flex text-[#22B378] text-xs">★★★★★</div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Avaliação<br/>Usuários</span>
-              </div>
-              <div className="h-8 w-px bg-gray-200" />
-              <div className="flex flex-col items-center gap-1.5 text-center">
-                <div className="h-5 w-5 rounded-full bg-[#0077FF]/10 flex items-center justify-center">
-                   <ShieldCheck className="h-3 w-3 text-[#0077FF]" />
+            {/* Social Proof / Credibility Badges */}
+            <div className="mt-12 w-full max-w-lg flex flex-col gap-8 items-center px-4">
+              <div className="text-center">
+                <p className="text-[#0A2540] font-bold text-sm mb-2">Suas informações financeiras protegidas e sob seu controle.</p>
+                <div className="flex items-center justify-center gap-6 opacity-80">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
+                    <span>Privacidade Garantida</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
+                    <span>Ambiente Seguro</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
+                    <span>Visão Clara e Organizada</span>
+                  </div>
                 </div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Segurança<br/>Bancária</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-4">
+                <p className="text-[11px] text-gray-400 font-medium">Seus dados são criptografados e mantidos em segurança.</p>
+                <div className="flex gap-2">
+                  <div className="h-2 w-2 rounded-full bg-[#0077FF]" />
+                  <div className="h-2 w-2 rounded-full bg-gray-200" />
+                  <div className="h-2 w-2 rounded-full bg-gray-200" />
+                  <div className="h-2 w-2 rounded-full bg-gray-200" />
+                </div>
               </div>
             </div>
           </div>
