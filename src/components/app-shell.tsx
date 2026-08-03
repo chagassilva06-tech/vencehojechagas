@@ -164,18 +164,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className={cn("h-16 flex items-center border-b border-white/10", collapsed ? "justify-center px-2" : "justify-between px-4")}>
             <Link to="/dashboard" className="flex items-center gap-3 min-w-0 group/logo">
               <div className="relative shrink-0">
-                <span
-                  className="h-10 w-10 grid place-items-center rounded-xl transition-all duration-300 group-hover/logo:scale-110 group-hover/logo:rotate-3"
+                <div
+                  className="h-10 w-10 flex items-center justify-center rounded-xl transition-all duration-300 group-hover/logo:scale-110 group-hover/logo:rotate-3 overflow-hidden"
                   style={{
-                    background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
-                    boxShadow: "0 6px 16px -6px rgba(16,185,129,0.55), inset 0 1px 0 rgba(255,255,255,0.25)",
+                    background: "linear-gradient(135deg, #0D73F6 0%, #0057D8 100%)",
+                    boxShadow: "0 6px 16px -6px rgba(13,115,246,0.55), inset 0 1px 0 rgba(255,255,255,0.25)",
                   }}
                 >
-                  <svg viewBox="0 0 40 40" className="h-6 w-6" aria-hidden="true">
-                    <path d="M6 22 L16 32 L36 8" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg viewBox="0 0 40 40" className="h-7 w-7 drop-shadow-md" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 20L16 28L32 12" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="20" cy="20" r="18" stroke="white" strokeWidth="2" strokeDasharray="4 4" opacity="0.3" />
                   </svg>
-                </span>
-                <div className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full border-2 border-[#0B1220] animate-pulse" />
+                </div>
+                <div className="absolute -top-1 -right-1 h-3 w-3 bg-emerald-500 rounded-full border-2 border-[#0B1220] shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
               </div>
               {!collapsed && (
                 <div className="min-w-0 flex flex-col">
