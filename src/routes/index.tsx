@@ -322,7 +322,7 @@ function Landing() {
                 <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-[60px] animate-pulse" />
                 <div className="relative w-48 h-56 bg-white/40 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-2xl flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-700">
                   <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/10 via-transparent to-[#60A5FA]/10" />
-                  <div className="absolute -inset-[100%] bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-[35deg] animate-[shimmer_6s_infinite] pointer-events-none" />
+                  <div className="absolute -inset-[100%] bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shimmer_6s_infinite] pointer-events-none" />
                   <Shield className="w-24 h-24 text-[#2563EB] relative z-10 drop-shadow-xl" />
                   <div className="absolute inset-0 flex items-center justify-center z-20">
                     <Lock className="w-8 h-8 text-white mt-2" />
