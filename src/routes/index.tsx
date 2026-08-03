@@ -109,14 +109,14 @@ function Landing() {
             <div className="flex flex-col items-center mb-6">
               <h1
                 style={{ fontFamily: "'Outfit', sans-serif" }}
-                className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center"
+                className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center drop-shadow-lg"
               >
-                <span className="font-light opacity-90">Vence</span>
+                <span className="font-light opacity-95">Vence</span>
                 <span className="font-bold">Hoje</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-90 animate-pulse" />
               </h1>
               {/* 2. Frase de apoio */}
-              <p className="text-center text-white/80 text-sm md:text-sm mt-1 max-w-sm mx-auto leading-relaxed font-normal italic">
+              <p className="text-center text-white/90 text-sm md:text-sm mt-1 max-w-sm mx-auto leading-relaxed font-semibold italic drop-shadow-md">
                 Organize suas contas, evite atrasos e tenha tranquilidade todos os meses.
               </p>
             </div>
@@ -273,7 +273,7 @@ function Landing() {
               <h2 className="text-[#0A2540] font-bold text-4xl md:text-5xl tracking-tight mb-4">
                 Controle de Gastos
               </h2>
-              <p className="text-gray-500 text-base max-w-sm mx-auto leading-relaxed font-semibold">
+              <p className="text-gray-600 text-lg max-w-sm mx-auto leading-relaxed font-bold">
                 Um painel inteligente para tudo que vence hoje, amanhã e no mês.
               </p>
             </div>
