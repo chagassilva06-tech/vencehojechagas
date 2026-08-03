@@ -109,14 +109,14 @@ function Landing() {
             <div className="flex flex-col items-center mb-6">
               <h1
                 style={{ fontFamily: "'Outfit', sans-serif" }}
-                className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center drop-shadow-lg"
+                className="select-none text-white text-6xl md:text-[82px] tracking-tighter flex items-baseline justify-center drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
               >
-                <span className="font-light opacity-95">Vence</span>
+                <span className="font-light opacity-100">Vence</span>
                 <span className="font-bold">Hoje</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-90 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#22B378] ml-1 shadow-[0_0_10px_rgba(34,179,120,0.8)]" />
               </h1>
               {/* 2. Frase de apoio */}
-              <p className="text-center text-white/90 text-sm md:text-sm mt-1 max-w-sm mx-auto leading-relaxed font-semibold italic drop-shadow-md">
+              <p className="text-center text-white/95 text-base md:text-lg mt-0.5 max-w-sm mx-auto leading-relaxed font-medium italic drop-shadow-md">
                 Organize suas contas, evite atrasos e tenha tranquilidade todos os meses.
               </p>
             </div>
@@ -269,11 +269,11 @@ function Landing() {
           </div>
 
           <div className="relative z-10 w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000">
-            <div className="mb-8 text-center">
-              <h2 className="text-[#0A2540] font-bold text-4xl md:text-5xl tracking-tight mb-4">
+            <div className="mb-12 text-center">
+              <h2 className="text-[#0A2540] font-black text-5xl md:text-6xl tracking-tight mb-6">
                 Controle de Gastos
               </h2>
-              <p className="text-gray-600 text-lg max-w-sm mx-auto leading-relaxed font-bold">
+              <p className="text-gray-500 text-xl max-w-md mx-auto leading-relaxed font-medium">
                 Um painel inteligente para tudo que vence hoje, amanhã e no mês.
               </p>
             </div>
@@ -352,21 +352,27 @@ function Landing() {
             </div>
 
             {/* Social Proof / Credibility Badges */}
-            <div className="mt-12 w-full max-w-lg flex flex-col gap-8 items-center px-4">
+            <div className="mt-14 w-full max-w-lg flex flex-col gap-10 items-center px-4">
               <div className="text-center">
-                <p className="text-[#0A2540] font-bold text-base mb-4">Suas informações financeiras protegidas e sob seu controle.</p>
-                <div className="flex items-center justify-center gap-6 opacity-80">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
-                    <span>Privacidade Garantida</span>
+                <p className="text-[#0A2540] font-bold text-lg mb-6">Suas informações financeiras protegidas e sob seu controle.</p>
+                <div className="flex items-center justify-center gap-8">
+                  <div className="flex flex-col items-center gap-2 group/badge">
+                    <div className="h-10 w-10 rounded-full bg-[#EAF3FF] flex items-center justify-center shadow-sm group-hover/badge:scale-110 transition-transform">
+                      <Lock className="h-5 w-5 text-[#0077FF]" />
+                    </div>
+                    <span className="text-[10px] font-black text-[#0A2540] uppercase tracking-widest opacity-60">Privacidade Garantida</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
-                    <span>Ambiente Seguro</span>
+                  <div className="flex flex-col items-center gap-2 group/badge">
+                    <div className="h-10 w-10 rounded-full bg-[#EAF3FF] flex items-center justify-center shadow-sm group-hover/badge:scale-110 transition-transform">
+                      <ShieldCheck className="h-5 w-5 text-[#0077FF]" />
+                    </div>
+                    <span className="text-[10px] font-black text-[#0A2540] uppercase tracking-widest opacity-60">Ambiente Seguro</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
-                    <span>Visão Clara e Organizada</span>
+                  <div className="flex flex-col items-center gap-2 group/badge">
+                    <div className="h-10 w-10 rounded-full bg-[#EAF3FF] flex items-center justify-center shadow-sm group-hover/badge:scale-110 transition-transform">
+                      <CalendarCheck2 className="h-5 w-5 text-[#0077FF]" />
+                    </div>
+                    <span className="text-[10px] font-black text-[#0A2540] uppercase tracking-widest opacity-60">Visão Clara</span>
                   </div>
                 </div>
               </div>
