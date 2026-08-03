@@ -256,144 +256,122 @@ function Landing() {
         </div>
 
         {/* Right: mockup — 4 cols, expanded focus */}
-        <div className="md:col-span-4 relative bg-gradient-to-br from-white via-[#F8FBFF] to-[#F1F6FC] flex flex-col items-center justify-center p-8 md:p-12 overflow-hidden">
+        <div className="md:col-span-4 relative bg-white flex flex-col items-center justify-center p-8 md:p-12 overflow-hidden">
           {/* Enhanced Elegant Transition */}
-          <div aria-hidden className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black/5 via-black/[0.02] to-transparent pointer-events-none z-20" />
-          <div aria-hidden className="absolute inset-y-0 left-0 w-1 bg-white/20 z-30" />
+          <div aria-hidden className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black/5 via-black/[0.01] to-transparent pointer-events-none z-20" />
+          <div aria-hidden className="absolute inset-y-0 left-0 w-px bg-gray-100 z-30" />
           
-          {/* Right side depth elements */}
+          {/* Right side background elements (Premium background) */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-[#0077FF]/5 blur-[120px] animate-pulse" />
-            <div className="absolute bottom-1/4 -left-20 w-80 h-80 rounded-full bg-[#22B378]/5 blur-[100px] animate-pulse" />
-            <div className="absolute inset-0 opacity-[0.4] [background-image:radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px]" />
+            {/* Soft halos and gradients */}
+            <div className="absolute top-1/4 right-0 w-[600px] h-[600px] rounded-full bg-[#E0E7FF]/40 blur-[120px] animate-pulse" />
+            <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-[#DBEAFE]/30 blur-[100px]" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.03] [background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:40px_40px]" />
           </div>
 
           <div className="relative z-10 w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000">
             <div className="mb-12 text-center">
-              <h2 className="text-[#0A2540] font-black text-5xl md:text-6xl tracking-tight mb-6">
+              <h2 className="text-[#0A2540] font-black text-5xl md:text-6xl tracking-tight mb-4">
                 Controle de Gastos
               </h2>
-              <p className="text-gray-500 text-xl max-w-md mx-auto leading-relaxed font-medium">
-                Um painel inteligente para tudo que vence hoje, amanhã e no mês.
+              <p className="text-gray-500 text-lg max-w-sm mx-auto leading-relaxed font-medium">
+                Seus dados permanecem protegidos enquanto você organiza seus compromissos financeiros.
               </p>
             </div>
 
-            {/* Mockup — HTML/CSS real component with tilt and float */}
-            <div className="relative w-full max-w-lg transform hover:scale-[1.02] transition-all duration-700 ease-out group/mockup">
-              {/* Floating shadow */}
-              <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[90%] h-8 bg-black/10 blur-2xl rounded-full opacity-60 group-hover/mockup:opacity-40 transition-opacity" />
-              
-              <div className="relative rounded-2xl bg-white ring-1 ring-black/[0.03] shadow-[0_18px_45px_rgba(0,0,0,0.06)] p-6 overflow-hidden border border-white/50 animate-float">
-                {/* Shine effect animation */}
-                <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
-                  <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg] animate-[shimmer_4s_infinite]" />
+            {/* Illustration Area */}
+            <div className="relative w-full aspect-square max-w-sm flex items-center justify-center mb-12">
+              {/* Floating elements */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Calendário */}
+                <div className="absolute top-[10%] left-[10%] p-3 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 animate-[float_8s_ease-in-out_infinite]">
+                  <Calendar className="w-6 h-6 text-[#2563EB]" />
+                </div>
+                {/* Sino */}
+                <div className="absolute top-[5%] right-[15%] p-3 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 animate-[float_7s_ease-in-out_infinite_1s]">
+                  <Bell className="w-6 h-6 text-[#2563EB]" />
+                </div>
+                {/* Documento */}
+                <div className="absolute bottom-[20%] left-[5%] p-3 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 animate-[float_9s_ease-in-out_infinite_0.5s]">
+                  <FileText className="w-6 h-6 text-[#2563EB]" />
+                </div>
+                {/* Nuvem */}
+                <div className="absolute bottom-[10%] right-[10%] p-3 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 animate-[float_10s_ease-in-out_infinite_2s]">
+                  <Cloud className="w-6 h-6 text-[#2563EB]" />
+                </div>
+                {/* Check */}
+                <div className="absolute top-[40%] -left-[5%] p-2 rounded-xl bg-white shadow-lg ring-1 ring-black/5 animate-[float_6s_ease-in-out_infinite_3s]">
+                  <Check className="w-5 h-5 text-[#22C55E]" />
+                </div>
+                {/* Smartphone */}
+                <div className="absolute top-[50%] -right-[5%] p-2 rounded-xl bg-white shadow-lg ring-1 ring-black/5 animate-[float_11s_ease-in-out_infinite_1.5s]">
+                  <Smartphone className="w-5 h-5 text-[#2563EB]" />
+                </div>
+                {/* Sincronização */}
+                <div className="absolute -bottom-[5%] left-1/3 p-2 rounded-xl bg-white shadow-lg ring-1 ring-black/5 animate-[float_8s_ease-in-out_infinite_4s]">
+                  <RefreshCw className="w-5 h-5 text-[#2563EB]" />
+                </div>
+                {/* Gráfico Abstrato */}
+                <div className="absolute top-[25%] right-[0%] p-2 rounded-xl bg-white shadow-lg ring-1 ring-black/5 animate-[float_12s_ease-in-out_infinite_0.2s]">
+                  <BarChart3 className="w-5 h-5 text-[#60A5FA]" />
+                </div>
+              </div>
+
+              {/* Central Shield with Glassmorphism */}
+              <div className="relative group">
+                <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-[60px] animate-pulse" />
+                <div className="relative w-48 h-56 bg-white/40 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-2xl flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-700">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/10 via-transparent to-[#60A5FA]/10" />
+                  <div className="absolute -inset-[100%] bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-[35deg] animate-[shimmer_6s_infinite] pointer-events-none" />
+                  <Shield className="w-24 h-24 text-[#2563EB] relative z-10 drop-shadow-xl" />
+                  <div className="absolute inset-0 flex items-center justify-center z-20">
+                    <Lock className="w-8 h-8 text-white mt-2" />
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-50">
-                  <div className="flex items-center gap-3">
-                    <div className="relative h-11 w-11 rounded-full bg-gradient-to-br from-[#0077FF] to-[#0052B4] grid place-items-center text-white text-base font-bold shadow-lg shadow-[#0077FF]/20">
-                      F
-                      <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#22B378] ring-2 ring-white animate-pulse" />
-                    </div>
-                    <div className="leading-tight">
-                      <p className="text-sm font-bold text-[#0A2540]">Olá, Francisco</p>
-                      <p className="text-[11px] text-gray-400 font-medium">Hoje, {new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "long" })}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="rounded-full bg-[#EAF3FF] px-3 py-1 text-[10px] font-bold text-[#0077FF] shadow-sm">ATIVO</span>
-                  </div>
+                {/* Orbiting circles */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-[#2563EB]/10 rounded-full animate-[spin_10s_linear_infinite]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#2563EB] rounded-full blur-[2px]" />
                 </div>
-
-                <div className="grid grid-cols-2 gap-4 pb-6 border-b border-gray-50">
-                  <div className="rounded-xl bg-[#F8FBFF] p-4 border border-[#0077FF]/10 shadow-sm transition-transform hover:scale-[1.02]">
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">A vencer</p>
-                    <p className="text-2xl font-black text-[#0077FF] mt-1 tracking-tight">R$ 1.240</p>
-                    <div className="mt-2 w-full h-1 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-[#0077FF] w-3/4 animate-in slide-in-from-left duration-1000" />
-                    </div>
-                  </div>
-                  <div className="rounded-xl bg-[#F0FBF6] p-4 border border-[#22B378]/15 shadow-sm transition-transform hover:scale-[1.02]">
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pagos</p>
-                    <div className="flex items-baseline gap-1">
-                      <p className="text-2xl font-black text-[#22B378] mt-1 tracking-tight">R$ 3.980</p>
-                    </div>
-                    <div className="mt-2 w-full h-1 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-[#22B378] w-full animate-in slide-in-from-left duration-1000" />
-                    </div>
-                  </div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-[#60A5FA]/5 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px]">
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#60A5FA] rounded-full blur-[1px]" />
                 </div>
-
-                <ul className="space-y-3.5 mt-5">
-                  {[
-                    { icon: BellRing, label: "Internet Fibra", when: "Vence hoje", tag: "R$ 129", bar: "bg-[#E85D5D]", delay: "0ms" },
-                    { icon: CalendarCheck2, label: "Aluguel", when: "em 3 dias", tag: "R$ 1.100", bar: "bg-[#F5B841]", delay: "100ms" },
-                    { icon: Sparkles, label: "Serviços Cloud", when: "em 7 dias", tag: "R$ 89", bar: "bg-[#22B378]", delay: "200ms" },
-                  ].map((r) => (
-                    <li key={r.label} className="flex items-center gap-4 p-2.5 rounded-xl hover:bg-gray-50/80 transition-all group cursor-default shadow-sm border border-transparent hover:border-gray-100" style={{ animationDelay: r.delay }}>
-                      <div className="relative">
-                         <span className={`h-9 w-1.5 rounded-full ${r.bar} block`} />
-                         {r.label.includes("Internet") && <div className="absolute -left-1 top-0 h-9 w-3 bg-red-400/20 blur-sm rounded-full animate-pulse" />}
-                      </div>
-                      <div className="h-10 w-10 rounded-xl bg-[#F4F7FB] grid place-items-center group-hover:bg-white group-hover:shadow-md transition-all duration-300 ring-1 ring-black/[0.02]">
-                        <r.icon className="h-4.5 w-4.5 text-[#0077FF]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-[#0A2540] tracking-tight">{r.label}</p>
-                        <p className="text-[11px] text-gray-400 font-medium">{r.when}</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-black text-[#0A2540]">{r.tag}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
 
-            {/* Social Proof / Credibility Badges */}
-            <div className="mt-14 w-full max-w-lg flex flex-col gap-10 items-center px-4">
-              <div className="text-center">
-                <p className="text-[#0A2540] font-bold text-lg mb-6">Suas informações financeiras protegidas e sob seu controle.</p>
-                <div className="flex items-center justify-center gap-8">
-                  <div className="flex flex-col items-center gap-2 group/badge">
-                    <div className="h-10 w-10 rounded-full bg-[#EAF3FF] flex items-center justify-center shadow-sm group-hover/badge:scale-110 transition-transform">
-                      <Lock className="h-5 w-5 text-[#0077FF]" />
-                    </div>
-                    <span className="text-[10px] font-black text-[#0A2540] uppercase tracking-widest opacity-60">Privacidade Garantida</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-2 group/badge">
-                    <div className="h-10 w-10 rounded-full bg-[#EAF3FF] flex items-center justify-center shadow-sm group-hover/badge:scale-110 transition-transform">
-                      <ShieldCheck className="h-5 w-5 text-[#0077FF]" />
-                    </div>
-                    <span className="text-[10px] font-black text-[#0A2540] uppercase tracking-widest opacity-60">Ambiente Seguro</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-2 group/badge">
-                    <div className="h-10 w-10 rounded-full bg-[#EAF3FF] flex items-center justify-center shadow-sm group-hover/badge:scale-110 transition-transform">
-                      <CalendarCheck2 className="h-5 w-5 text-[#0077FF]" />
-                    </div>
-                    <span className="text-[10px] font-black text-[#0A2540] uppercase tracking-widest opacity-60">Visão Clara</span>
-                  </div>
-                </div>
+            {/* Institutional Benefits */}
+            <div className="w-full max-w-md grid grid-cols-2 gap-y-6 gap-x-8 pt-8 border-t border-gray-100">
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-full bg-[#EAF3FF] flex items-center justify-center text-xl transition-transform group-hover:scale-110">🔒</div>
+                <span className="text-[11px] md:text-xs font-bold text-gray-700 uppercase tracking-widest leading-tight">Privacidade Garantida</span>
               </div>
-              
-              <div className="flex flex-col items-center gap-4">
-                <p className="text-[11px] text-gray-400 font-medium">Seus dados são criptografados e mantidos em segurança.</p>
-                <div className="flex gap-2">
-                  <div className="h-2 w-2 rounded-full bg-[#0077FF]" />
-                  <div className="h-2 w-2 rounded-full bg-gray-200" />
-                  <div className="h-2 w-2 rounded-full bg-gray-200" />
-                  <div className="h-2 w-2 rounded-full bg-gray-200" />
-                </div>
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-full bg-[#EAF3FF] flex items-center justify-center text-xl transition-transform group-hover:scale-110">🛡️</div>
+                <span className="text-[11px] md:text-xs font-bold text-gray-700 uppercase tracking-widest leading-tight">Criptografia de Dados</span>
+              </div>
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-full bg-[#EAF3FF] flex items-center justify-center text-xl transition-transform group-hover:scale-110">☁️</div>
+                <span className="text-[11px] md:text-xs font-bold text-gray-700 uppercase tracking-widest leading-tight">Sincronização Segura</span>
+              </div>
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-full bg-[#EAF3FF] flex items-center justify-center text-xl transition-transform group-hover:scale-110">📅</div>
+                <span className="text-[11px] md:text-xs font-bold text-gray-700 uppercase tracking-widest leading-tight">Organização Inteligente</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <AuthDialog open={authOpen} setOpen={setAuthOpen} tab={authTab} setTab={setAuthTab} />
+        <AuthDialog 
+          open={authOpen} 
+          onOpenChange={setAuthOpen} 
+          defaultTab={authTab} 
+        />
+      </div>
     </div>
   );
 }
+
 
 
