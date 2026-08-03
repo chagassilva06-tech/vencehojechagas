@@ -99,7 +99,9 @@ function Dashboard() {
   const upcoming = pending
     .filter((r) => daysUntil(r.data_vencimento) >= 0)
     .filter((r) => {
-      const d = new Date(r.data_vencimento + "T00:00:00");
+      // Use local timezone to determine the month to ensure UI consistency
+      const [year, month, day] = r.data_vencimento.split("-").map(Number);
+      const d = new Date(year, month - 1, day);
       return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
     })
     .filter((r) => !appliedSearch || r.titulo.toLowerCase().includes(appliedSearch.toLowerCase()))

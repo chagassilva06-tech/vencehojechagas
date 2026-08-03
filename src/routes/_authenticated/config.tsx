@@ -82,7 +82,12 @@ function Config() {
       if (!u.user) return;
       setAuthEmail(u.user.email ?? "");
       const { data } = await supabase.from("profiles").select("*").eq("id", u.user.id).maybeSingle();
-      if (data) { setNome(data.nome ?? ""); setEmail(data.email ?? u.user.email ?? ""); setAvisos([1]); setWppNome(data.nome ?? ""); }
+      if (data) { 
+        setNome(data.nome ?? ""); 
+        setEmail(data.email ?? u.user.email ?? ""); 
+        setAvisos(data.avisos_padrao || [1]); 
+        setWppNome(data.nome ?? ""); 
+      }
       else { setEmail(u.user.email ?? ""); }
       await reloadConsent(u.user.id);
     })();

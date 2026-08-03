@@ -56,12 +56,14 @@ export function formatCurrency(v: number | null | undefined) {
 
 export function daysUntil(dateStr: string) {
   const today = new Date(); today.setHours(0,0,0,0);
-  const d = new Date(dateStr + "T00:00:00");
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const d = new Date(year, month - 1, day);
   return Math.round((d.getTime() - today.getTime()) / 86400000);
 }
 
 export function formatDate(dateStr: string) {
-  return new Date(dateStr + "T00:00:00").toLocaleDateString("pt-BR");
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("pt-BR");
 }
 
 export const recurrenceLabels: Record<Recurrence, string> = {
