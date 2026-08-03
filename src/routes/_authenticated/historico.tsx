@@ -184,8 +184,8 @@ function Historico() {
                 <div className="min-w-0">
                   <span className="font-medium truncate">{p.reminders?.titulo ?? "Lembrete removido"}</span>
                   <span className="text-muted-foreground"> — marcado como pago em {formatDate(p.data_pagamento)}</span>
-                  {idx === 0 && userName && (
-                    <span className="text-muted-foreground italic"> • Por {userName}</span>
+                  {userName && (
+                    <span className="text-muted-foreground italic ml-2 border-l pl-2 border-muted-foreground/30 text-[11px]">Por {userName}</span>
                   )}
                 </div>
                 <span className="font-semibold text-accent shrink-0 ml-2">{formatCurrency(p.valor_pago)}</span>
