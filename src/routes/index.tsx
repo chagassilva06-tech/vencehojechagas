@@ -268,7 +268,7 @@ function Landing() {
           <div className="relative z-10 w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000">
             <div className="mb-10 text-center">
               <h2 className="text-[#0A2540] font-bold text-2xl md:text-3xl tracking-tight mb-3">
-                Nunca esqueça um vencimento.
+                Controle de Gastos
               </h2>
               <p className="text-gray-500 text-sm max-w-xs mx-auto leading-relaxed">
                 Um painel inteligente para tudo que vence hoje, amanhã e no mês.
