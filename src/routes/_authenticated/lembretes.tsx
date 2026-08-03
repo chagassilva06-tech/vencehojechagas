@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye, ArrowLeft, Clock, CalendarPlus } from "lucide-react";
+import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye, ArrowLeft, Clock, CalendarPlus, List, GitCommitHorizontal } from "lucide-react";
 import { ReminderForm } from "@/components/reminder-form";
 import { PayDialog } from "@/components/pay-dialog";
 import { AttachmentPreview } from "@/components/attachment-preview";
@@ -39,6 +39,7 @@ function Lembretes() {
   const [archiving, setArchiving] = useState<Reminder | null>(null);
   const [adiando, setAdiando] = useState<Reminder | null>(null);
   const [adiarDias, setAdiarDias] = useState("1");
+  const [viewMode, setViewMode] = useState<"list" | "timeline">("list");
 
 
   const filtered = reminders.filter((r) => {
@@ -159,6 +160,30 @@ function Lembretes() {
               {categories.map((c) => <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>)}
             </SelectContent>
           </Select>
+          <div className="flex items-center gap-2 border-l pl-3 ml-auto">
+            <div className="inline-flex rounded-lg border border-sky-200 bg-sky-50/60 p-0.5 shadow-inner">
+              <button
+                type="button"
+                onClick={() => setViewMode("list")}
+                title="Visualizar em lista"
+                aria-label="Visualizar em lista"
+                aria-pressed={viewMode === "list"}
+                className={`h-8 w-8 grid place-items-center rounded-md transition-all ${viewMode === "list" ? "bg-white text-sky-700 shadow-sm ring-1 ring-sky-200" : "text-slate-500 hover:text-sky-700"}`}
+              >
+                <List className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("timeline")}
+                title="Visualizar em linha do tempo"
+                aria-label="Visualizar em linha do tempo"
+                aria-pressed={viewMode === "timeline"}
+                className={`h-8 w-8 grid place-items-center rounded-md transition-all ${viewMode === "timeline" ? "bg-white text-sky-700 shadow-sm ring-1 ring-sky-200" : "text-slate-500 hover:text-sky-700"}`}
+              >
+                <GitCommitHorizontal className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
