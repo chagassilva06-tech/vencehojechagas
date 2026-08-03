@@ -128,14 +128,14 @@
 }
 
 @keyframes shimmer {
-  from { left: -100%; }
-  to { left: 200%; }
+  from { transform: translateX(-100%) rotate(35deg); }
+  to { transform: translateX(200%) rotate(35deg); }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px) rotate-y(-5deg) rotate-x(2deg); }
-  50% { transform: translateY(-15px) rotate-y(-3deg) rotate-x(1deg); }
-  100% { transform: translateY(0px) rotate-y(-5deg) rotate-x(2deg); }
+  0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) translateX(5px) rotate(2deg); }
+  100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
 }
 
 .animate-float {
