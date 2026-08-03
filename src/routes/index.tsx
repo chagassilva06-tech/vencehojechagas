@@ -270,7 +270,7 @@ function Landing() {
 
           <div className="relative z-10 w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000">
             <div className="mb-8 text-center">
-              <h2 className="text-[#0A2540] font-bold text-3xl md:text-4xl tracking-tight mb-3">
+              <h2 className="text-[#0A2540] font-bold text-4xl md:text-5xl tracking-tight mb-4">
                 Controle de Gastos
               </h2>
               <p className="text-gray-500 text-sm max-w-sm mx-auto leading-relaxed font-medium">
