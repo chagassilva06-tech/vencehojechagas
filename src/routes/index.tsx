@@ -354,7 +354,7 @@ function Landing() {
             {/* Social Proof / Credibility Badges */}
             <div className="mt-12 w-full max-w-lg flex flex-col gap-8 items-center px-4">
               <div className="text-center">
-                <p className="text-[#0A2540] font-bold text-sm mb-2">Suas informações financeiras protegidas e sob seu controle.</p>
+                <p className="text-[#0A2540] font-bold text-base mb-4">Suas informações financeiras protegidas e sob seu controle.</p>
                 <div className="flex items-center justify-center gap-6 opacity-80">
                   <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                     <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
