@@ -101,22 +101,25 @@ function Landing() {
             <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white/5 blur-3xl" />
             <div className="absolute top-1/2 -right-12 w-32 h-32 rounded-full bg-black/5 blur-2xl" />
             <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10" />
           </div>
 
           <div className="relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* 1. Logo */}
-            <h1
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-              className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center mb-0.5"
-            >
-              <span className="font-light opacity-90">Vence</span>
-              <span className="font-bold">Hoje</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
-            </h1>
-            {/* 2. Frase de apoio */}
-            <p className="text-center text-white/80 text-sm md:text-sm mt-0 mb-8 max-w-sm mx-auto leading-relaxed font-normal italic">
-              Organize suas contas, evite atrasos e tenha tranquilidade todos os meses.
-            </p>
+            <div className="flex flex-col items-center mb-6">
+              <h1
+                style={{ fontFamily: "'Outfit', sans-serif" }}
+                className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center"
+              >
+                <span className="font-light opacity-90">Vence</span>
+                <span className="font-bold">Hoje</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
+              </h1>
+              {/* 2. Frase de apoio */}
+              <p className="text-center text-white/80 text-sm md:text-sm mt-1 max-w-sm mx-auto leading-relaxed font-normal italic">
+                Organize suas contas, evite atrasos e tenha tranquilidade todos os meses.
+              </p>
+            </div>
 
             <form onSubmit={onSubmit} className="space-y-5 max-w-sm w-full mx-auto">
               {/* 3. Campos com labels */}
