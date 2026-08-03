@@ -101,22 +101,25 @@ function Landing() {
             <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white/5 blur-3xl" />
             <div className="absolute top-1/2 -right-12 w-32 h-32 rounded-full bg-black/5 blur-2xl" />
             <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10" />
           </div>
 
           <div className="relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* 1. Logo */}
-            <h1
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-              className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center mb-0.5"
-            >
-              <span className="font-light opacity-90">Vence</span>
-              <span className="font-bold">Hoje</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
-            </h1>
-            {/* 2. Frase de apoio */}
-            <p className="text-center text-white/80 text-sm md:text-sm mt-0 mb-8 max-w-sm mx-auto leading-relaxed font-normal italic">
-              Organize suas contas, evite atrasos e tenha tranquilidade todos os meses.
-            </p>
+            <div className="flex flex-col items-center mb-6">
+              <h1
+                style={{ fontFamily: "'Outfit', sans-serif" }}
+                className="select-none text-white text-5xl md:text-[62px] tracking-tighter flex items-baseline justify-center"
+              >
+                <span className="font-light opacity-90">Vence</span>
+                <span className="font-bold">Hoje</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-white ml-1 opacity-80 animate-pulse" />
+              </h1>
+              {/* 2. Frase de apoio */}
+              <p className="text-center text-white/80 text-sm md:text-sm mt-1 max-w-sm mx-auto leading-relaxed font-normal italic">
+                Organize suas contas, evite atrasos e tenha tranquilidade todos os meses.
+              </p>
+            </div>
 
             <form onSubmit={onSubmit} className="space-y-5 max-w-sm w-full mx-auto">
               {/* 3. Campos com labels */}
@@ -260,23 +263,23 @@ function Landing() {
           
           {/* Right side depth elements */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="absolute top-1/4 right-0 w-80 h-80 rounded-full bg-[#0077FF]/5 blur-[100px] animate-pulse" />
+            <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-[#0077FF]/5 blur-[120px] animate-pulse" />
             <div className="absolute bottom-1/4 -left-20 w-80 h-80 rounded-full bg-[#22B378]/5 blur-[100px] animate-pulse" />
             <div className="absolute inset-0 opacity-[0.4] [background-image:radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px]" />
           </div>
 
           <div className="relative z-10 w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000">
-            <div className="mb-10 text-center">
-              <h2 className="text-[#0A2540] font-bold text-2xl md:text-3xl tracking-tight mb-3">
+            <div className="mb-8 text-center">
+              <h2 className="text-[#0A2540] font-bold text-3xl md:text-4xl tracking-tight mb-3">
                 Controle de Gastos
               </h2>
-              <p className="text-gray-500 text-sm max-w-xs mx-auto leading-relaxed">
+              <p className="text-gray-500 text-sm max-w-sm mx-auto leading-relaxed font-medium">
                 Um painel inteligente para tudo que vence hoje, amanhã e no mês.
               </p>
             </div>
 
             {/* Mockup — HTML/CSS real component with tilt and float */}
-            <div className="relative w-full max-w-md transform perspective-1000 rotate-y-[-5deg] rotate-x-[2deg] hover:rotate-0 transition-all duration-700 ease-out group/mockup">
+            <div className="relative w-full max-w-lg transform hover:scale-[1.02] transition-all duration-700 ease-out group/mockup">
               {/* Floating shadow */}
               <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[90%] h-8 bg-black/10 blur-2xl rounded-full opacity-60 group-hover/mockup:opacity-40 transition-opacity" />
               
@@ -348,23 +351,34 @@ function Landing() {
               </div>
             </div>
 
-            {/* Social Proof / Trust Badges */}
-            <div className="mt-14 w-full max-w-md flex items-center justify-around px-4 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-              <div className="flex flex-col items-center gap-1.5">
-                <span className="text-lg font-bold text-[#0A2540]">2.000+</span>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Contas<br/>Organizadas</span>
-              </div>
-              <div className="h-8 w-px bg-gray-200" />
-              <div className="flex flex-col items-center gap-1.5">
-                <div className="flex text-[#22B378] text-xs">★★★★★</div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">Avaliação<br/>Usuários</span>
-              </div>
-              <div className="h-8 w-px bg-gray-200" />
-              <div className="flex flex-col items-center gap-1.5 text-center">
-                <div className="h-5 w-5 rounded-full bg-[#0077FF]/10 flex items-center justify-center">
-                   <ShieldCheck className="h-3 w-3 text-[#0077FF]" />
+            {/* Social Proof / Credibility Badges */}
+            <div className="mt-12 w-full max-w-lg flex flex-col gap-8 items-center px-4">
+              <div className="text-center">
+                <p className="text-[#0A2540] font-bold text-sm mb-2">Suas informações financeiras protegidas e sob seu controle.</p>
+                <div className="flex items-center justify-center gap-6 opacity-80">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
+                    <span>Privacidade Garantida</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
+                    <span>Ambiente Seguro</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    <ShieldCheck className="h-4 w-4 text-[#0077FF]" />
+                    <span>Visão Clara e Organizada</span>
+                  </div>
                 </div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Segurança<br/>Bancária</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-4">
+                <p className="text-[11px] text-gray-400 font-medium">Seus dados são criptografados e mantidos em segurança.</p>
+                <div className="flex gap-2">
+                  <div className="h-2 w-2 rounded-full bg-[#0077FF]" />
+                  <div className="h-2 w-2 rounded-full bg-gray-200" />
+                  <div className="h-2 w-2 rounded-full bg-gray-200" />
+                  <div className="h-2 w-2 rounded-full bg-gray-200" />
+                </div>
               </div>
             </div>
           </div>
