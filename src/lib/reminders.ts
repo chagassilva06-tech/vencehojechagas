@@ -62,7 +62,8 @@ export function daysUntil(dateStr: string) {
 }
 
 export function formatDate(dateStr: string) {
-  return new Date(dateStr + "T00:00:00").toLocaleDateString("pt-BR");
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("pt-BR");
 }
 
 export const recurrenceLabels: Record<Recurrence, string> = {

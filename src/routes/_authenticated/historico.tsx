@@ -162,7 +162,7 @@ function Historico() {
             <div key={a.id} className="flex items-center justify-between text-sm p-2 rounded-md border-l-4 border-l-primary/40 bg-muted/30">
               <div className="min-w-0">
                 <span className="font-medium truncate">{a.reminders?.titulo ?? "Lembrete removido"}</span>
-                <span className="text-muted-foreground"> — {a.tipo} • {a.dias_antes === 0 ? "no dia" : `${a.dias_antes}d antes`} • venc. {formatDate(a.data_alvo)}</span>
+                <span className="text-muted-foreground"> — {a.tipo.replace('_', ' ')} • {a.dias_antes === 0 ? "no dia" : a.dias_antes === -1 ? "hora agendada" : `${a.dias_antes}d antes`} • venc. {formatDate(a.data_alvo)}</span>
               </div>
               <span className="text-xs text-muted-foreground shrink-0 ml-2">{new Date(a.enviado_em).toLocaleString("pt-BR")}</span>
             </div>
