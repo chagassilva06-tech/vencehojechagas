@@ -56,7 +56,8 @@ export function formatCurrency(v: number | null | undefined) {
 
 export function daysUntil(dateStr: string) {
   const today = new Date(); today.setHours(0,0,0,0);
-  const d = new Date(dateStr + "T00:00:00");
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const d = new Date(year, month - 1, day);
   return Math.round((d.getTime() - today.getTime()) / 86400000);
 }
 
