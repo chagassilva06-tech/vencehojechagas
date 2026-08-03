@@ -263,23 +263,23 @@ function Landing() {
           
           {/* Right side depth elements */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="absolute top-1/4 right-0 w-80 h-80 rounded-full bg-[#0077FF]/5 blur-[100px] animate-pulse" />
+            <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-[#0077FF]/5 blur-[120px] animate-pulse" />
             <div className="absolute bottom-1/4 -left-20 w-80 h-80 rounded-full bg-[#22B378]/5 blur-[100px] animate-pulse" />
             <div className="absolute inset-0 opacity-[0.4] [background-image:radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px]" />
           </div>
 
           <div className="relative z-10 w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000">
-            <div className="mb-10 text-center">
-              <h2 className="text-[#0A2540] font-bold text-2xl md:text-3xl tracking-tight mb-3">
+            <div className="mb-8 text-center">
+              <h2 className="text-[#0A2540] font-bold text-3xl md:text-4xl tracking-tight mb-3">
                 Controle de Gastos
               </h2>
-              <p className="text-gray-500 text-sm max-w-xs mx-auto leading-relaxed">
+              <p className="text-gray-500 text-sm max-w-sm mx-auto leading-relaxed font-medium">
                 Um painel inteligente para tudo que vence hoje, amanhã e no mês.
               </p>
             </div>
 
             {/* Mockup — HTML/CSS real component with tilt and float */}
-            <div className="relative w-full max-w-md transform perspective-1000 rotate-y-[-5deg] rotate-x-[2deg] hover:rotate-0 transition-all duration-700 ease-out group/mockup">
+            <div className="relative w-full max-w-lg transform hover:scale-[1.02] transition-all duration-700 ease-out group/mockup">
               {/* Floating shadow */}
               <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[90%] h-8 bg-black/10 blur-2xl rounded-full opacity-60 group-hover/mockup:opacity-40 transition-opacity" />
               
