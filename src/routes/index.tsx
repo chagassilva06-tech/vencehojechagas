@@ -365,8 +365,9 @@ function Landing() {
 
         <AuthDialog 
           open={authOpen} 
-          onOpenChange={setAuthOpen} 
-          defaultTab={authTab} 
+          setOpen={setAuthOpen} 
+          tab={authTab} 
+          setTab={setAuthTab} 
         />
       </div>
     </div>
