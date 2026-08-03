@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye, ArrowLeft, Clock, CalendarPlus } from "lucide-react";
+import { Plus, Search, MoreVertical, Pencil, Trash2, CheckCircle2, Archive, Paperclip, Repeat, Eye, ArrowLeft, Clock, CalendarPlus, List, GitCommitHorizontal } from "lucide-react";
 import { ReminderForm } from "@/components/reminder-form";
 import { PayDialog } from "@/components/pay-dialog";
 import { AttachmentPreview } from "@/components/attachment-preview";
@@ -39,6 +39,7 @@ function Lembretes() {
   const [archiving, setArchiving] = useState<Reminder | null>(null);
   const [adiando, setAdiando] = useState<Reminder | null>(null);
   const [adiarDias, setAdiarDias] = useState("1");
+  const [viewMode, setViewMode] = useState<"list" | "timeline">("list");
 
 
   const filtered = reminders.filter((r) => {
@@ -159,14 +160,98 @@ function Lembretes() {
               {categories.map((c) => <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>)}
             </SelectContent>
           </Select>
+          <div className="flex items-center gap-2 border-l pl-3 ml-auto">
+            <div className="inline-flex rounded-lg border border-sky-200 bg-sky-50/60 p-0.5 shadow-inner">
+              <button
+                type="button"
+                onClick={() => setViewMode("list")}
+                title="Visualizar em lista"
+                aria-label="Visualizar em lista"
+                aria-pressed={viewMode === "list"}
+                className={`h-8 w-8 grid place-items-center rounded-md transition-all ${viewMode === "list" ? "bg-white text-sky-700 shadow-sm ring-1 ring-sky-200" : "text-slate-500 hover:text-sky-700"}`}
+              >
+                <List className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("timeline")}
+                title="Visualizar em linha do tempo"
+                aria-label="Visualizar em linha do tempo"
+                aria-pressed={viewMode === "timeline"}
+                className={`h-8 w-8 grid place-items-center rounded-md transition-all ${viewMode === "timeline" ? "bg-white text-sky-700 shadow-sm ring-1 ring-sky-200" : "text-slate-500 hover:text-sky-700"}`}
+              >
+                <GitCommitHorizontal className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
-      <div className="space-y-2">
+      <div className="space-y-4">
         {filtered.length === 0 && (
           <Card><CardContent className="py-16 text-center text-muted-foreground">Nenhum lembrete encontrado</CardContent></Card>
         )}
-        {filtered.map((r) => {
+
+        {viewMode === "timeline" && filtered.length > 0 && (
+          <ol className="relative border-l-2 border-sky-200 ml-3 pl-6 space-y-4 py-2">
+            {filtered.map((r) => {
+              const d = daysUntil(r.data_vencimento);
+              const isPending = r.status === "pending";
+              const dot = !isPending
+                ? r.status === "paid" ? "bg-emerald-500" : "bg-muted-foreground/40"
+                : d < 0 ? "bg-destructive" : d === 0 ? "bg-destructive" : d <= 1 ? "bg-orange-500" : d <= 3 ? "bg-yellow-500" : "bg-primary/60";
+
+              return (
+                <li key={r.id} className="relative">
+                  <span className={`absolute -left-[31px] top-4 h-3 w-3 rounded-full ring-4 ring-white ${dot} shadow`}></span>
+                  <Card className="shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                    <CardContent className="p-3 sm:p-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
+                      <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-lg grid place-items-center shrink-0" style={{ backgroundColor: (r.categories?.cor ?? "#10B981") + "22", color: r.categories?.cor ?? "#10B981" }}>
+                        <span className="text-sm font-bold">{r.categories?.nome?.charAt(0) ?? "?"}</span>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-medium truncate text-sm sm:text-base">{r.titulo}</span>
+                          {r.recorrencia !== "none" && <Badge variant="outline" className="text-[10px] sm:text-xs hidden sm:inline-flex"><Repeat className="h-3 w-3 mr-1" />{recurrenceLabels[r.recorrencia]}</Badge>}
+                          {r.anexo_url && <a href={r.anexo_url} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground"><Paperclip className="h-3.5 w-3.5" /></a>}
+                        </div>
+                        <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 truncate">
+                          {r.categories?.nome ?? "Sem categoria"} • {formatDate(r.data_vencimento)}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+                        <div className="text-right">
+                          <div className="font-semibold text-sm sm:text-base">{formatCurrency(r.valor)}</div>
+                          {isPending && (
+                            <Badge variant={d < 0 ? "destructive" : d === 0 ? "destructive" : d <= 1 ? "default" : "secondary"} className="mt-1 text-[10px] sm:text-xs px-1.5">
+                              {d < 0 ? `${Math.abs(d)}d atraso` : d === 0 ? "Hoje" : d === 1 ? "Amanhã" : `em ${d}d`}
+                            </Badge>
+                          )}
+                          {r.status === "paid" && <Badge className="mt-1 bg-accent text-accent-foreground text-[10px] sm:text-xs">Pago</Badge>}
+                          {r.status === "archived" && <Badge variant="outline" className="mt-1 text-[10px] sm:text-xs">Arquivado</Badge>}
+                        </div>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className="h-8 w-8"><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => setViewing(r)}><Eye className="h-4 w-4 mr-2" />Visualizar</DropdownMenuItem>
+                            {isPending && <DropdownMenuItem onClick={() => { setPaying(r); setPayOpen(true); }}><CheckCircle2 className="h-4 w-4 mr-2" />Marcar como pago</DropdownMenuItem>}
+                            {isPending && <DropdownMenuItem onClick={() => { setAdiarDias("1"); setAdiando(r); }}><Clock className="h-4 w-4 mr-2" />Adiar</DropdownMenuItem>}
+                            <DropdownMenuItem onClick={() => repetirProxMes.mutate(r)}><CalendarPlus className="h-4 w-4 mr-2" />Repetir no próximo mês</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => { setEditing(r); setFormOpen(true); }}><Pencil className="h-4 w-4 mr-2" />Editar</DropdownMenuItem>
+                            {r.status !== "archived" && <DropdownMenuItem onClick={() => setArchiving(r)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
+                            <DropdownMenuItem onClick={() => setDeleting(r)} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </li>
+              );
+            })}
+          </ol>
+        )}
+
+        {viewMode === "list" && filtered.map((r) => {
           const d = daysUntil(r.data_vencimento);
           const isPending = r.status === "pending";
           const borderClass = !isPending
@@ -216,7 +301,6 @@ function Lembretes() {
                       {r.status !== "archived" && <DropdownMenuItem onClick={() => setArchiving(r)}><Archive className="h-4 w-4 mr-2" />Arquivar</DropdownMenuItem>}
                       <DropdownMenuItem onClick={() => setDeleting(r)} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
-
                   </DropdownMenu>
                 </div>
               </CardContent>
